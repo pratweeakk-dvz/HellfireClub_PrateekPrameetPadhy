@@ -1,45 +1,77 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>SevaSetu – local skills, clear prices</title>
-<link href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;600;800&display=swap" rel="stylesheet">
+<title>SevaSetu – Trust for every home, Work for every hand</title><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 76 76%27%3E%3Crect width=%2776%27 height=%2776%27 rx=%2720%27 fill=%27%231F7A70%27/%3E%3Cpath d=%27M14 50Q38 8 62 50%27 fill=%27none%27 stroke=%27white%27 stroke-width=%277%27 stroke-linecap=%27round%27/%3E%3Crect x=%2712%27 y=%2750%27 width=%2752%27 height=%277%27 rx=%273.5%27 fill=%27%23F2A66B%27/%3E%3C/svg%3E"><meta name="theme-color" content="#1F7A70">
+<link href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;600;800&family=Outfit:wght@700;800&family=Pacifico&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#f3f6f8;--card:#fff;--ink:#14213d;--mut:#4a5a74;--line:#d3dce6;--acc:#e8a200;--soft:#fff4d6;--ok:#17724f;--bad:#b3261e;--pri:#14213d;--onpri:#fff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#0e1524;--card:#18223a;--ink:#eef2f8;--mut:#a9b6cc;--line:#2d3a57;--acc:#f2b632;--soft:#3a3016;--ok:#4cc38f;--bad:#ff9a90;--pri:#f2b632;--onpri:#14213d}}
-:root[data-theme="dark"]{color-scheme:dark;--bg:#0e1524;--card:#18223a;--ink:#eef2f8;--mut:#a9b6cc;--line:#2d3a57;--acc:#f2b632;--soft:#3a3016;--ok:#4cc38f;--bad:#ff9a90;--pri:#f2b632;--onpri:#14213d}
-*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
-body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.55 Mukta,system-ui,sans-serif}
+:root{--bg:#f6faf9;--card:#fff;--ink:#15302c;--mut:#4f6761;--line:#d6e4e0;--acc:#F2A66B;--soft:#fdeedd;--ok:#12805f;--bad:#b3261e;--pri:#1F7A70;--onpri:#fff;--sh:0 1px 2px rgba(16,35,32,.07);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+[hidden]{display:none!important}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px);-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 18px/1.55 Mukta,system-ui,-apple-system,"Segoe UI",sans-serif}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--card);z-index:10}
-h1,h2,h3{line-height:1.15;margin:0 0 .5rem}h1{font-size:clamp(2rem,6vw,3.4rem);font-weight:800}h2{font-size:1.6rem}h3{font-size:1.15rem}
-a{color:inherit}
+h1,h2,h3{line-height:1.15;margin:0 0 .5rem;font-weight:800}h1{font-size:clamp(2.1rem,7vw,3.6rem);letter-spacing:-.01em}h2{font-size:1.75rem}h3{font-size:1.2rem}
+a{color:var(--pri);font-weight:600}
 header{background:var(--card);border-bottom:1px solid var(--line);position:sticky;top:env(safe-area-inset-top,0px);z-index:9}
-.bar{max-width:1060px;margin:auto;padding:.6rem 1rem;display:flex;gap:.5rem;align-items:center;flex-wrap:wrap}
-.logo{font-weight:800;font-size:1.3rem;text-decoration:none;margin-right:auto}.logo span{color:var(--acc)}
-nav{display:flex;gap:.25rem;flex-wrap:wrap}nav a{padding:.4rem .7rem;border-radius:8px;text-decoration:none;font-weight:600;color:var(--mut)}nav a.on{background:var(--soft);color:var(--ink)}
+.bar{max-width:1060px;margin:auto;padding:.55rem 1rem;display:flex;gap:.5rem;align-items:center;flex-wrap:wrap}
+.logo{font-weight:800;font-size:1.5rem;text-decoration:none;color:var(--ink);margin-right:.6rem}.logo span{color:var(--pri)}
+nav{display:flex;gap:.25rem;flex-wrap:wrap}
+nav a{padding:.45rem .8rem;border-radius:10px;text-decoration:none;font-weight:600;color:var(--mut);display:flex;align-items:center;gap:.4rem}
+nav a.on{background:var(--soft);color:var(--ink)}
+#nav{margin-left:auto}#nav a{font-size:.92rem;padding:.35rem .6rem}
+#tabs i{display:none;font-style:normal}
 main{max-width:1060px;margin:auto;padding:1.2rem 1rem 3rem}
-.demo{background:var(--soft);border-bottom:1px solid var(--acc);text-align:center;font-size:.9rem;padding:.35rem 1rem}
+.demo{background:var(--soft);border-bottom:1px solid var(--acc);text-align:center;font-size:.9rem;padding:.4rem 1rem}
 .grid{display:grid;gap:1rem;grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}
-.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:1rem}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:1.1rem;box-shadow:var(--sh)}
+a.card{color:var(--ink);transition:border-color .15s}a.card:hover{border-color:var(--pri)}a.card:active{background:var(--soft)}
 .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center}.sp{justify-content:space-between}
-.btn{font:inherit;font-weight:600;border:1.5px solid var(--pri);background:var(--pri);color:var(--onpri);border-radius:8px;padding:.5rem .9rem;cursor:pointer;text-decoration:none;display:inline-block}
-.btn.alt{background:transparent;color:var(--ink);border-color:var(--line)}.btn.bad{background:transparent;color:var(--bad);border-color:var(--bad)}.btn.sm{padding:.25rem .6rem;font-size:.9rem}
+.btn{font:inherit;font-weight:700;border:2px solid var(--pri);background:var(--pri);color:var(--onpri);border-radius:12px;padding:.6rem 1.1rem;min-height:48px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center}
+.btn:active{transform:scale(.98)}
+.btn.alt{background:transparent;color:var(--ink);border-color:var(--line)}.btn.bad{background:transparent;color:var(--bad);border-color:var(--bad)}.btn.sm{padding:.3rem .8rem;font-size:.95rem;min-height:42px}
 :focus-visible{outline:3px solid var(--acc);outline-offset:2px}
-label{display:block;font-weight:600;font-size:.92rem;margin:.6rem 0 .2rem}
-input,select,textarea{font:inherit;width:100%;padding:.5rem;border:1.5px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink)}
-.tag{display:inline-block;font-size:.8rem;font-weight:600;padding:.05rem .5rem;border-radius:99px;border:1px solid var(--line);color:var(--mut)}
+label{display:block;font-weight:600;font-size:.98rem;margin:.8rem 0 .25rem}
+input,select,textarea{font:inherit;font-size:1rem;width:100%;min-height:48px;padding:.6rem .75rem;border:1.5px solid var(--line);border-radius:12px;background:var(--bg);color:var(--ink)}
+textarea{min-height:5rem}
+input[type=checkbox]{min-height:0;width:1.3rem;height:1.3rem;accent-color:var(--pri);vertical-align:middle;margin-right:.5rem}
+.tag{display:inline-flex;align-items:center;font-size:.85rem;font-weight:600;padding:.1rem .6rem;border-radius:99px;border:1px solid var(--line);color:var(--mut)}
 .tag.ok{color:var(--ok);border-color:var(--ok)}.tag.warn{color:var(--bad);border-color:var(--bad)}.tag.demo{background:var(--soft);color:var(--ink);border-color:var(--acc)}
-.mut{color:var(--mut);font-size:.92rem}.err{color:var(--bad);font-size:.9rem;min-height:1.2em}
+.dot{width:.6rem;height:.6rem;border-radius:50%;background:var(--mut);display:inline-block;margin-right:.4rem}.tag.ok .dot{background:var(--ok)}
+.mut{color:var(--mut);font-size:.95rem}.err{color:var(--bad);font-size:.95rem;min-height:1.2em}
 .hero{display:grid;gap:1.5rem;grid-template-columns:1.2fr 1fr;align-items:center;padding:1rem 0 1.5rem}
+.hero>.card{border-top:6px solid var(--acc)}
 @media(max-width:760px){.hero{grid-template-columns:1fr}}
-table{width:100%;border-collapse:collapse}td,th{padding:.35rem 0;text-align:left;border-bottom:1px dashed var(--line)}td:last-child,th:last-child{text-align:right}
-.tot td{font-weight:800;border-bottom:0;border-top:2px solid var(--ink)}
-.stat{font-size:2rem;font-weight:800}
-.steps{display:flex;gap:.3rem;flex-wrap:wrap;margin:.5rem 0}.steps span{font-size:.78rem;padding:.1rem .5rem;border-radius:6px;background:var(--bg);color:var(--mut)}.steps .d{background:var(--ok);color:#fff}.steps .c{background:var(--acc);color:#14213d;font-weight:700}
-#toast{position:fixed;left:50%;bottom:calc(1rem + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--pri);color:var(--onpri);padding:.6rem 1rem;border-radius:8px;display:none;z-index:20;max-width:90%}
+table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}td,th{padding:.5rem 0;text-align:left;border-bottom:1px dashed var(--line)}td:last-child,th:last-child{text-align:right}
+.tot td{font-weight:800;font-size:1.15rem;border-bottom:0;border-top:2px solid var(--ink)}
+.stat{font-size:2.2rem;font-weight:800;color:var(--pri)}
+.steps{display:flex;gap:.3rem;flex-wrap:wrap;margin:.6rem 0}.steps span{font-size:.82rem;padding:.2rem .6rem;border-radius:8px;background:var(--bg);color:var(--mut)}.steps .d{background:var(--ok);color:#fff}.steps .c{background:var(--acc);color:#14213d;font-weight:700}
+.wc{display:grid;grid-template-columns:56px 1fr;gap:.2rem .85rem;align-content:start}.wc .wm{min-width:0}.wc .full{grid-column:1/-1}.wc h3{margin:0}.wc p{margin:.3rem 0}
+.av{width:56px;height:56px;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:1.2rem;background:hsl(var(--h) 55% 88%);color:hsl(var(--h) 60% 22%)}
+.price{margin:.3rem 0}.price b{font-size:1.5rem;font-weight:800}
+details summary{cursor:pointer;min-height:44px;display:flex;align-items:center}
+#toast{position:fixed;left:50%;bottom:calc(1rem + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--pri);color:var(--onpri);font-weight:600;padding:.7rem 1.1rem;border-radius:12px;display:none;z-index:20;max-width:90%}
+@media(max-width:760px){
+#tabs{position:fixed;left:0;right:0;bottom:0;z-index:12;background:var(--card);border-top:1px solid var(--line);padding:.35rem .5rem calc(.35rem + env(safe-area-inset-bottom,0px));gap:.25rem;flex-wrap:nowrap}
+#tabs a{flex:1;flex-direction:column;gap:0;padding:.35rem .2rem;font-size:.85rem;text-align:center;justify-content:center;min-height:56px}
+#tabs i{display:block;font-size:1.45rem;line-height:1.2}
+body.hastabs main{padding-bottom:6.5rem}
+body.hastabs #toast{bottom:calc(5.5rem + env(safe-area-inset-bottom,0px))}
+#nav{margin-left:auto}
+}
+form.card>.grid{grid-template-columns:1fr 1fr;gap:0 .7rem}form.card>.grid>div:first-child{grid-column:1/-1}
+.svc{grid-template-columns:repeat(4,1fr)}@media(max-width:760px){.svc{grid-template-columns:1fr 1fr}}
+@media(min-width:761px){form.card>.grid{grid-template-columns:2fr 1fr 1fr 1fr}form.card>.grid>div:first-child{grid-column:auto}}
+.logo{display:flex;align-items:center;gap:.55rem;color:var(--ink);text-decoration:none;font-weight:400}.logo .mk{width:38px;height:38px;flex:none}
+.wm{display:flex;align-items:baseline;line-height:1.1}.sv{font-family:Outfit,Mukta,system-ui,sans-serif;font-weight:800;letter-spacing:-.02em;color:var(--ink)}.st{font-family:Pacifico,cursive;font-weight:400;color:#25B8A8;margin-left:2px}
+.logo .sv{font-size:1.45rem}.logo .st{font-size:1.3rem}
+.lkb{display:flex;align-items:center;gap:.8rem}.lkb .mk{width:64px;height:64px;flex:none}.lkb .sv{font-size:2.6rem}.lkb .st{font-size:2.3rem}
+.mt{font-family:Outfit,Mukta,system-ui,sans-serif;font-weight:700;font-size:1.05rem;margin-top:.7rem;color:var(--ink)}
+@media(max-width:760px){.logo .st{font-size:1.2rem}.lkb .mk{width:52px;height:52px}.lkb .sv{font-size:2.1rem}.lkb .st{font-size:1.9rem}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
 </style></head><body>
 <div class="demo"><b>Demo mode:</b> sample data saved only in this browser. No real workers, payments, verification or bookings.</div>
-<header><div class="bar"><a class="logo" href="#home">Seva<span>Setu</span></a>
-<nav id="nav"></nav></div></header>
+<header><div class="bar"><a class="logo" href="#home" aria-label="SevaSetu home"><svg class="mk" viewBox="0 0 76 76" aria-hidden="true"><rect width="76" height="76" rx="20" fill="#1F7A70"/><path d="M14 50 Q38 8 62 50" fill="none" stroke="#FFFFFF" stroke-width="7" stroke-linecap="round"/><rect x="12" y="50" width="52" height="7" rx="3.5" fill="#F2A66B"/></svg><span class="wm"><span class="sv">Seva</span><span class="st">Setu</span></span></a>
+<nav id="tabs" aria-label="Main" hidden></nav><nav id="nav" aria-label="More"></nav></div></header>
 <main id="app" aria-live="polite"></main><div id="toast" role="status"></div>
 <script>
 const CATS={Electrician:'⚡',Plumber:'🚰',Cleaner:'🧹',Painter:'🎨',Carpenter:'🪚','Appliance repair':'🛠️',Maid:'🧽',Cook:'🍳'};
@@ -71,16 +103,17 @@ function verTag(w){return w.ver=='Demo verified'?'<span class="tag ok">Sample ve
 function total(q){return q.labor+q.mat+q.travel}
 function fmtW(b){return b.when=='ASAP'?'As soon as possible (urgent)':new Date(b.when).toLocaleString('en-IN',{dateStyle:'medium',timeStyle:'short'})}
 function table(q){return`<table><tr><td>Labour</td><td>${R(q.labor)}</td></tr><tr><td>Estimated materials</td><td>${R(q.mat)}</td></tr><tr><td>Travel</td><td>${R(q.travel)}</td></tr><tr class="tot"><td>Total estimate</td><td>${R(total(q))}</td></tr></table>`}
-function wcard(w){return`<div class="card"><div class="row sp"><h3>${CATS[w.cat]} ${esc(w.name)}</h3><span class="tag ${w.avail?'ok':''}">${w.avail?'Available':'Busy'}</span></div>
-<div class="mut">${esc(w.cat)} · ${esc(w.loc)} · ${w.exp} yrs</div><p>${esc(w.skills)}</p>
-<div>${w.rc?`★ ${w.rating.toFixed(1)} <span class="mut">(${w.rc}${w.demo?' demo ratings':' ratings'})</span>`:'<span class="mut">No ratings yet</span>'}</div>
-<div class="mut">Labour ${R(w.rate)}/hr + travel ${R(w.travel)}</div><div style="margin:.4rem 0">${verTag(w)}</div>
-<a class="btn alt sm" href="#worker/${w.id}">View profile</a></div>`}
+function ini(n){return n.split(' ').filter(Boolean).map(x=>x[0]).slice(0,2).join('').toUpperCase()}
+function wcard(w){const h=Object.keys(CATS).indexOf(w.cat)*45;return`<div class="card wc"><div class="av" style="--h:${h}" aria-hidden="true">${esc(ini(w.name))}</div><div class="wm"><div class="row sp"><h3>${esc(w.name)}</h3><span class="tag ${w.avail?'ok':''}"><span class="dot"></span>${w.avail?'Available':'Busy'}</span></div>
+<div class="mut">${CATS[w.cat]} ${esc(w.cat)} · ${esc(w.loc)} · ${w.exp} yrs</div></div>
+<div class="full"><p>${esc(w.skills)}</p><div class="price"><b>${R(w.rate)}</b>/hr <span class="mut">+ ${R(w.travel)} travel</span></div>
+<div>${w.rc?`★ ${w.rating.toFixed(1)} <span class="mut">(${w.rc}${w.demo?' demo ratings':' ratings'})</span>`:'<span class="mut">No ratings yet</span>'}</div><div style="margin:.5rem 0">${verTag(w)}</div>
+<a class="btn alt sm" href="#worker/${w.id}">View profile</a></div></div>`}
 /* ---------- views ---------- */
 function home(){return`<section class="hero"><div><h1>Know the price before the work starts.</h1><p>Find nearby electricians, plumbers, cleaners and more. Workers set their own availability and send itemised quotes. You approve before anything begins.</p>
 <div class="row"><a class="btn" href="#find">Find a worker</a><a class="btn alt" href="#work">I am a worker</a></div></div>
 <div class="card"><h3>Sample quote: ceiling fan repair</h3>${table({labor:350,mat:120,travel:40})}<p class="mut">Example only. Real quotes come from workers in this demo.</p></div></section>
-<h2>Services</h2><div class="grid" style="grid-template-columns:repeat(auto-fill,minmax(150px,1fr))">${Object.keys(CATS).map(c=>`<a class="card" style="text-decoration:none" href="#find/${encodeURIComponent(c)}"><div style="font-size:2rem">${CATS[c]}</div><b>${c}</b></a>`).join('')}</div>
+<h2>Services</h2><div class="grid svc">${Object.keys(CATS).map(c=>`<a class="card" style="text-decoration:none" href="#find/${encodeURIComponent(c)}"><div style="font-size:2rem">${CATS[c]}</div><b>${c}</b></a>`).join('')}</div>
 <h2 style="margin-top:1.5rem">How it works</h2><div class="grid"><div class="card"><b>1. Request</b><br>Describe the job, pick a time and locality. No street address or phone number is collected.</div><div class="card"><b>2. Quote</b><br>The worker accepts, then sends labour, materials and travel as separate lines. Ask for a revision if needed.</div><div class="card"><b>3. Approve and review</b><br>Approve the quote, track status, and review after the demo job is completed.</div></div>
 <div class="card" style="margin-top:1rem"><b>Cancellation rules:</b> free to cancel before you approve a quote. After approval, cancel only by reporting an issue so the worker is informed. Complaints are reviewed on the <a href="#admin">admin page</a>.</div>`}
 function find(arg){const p=new URLSearchParams(arg||'');const f={q:p.get('q')||'',cat:p.get('cat')||'',loc:p.get('loc')||'',av:p.get('av')||'',max:p.get('max')||''};
@@ -155,7 +188,7 @@ function resolve(id){const n=$('#rn'+id).value.trim();if(n.length<5){toast('Add 
 function about(){return`<h2>About this prototype</h2><div class="card"><p><b>Works:</b> search and filters, worker profiles, booking requests, accept or decline, itemised quotes, quote revision, approval, status tracking, completion, reviews, issue reports, admin resolution, worker registration, impact counts.</p><p><b>Not real:</b> sample workers, ratings and earnings. There is no backend, login, payment, identity or background check. Data lives in this browser's storage only.</p><p><b>Next steps:</b> Supabase or Firebase for shared data and sign-in, phone OTP, real document verification with consent, local-language support.</p></div>`}
 /* ---------- role choice and provider sign-up ---------- */
 let J={step:1,d:null,otp:'',tries:0};
-function welcome(){return`<section class="hero" style="grid-template-columns:1fr"><div><h1>Welcome to SevaSetu</h1><p>Choose how you want to use the app. You can switch any time.</p></div></section>
+function welcome(){return`<section class="hero" style="grid-template-columns:1fr"><div><div class="lkb"><svg class="mk" viewBox="0 0 76 76" aria-hidden="true"><rect width="76" height="76" rx="20" fill="#1F7A70"/><path d="M14 50 Q38 8 62 50" fill="none" stroke="#FFFFFF" stroke-width="7" stroke-linecap="round"/><rect x="12" y="50" width="52" height="7" rx="3.5" fill="#F2A66B"/></svg><div class="wm"><span class="sv">Seva</span><span class="st">Setu</span></div></div><div class="mt">Trust for every home, Work for every hand.</div><h1 style="margin-top:1.2rem">Welcome to SevaSetu</h1><p>Choose how you want to use the app. You can switch any time.</p></div></section>
 <div class="grid"><div class="card"><h2>🏠 I need a service</h2><p>Find nearby workers and see a clear price before work starts.</p><form onsubmit="event.preventDefault();startCust()"><label for="cn">Your name</label><input id="cn"><label for="cl">Your locality</label><select id="cl">${LOCS.map(l=>`<option>${l}</option>`).join('')}</select><div class="err" id="ce" role="alert"></div><button class="btn">Continue as customer</button></form></div>
 <div class="card"><h2>🛠️ I provide a service</h2><p>List your skills, set your own rate and receive job requests. A sample verification step comes first.</p><a class="btn" href="#join">Continue as service provider</a></div></div>`}
 function startCust(){const n=$('#cn').value.trim();if(n.length<2){$('#ce').textContent='Enter your name.';return}S.role='customer';S.user={name:n,loc:$('#cl').value};save();location.hash='find'}
@@ -181,7 +214,12 @@ S.role='worker';S.me=id;J={step:1,d:null,otp:'',tries:0};save();toast('Sample ve
 function render(){const [r,...a]=(location.hash.slice(1)||'home').split('/'),arg=a.join('/');let h;
 const V={welcome,join,home,find:()=>find(decodeURIComponent(arg).includes('=')?arg:(arg?'cat='+arg:'')),worker:()=>profile(arg),book:()=>book(arg),cust,work,impact,admin,about};
 h=(!S.role&&!['welcome','join','about','admin'].includes(r))?welcome():(V[r]||home)();
-$('#nav').innerHTML=(S.role=='worker'?[['work','My jobs'],['impact','Impact'],['about','About']]:S.role=='customer'?[['find','Find'],['cust','My bookings'],['impact','Impact'],['about','About']]:[['about','About']]).map(x=>`<a href="#${x[0]}" class="${r==x[0]?'on':''}">${x[1]}</a>`).join('')+(S.role?'<a href="#welcome" onclick="logout()">Switch role</a>':'')+'<a href="#admin">Admin (demo)</a>';
+const act=(r=='worker'||r=='book')?'find':r;
+const IC={work:'🧰',impact:'📊',find:'🔍',cust:'📋'};
+const T=S.role=='worker'?[['work','My jobs'],['impact','Impact']]:S.role=='customer'?[['find','Find'],['cust','My bookings'],['impact','Impact']]:[];
+$('#tabs').innerHTML=T.map(x=>`<a href="#${x[0]}" class="${act==x[0]?'on':''}"><i aria-hidden="true">${IC[x[0]]}</i><span>${x[1]}</span></a>`).join('');
+$('#tabs').hidden=!T.length;document.body.classList.toggle('hastabs',!!T.length);
+$('#nav').innerHTML=`<a href="#about" class="${r=='about'?'on':''}">About</a>`+(S.role?'<a href="#welcome" onclick="logout()">Switch role</a>':'')+`<a href="#admin" class="${r=='admin'?'on':''}">Admin (demo)</a>`;
 $('#app').innerHTML=(mem?'<div class="card err">Browser storage is unavailable. Data will reset when you close this page.</div>':'')+h}
 window.addEventListener('hashchange',()=>{render();scrollTo(0,0)});render();setTimeout(()=>{loading=false;render()},350);
 </script></body></html>
