@@ -10,7 +10,11 @@
 // - Auto-fallback: If Supabase credentials are placeholders, network fails,
 //   or queries fail, gracefully falls back to localStorage.
 // - State machine transition validation on both local & cloud.
-// - Clean normalization so the frontend receives consistent data structures.
+// - Supports Phase 1-2 features: House help category, rate units (/hr, /visit, /day),
+//   itemised price quotes, 3-round counter-offers, and agreed price locking.
+// - Strict Row Level Security (RLS) adherence:
+//     * Only public anon key is used in frontend config.
+//     * worker_private has NO SELECT policy; addresses and phone numbers are never exposed.
 // ============================================================================
 
 (function (root, factory) {
@@ -31,34 +35,36 @@
 
   // --------------------------------------------------------------------------
   // 2. Default Seed Workers (Identical to index.html demo workers)
+  // Supports Phase 1 (House help) and Phase 2 (rate units: per_hour, per_visit, per_day)
   // --------------------------------------------------------------------------
   const DEFAULT_SEED_WORKERS = [
-    { id: 'w1', name: 'Ravi Kumar', cat: 'Electrician', loc: 'North Colony', exp: 8, rate: 300, travel: 40, avail: true, skills: 'Fan, wiring, switchboards', rating: 4.6, rc: 31, ver: 'Demo profile', demo: true, hidden: false },
-    { id: 'w2', name: 'Selvi Devi', cat: 'Cleaner', loc: 'Lake View', exp: 5, rate: 180, travel: 30, avail: true, skills: 'Deep cleaning, kitchens, bathrooms', rating: 4.8, rc: 52, ver: 'Demo profile', demo: true, hidden: false },
-    { id: 'w3', name: 'Imran Shaikh', cat: 'Plumber', loc: 'Market Road', exp: 11, rate: 350, travel: 50, avail: true, skills: 'Leaks, taps, tank fittings', rating: 4.4, rc: 27, ver: 'Demo profile', demo: true, hidden: false },
-    { id: 'w4', name: 'Mohan Das', cat: 'Painter', loc: 'Station Area', exp: 14, rate: 400, travel: 60, avail: false, skills: 'Interior walls, waterproofing', rating: 4.5, rc: 19, ver: 'Demo profile', demo: true, hidden: false },
-    { id: 'w5', name: 'Anita Joseph', cat: 'Carpenter', loc: 'North Colony', exp: 9, rate: 380, travel: 40, avail: true, skills: 'Doors, shelves, furniture repair', rating: 4.7, rc: 23, ver: 'Demo profile', demo: true, hidden: false },
-    { id: 'w6', name: 'Karthik R', cat: 'Appliance repair', loc: 'Lake View', exp: 6, rate: 320, travel: 40, avail: true, skills: 'Washing machine, fridge, mixer', rating: 4.3, rc: 35, ver: 'Demo profile', demo: true, hidden: false },
-    { id: 'w7', name: 'Latha Sundar', cat: 'Electrician', loc: 'Station Area', exp: 3, rate: 260, travel: 30, avail: true, skills: 'Lights, inverter wiring', rating: 4.1, rc: 8, ver: 'Demo profile', demo: true, hidden: false },
-    { id: 'w8', name: 'Faizal Ahmed', cat: 'Plumber', loc: 'North Colony', exp: 2, rate: 280, travel: 30, avail: true, skills: 'Basic plumbing, bathroom fittings', rating: 0, rc: 0, ver: 'Unverified', demo: false, hidden: false },
-    { id: 'w9', name: 'Meena Kumari', cat: 'Maid', loc: 'Lake View', exp: 7, rate: 120, travel: 20, avail: true, skills: 'Daily cleaning, utensils, laundry', rating: 4.5, rc: 14, ver: 'Demo profile', demo: true, hidden: false },
-    { id: 'w10', name: 'Suresh Babu', cat: 'Cook', loc: 'Market Road', exp: 10, rate: 200, travel: 20, avail: true, skills: 'Home-style meals, tiffin prep', rating: 4.6, rc: 12, ver: 'Demo profile', demo: true, hidden: false }
+    { id: 'w1', name: 'Ravi Kumar', cat: 'Electrician', loc: 'North Colony', exp: 8, rate: 300, unit: 'per_hour', travel: 40, avail: true, skills: 'Fan, wiring, switchboards', rating: 4.6, rc: 31, ver: 'Demo profile', demo: true, hidden: false },
+    { id: 'w2', name: 'Selvi Devi', cat: 'House help', loc: 'Lake View', exp: 5, rate: 250, unit: 'per_visit', travel: 30, avail: true, skills: 'Maid & deep cleaning: kitchens, bathrooms, floors', rating: 4.8, rc: 52, ver: 'Demo profile', demo: true, hidden: false },
+    { id: 'w3', name: 'Imran Shaikh', cat: 'Plumber', loc: 'Market Road', exp: 11, rate: 350, unit: 'per_hour', travel: 50, avail: true, skills: 'Leaks, taps, tank fittings, drainage', rating: 4.4, rc: 27, ver: 'Demo profile', demo: true, hidden: false },
+    { id: 'w4', name: 'Mohan Das', cat: 'Painter', loc: 'Station Area', exp: 14, rate: 500, unit: 'per_day', travel: 60, avail: false, skills: 'Interior walls, waterproofing', rating: 4.5, rc: 19, ver: 'Demo profile', demo: true, hidden: false },
+    { id: 'w5', name: 'Anita Joseph', cat: 'Carpenter', loc: 'North Colony', exp: 9, rate: 380, unit: 'per_hour', travel: 40, avail: true, skills: 'Doors, shelves, furniture repair', rating: 4.7, rc: 23, ver: 'Demo profile', demo: true, hidden: false },
+    { id: 'w6', name: 'Karthik R', cat: 'Appliance repair', loc: 'Lake View', exp: 6, rate: 350, unit: 'per_visit', travel: 40, avail: true, skills: 'Washing machine, fridge, mixer', rating: 4.3, rc: 35, ver: 'Demo profile', demo: true, hidden: false },
+    { id: 'w7', name: 'Latha Sundar', cat: 'Electrician', loc: 'Station Area', exp: 3, rate: 260, unit: 'per_hour', travel: 30, avail: true, skills: 'Lights, inverter wiring', rating: 4.1, rc: 8, ver: 'Demo profile', demo: true, hidden: false },
+    { id: 'w8', name: 'Faizal Ahmed', cat: 'Plumber', loc: 'North Colony', exp: 2, rate: 280, unit: 'per_hour', travel: 30, avail: true, skills: 'Basic plumbing, bathroom fittings', rating: 0, rc: 0, ver: 'Unverified', demo: false, hidden: false },
+    { id: 'w9', name: 'Meena Kumari', cat: 'House help', loc: 'Lake View', exp: 7, rate: 180, unit: 'per_visit', travel: 20, avail: true, skills: 'Maid: daily cleaning, utensils, laundry, dusting', rating: 4.5, rc: 14, ver: 'Demo profile', demo: true, hidden: false },
+    { id: 'w10', name: 'Suresh Babu', cat: 'House help', loc: 'Market Road', exp: 10, rate: 300, unit: 'per_visit', travel: 20, avail: true, skills: 'Cook: North & South Indian home meals, tiffin prep', rating: 4.6, rc: 12, ver: 'Demo profile', demo: true, hidden: false },
+    { id: 'w11', name: 'Sunita Bai', cat: 'House help', loc: 'North Colony', exp: 6, rate: 200, unit: 'per_visit', travel: 25, avail: true, skills: 'All-rounder maid: sweeping, veg prep, helper', rating: 4.7, rc: 29, ver: 'Demo profile', demo: true, hidden: false }
   ];
 
   // --------------------------------------------------------------------------
-  // 3. State Machine Transition Rules
+  // 3. State Machine Transition Rules (Matches schema.sql trigger)
   // Valid transitions:
   //   requested   -> accepted, rejected, cancelled
   //   accepted    -> quoted, cancelled
   //   quoted      -> approved, negotiating, cancelled
-  //   negotiating -> quoted, cancelled
+  //   negotiating -> approved (accept counter), quoted (counter back), rejected, cancelled
   //   approved    -> completed
   // --------------------------------------------------------------------------
   const VALID_STATUS_TRANSITIONS = {
     requested: ['accepted', 'rejected', 'cancelled'],
     accepted: ['quoted', 'cancelled'],
     quoted: ['approved', 'negotiating', 'cancelled'],
-    negotiating: ['quoted', 'cancelled'],
+    negotiating: ['approved', 'quoted', 'rejected', 'cancelled'],
     approved: ['completed'],
     completed: [],
     rejected: [],
@@ -86,10 +92,14 @@
       if (data) {
         const parsed = JSON.parse(data);
         if (parsed && Array.isArray(parsed.workers)) {
-          // Ensure default seed workers exist
+          // Ensure default seed workers exist and reflect Phase 1-2 categories/units
           DEFAULT_SEED_WORKERS.forEach(dw => {
-            if (!parsed.workers.find(w => w.id === dw.id)) {
+            const ex = parsed.workers.find(w => w.id === dw.id);
+            if (!ex) {
               parsed.workers.push({ ...dw });
+            } else {
+              if (['Cleaner', 'Maid', 'Cook'].includes(ex.cat)) ex.cat = 'House help';
+              if (!ex.unit) ex.unit = dw.unit;
             }
           });
           return parsed;
@@ -134,7 +144,11 @@
       let list = state.workers.filter(w => !w.hidden);
 
       if (filters.cat) {
-        list = list.filter(w => w.cat === filters.cat);
+        if (filters.cat === 'House help') {
+          list = list.filter(w => ['House help', 'Cleaner', 'Maid', 'Cook'].includes(w.cat));
+        } else {
+          list = list.filter(w => w.cat === filters.cat);
+        }
       }
       if (filters.loc) {
         list = list.filter(w => w.loc === filters.loc);
@@ -169,6 +183,7 @@
         loc: workerData.loc,
         exp: Number(workerData.exp || 0),
         rate: Number(workerData.rate),
+        unit: workerData.unit || 'per_hour',
         travel: Number(workerData.travel || 30),
         avail: true,
         skills: workerData.skills,
@@ -190,6 +205,8 @@
       const state = getLocalStore();
       const worker = state.workers.find(w => w.id === workerId);
       if (!worker) throw new Error(`Worker with ID "${workerId}" not found.`);
+      if (updates.rate !== undefined) worker.rate = Number(updates.rate);
+      if (updates.unit !== undefined) worker.unit = updates.unit;
       Object.assign(worker, updates);
       saveLocalStore(state);
       return worker;
@@ -207,6 +224,7 @@
         when: bookingData.when || bookingData.booking_time,
         status: 'requested',
         quote: null,
+        agreedPrice: null,
         review: null,
         report: null,
         created: new Date().toISOString()
@@ -246,21 +264,118 @@
       const booking = state.bookings.find(b => b.id === bookingId);
       if (!booking) throw new Error(`Booking "${bookingId}" not found.`);
 
-      // Status must transition to 'quoted'
       validateStatusTransition(booking.status, 'quoted');
 
-      const version = (booking.quote ? booking.quote.v || 1 : 0) + 1;
+      const curRound = booking.quote ? (booking.quote.round || 1) : 0;
+      const nextRound = curRound + 1;
+      const labor = Number(quoteData.labor || quoteData.labour_charge);
+      const mat = Number(quoteData.mat || quoteData.materials_charge || 0);
+      const travel = Number(quoteData.travel || quoteData.travel_charge || 0);
+      const total = labor + mat + travel;
+
       booking.quote = {
-        v: version,
-        labor: Number(quoteData.labor || quoteData.labour_charge),
-        mat: Number(quoteData.mat || quoteData.materials_charge || 0),
-        travel: Number(quoteData.travel || quoteData.travel_charge || 0),
+        v: (booking.quote ? booking.quote.v || 1 : 0) + 1,
+        round: nextRound,
+        labor,
+        mat,
+        travel,
+        total,
         note: (quoteData.note || '').trim(),
-        ask: (quoteData.ask || quoteData.revision_request || '').trim()
+        ask: (quoteData.ask || quoteData.revision_request || '').trim(),
+        rounds: booking.quote && booking.quote.rounds ? booking.quote.rounds : []
       };
+      booking.quote.rounds.push({
+        by: 'worker',
+        round: nextRound,
+        labor,
+        mat,
+        travel,
+        total,
+        note: booking.quote.note,
+        when: new Date().toISOString()
+      });
+
       booking.status = 'quoted';
       saveLocalStore(state);
       return booking.quote;
+    },
+
+    async sendCounterOffer(bookingId, counterData) {
+      const state = getLocalStore();
+      const booking = state.bookings.find(b => b.id === bookingId);
+      if (!booking) throw new Error(`Booking "${bookingId}" not found.`);
+
+      validateStatusTransition(booking.status, 'negotiating');
+
+      const curRound = booking.quote ? (booking.quote.round || 1) : 1;
+      if (curRound >= 3) throw new Error('Maximum 3 negotiation rounds reached.');
+
+      const nextRound = curRound + 1;
+      const labor = Number(counterData.labor);
+      const mat = Number(counterData.mat || 0);
+      const travel = Number(counterData.travel || 0);
+      const total = labor + mat + travel;
+
+      booking.quote = booking.quote || {};
+      booking.quote.labor = labor;
+      booking.quote.mat = mat;
+      booking.quote.travel = travel;
+      booking.quote.total = total;
+      booking.quote.round = nextRound;
+      booking.quote.ask = (counterData.note || '').trim();
+      booking.quote.rounds = booking.quote.rounds || [];
+      booking.quote.rounds.push({
+        by: 'customer',
+        round: nextRound,
+        labor,
+        mat,
+        travel,
+        total,
+        note: counterData.note,
+        when: new Date().toISOString()
+      });
+
+      booking.status = 'negotiating';
+      saveLocalStore(state);
+      return booking.quote;
+    },
+
+    async approveBooking(bookingId, agreedPriceData = null) {
+      const state = getLocalStore();
+      const booking = state.bookings.find(b => b.id === bookingId);
+      if (!booking) throw new Error(`Booking "${bookingId}" not found.`);
+
+      validateStatusTransition(booking.status, 'approved');
+
+      const price = agreedPriceData || {
+        total: booking.quote ? booking.quote.total : 0,
+        labor: booking.quote ? booking.quote.labor : 0,
+        mat: booking.quote ? booking.quote.mat : 0,
+        travel: booking.quote ? booking.quote.travel : 0
+      };
+
+      booking.agreedPrice = {
+        total: Number(price.total),
+        labor: Number(price.labor || 0),
+        mat: Number(price.mat || 0),
+        travel: Number(price.travel || 0),
+        agreedAt: new Date().toISOString()
+      };
+      booking.status = 'approved';
+      saveLocalStore(state);
+      return booking;
+    },
+
+    async acceptCounterOffer(bookingId) {
+      const state = getLocalStore();
+      const booking = state.bookings.find(b => b.id === bookingId);
+      if (!booking || !booking.quote) throw new Error(`Booking or quote "${bookingId}" not found.`);
+      return this.approveBooking(bookingId, {
+        total: booking.quote.total,
+        labor: booking.quote.labor,
+        mat: booking.quote.mat,
+        travel: booking.quote.travel
+      });
     },
 
     async addReview(bookingId, reviewData) {
@@ -371,7 +486,8 @@
       cat: row.category,
       loc: row.locality,
       exp: row.experience_years,
-      rate: Number(row.hourly_rate),
+      rate: Number(row.base_rate !== undefined ? row.base_rate : row.hourly_rate),
+      unit: row.rate_unit || 'per_hour',
       travel: Number(row.travel_charge),
       avail: row.is_available,
       skills: row.skills,
@@ -390,13 +506,28 @@
     if (row.quotes && Array.isArray(row.quotes) && row.quotes.length > 0) {
       const sorted = row.quotes.slice().sort((a, b) => b.version - a.version);
       const q = sorted[0];
+      const labor = Number(q.labour_charge);
+      const mat = Number(q.materials_charge);
+      const travel = Number(q.travel_charge);
       latestQuote = {
         v: q.version,
-        labor: Number(q.labour_charge),
-        mat: Number(q.materials_charge),
-        travel: Number(q.travel_charge),
+        round: q.round_number || q.version || 1,
+        offeredBy: q.offered_by || 'worker',
+        labor,
+        mat,
+        travel,
+        total: Number(q.total_estimate || (labor + mat + travel)),
         note: q.note || '',
         ask: q.revision_request || ''
+      };
+    }
+
+    // Extract locked agreed price
+    let agreedPriceObj = null;
+    if (row.agreed_total) {
+      agreedPriceObj = {
+        total: Number(row.agreed_total),
+        ...(row.agreed_breakdown || {})
       };
     }
 
@@ -433,6 +564,7 @@
       loc: row.locality,
       when: row.booking_time,
       status: row.status,
+      agreedPrice: agreedPriceObj,
       created: row.created_at,
       quote: latestQuote,
       review: reviewObj,
@@ -484,7 +616,11 @@
       let query = supabaseClient.from('workers').select('*').eq('is_hidden', false);
 
       if (filters.cat) {
-        query = query.eq('category', filters.cat);
+        if (filters.cat === 'House help') {
+          query = query.in('category', ['House help', 'Cleaner', 'Maid', 'Cook']);
+        } else {
+          query = query.eq('category', filters.cat);
+        }
       }
       if (filters.loc) {
         query = query.eq('locality', filters.loc);
@@ -493,7 +629,7 @@
         query = query.eq('is_available', true);
       }
       if (filters.max && Number(filters.max) > 0) {
-        query = query.lte('hourly_rate', Number(filters.max));
+        query = query.lte('base_rate', Number(filters.max));
       }
 
       const { data, error } = await query.order('name');
@@ -521,13 +657,16 @@
 
     async registerWorker(workerData, privateData = null) {
       const workerId = 'w' + Date.now();
+      const rate = Number(workerData.rate);
       const workerRecord = {
         id: workerId,
         name: workerData.name,
         category: workerData.cat,
         locality: workerData.loc,
         experience_years: Number(workerData.exp || 0),
-        hourly_rate: Number(workerData.rate),
+        base_rate: rate,
+        rate_unit: workerData.unit || 'per_hour',
+        hourly_rate: rate,
         travel_charge: Number(workerData.travel || 30),
         is_available: true,
         skills: workerData.skills,
@@ -546,6 +685,7 @@
       if (error) throw error;
 
       // Insert private details into worker_private (INSERT-only RLS policy)
+      // Note: By RLS, anonymous clients have INSERT permission only; SELECT is strictly forbidden.
       if (privateData) {
         const privateRecord = {
           worker_id: workerId,
@@ -571,7 +711,11 @@
       if (updates.cat !== undefined) dbUpdates.category = updates.cat;
       if (updates.loc !== undefined) dbUpdates.locality = updates.loc;
       if (updates.avail !== undefined) dbUpdates.is_available = updates.avail;
-      if (updates.rate !== undefined) dbUpdates.hourly_rate = Number(updates.rate);
+      if (updates.rate !== undefined) {
+        dbUpdates.base_rate = Number(updates.rate);
+        dbUpdates.hourly_rate = Number(updates.rate);
+      }
+      if (updates.unit !== undefined) dbUpdates.rate_unit = updates.unit;
       if (updates.travel !== undefined) dbUpdates.travel_charge = Number(updates.travel);
       if (updates.hidden !== undefined) dbUpdates.is_hidden = updates.hidden;
 
@@ -656,24 +800,34 @@
     },
 
     async saveQuote(bookingId, quoteData) {
-      // 1. Fetch current quote version
+      // 1. Fetch current quote version and round
       const { data: existingQuotes, error: qErr } = await supabaseClient
         .from('quotes')
-        .select('version')
+        .select('version, round_number')
         .eq('booking_id', bookingId)
         .order('version', { ascending: false })
         .limit(1);
       if (qErr) throw qErr;
 
-      const nextVersion = (existingQuotes && existingQuotes[0] ? existingQuotes[0].version : 0) + 1;
+      const latest = existingQuotes && existingQuotes[0] ? existingQuotes[0] : null;
+      const nextVersion = (latest ? latest.version : 0) + 1;
+      const nextRound = (latest ? (latest.round_number || 1) : 0) + 1;
+
+      const labor = Number(quoteData.labor || quoteData.labour_charge);
+      const mat = Number(quoteData.mat || quoteData.materials_charge || 0);
+      const travel = Number(quoteData.travel || quoteData.travel_charge || 0);
+      const total = labor + mat + travel;
 
       // 2. Insert new versioned quote
       const quotePayload = {
         booking_id: bookingId,
         version: nextVersion,
-        labour_charge: Number(quoteData.labor || quoteData.labour_charge),
-        materials_charge: Number(quoteData.mat || quoteData.materials_charge || 0),
-        travel_charge: Number(quoteData.travel || quoteData.travel_charge || 0),
+        round_number: nextRound,
+        offered_by: 'worker',
+        labour_charge: labor,
+        materials_charge: mat,
+        travel_charge: travel,
+        total_estimate: total,
         note: (quoteData.note || '').trim(),
         revision_request: (quoteData.ask || quoteData.revision_request || '').trim()
       };
@@ -690,12 +844,108 @@
 
       return {
         v: newQuote.version,
+        round: newQuote.round_number,
         labor: Number(newQuote.labour_charge),
         mat: Number(newQuote.materials_charge),
         travel: Number(newQuote.travel_charge),
+        total: Number(newQuote.total_estimate),
         note: newQuote.note,
         ask: newQuote.revision_request
       };
+    },
+
+    async sendCounterOffer(bookingId, counterData) {
+      const { data: existingQuotes, error: qErr } = await supabaseClient
+        .from('quotes')
+        .select('version, round_number')
+        .eq('booking_id', bookingId)
+        .order('version', { ascending: false })
+        .limit(1);
+      if (qErr) throw qErr;
+
+      const latest = existingQuotes && existingQuotes[0] ? existingQuotes[0] : null;
+      const curRound = latest ? (latest.round_number || 1) : 1;
+      if (curRound >= 3) throw new Error('Maximum 3 negotiation rounds reached.');
+
+      const nextVersion = (latest ? latest.version : 0) + 1;
+      const nextRound = curRound + 1;
+
+      const labor = Number(counterData.labor);
+      const mat = Number(counterData.mat || 0);
+      const travel = Number(counterData.travel || 0);
+      const total = labor + mat + travel;
+
+      const payload = {
+        booking_id: bookingId,
+        version: nextVersion,
+        round_number: nextRound,
+        offered_by: 'customer',
+        labour_charge: labor,
+        materials_charge: mat,
+        travel_charge: travel,
+        total_estimate: total,
+        note: '',
+        revision_request: (counterData.note || '').trim()
+      };
+
+      const { data: newQuote, error: insertErr } = await supabaseClient
+        .from('quotes')
+        .insert([payload])
+        .select()
+        .single();
+      if (insertErr) throw insertErr;
+
+      await this.setStatus(bookingId, 'negotiating');
+
+      return {
+        v: newQuote.version,
+        round: newQuote.round_number,
+        labor: Number(newQuote.labour_charge),
+        mat: Number(newQuote.materials_charge),
+        travel: Number(newQuote.travel_charge),
+        total: Number(newQuote.total_estimate),
+        ask: newQuote.revision_request
+      };
+    },
+
+    async approveBooking(bookingId, agreedPriceData = null) {
+      let finalPrice = agreedPriceData;
+      if (!finalPrice) {
+        const { data: quotes, error: qErr } = await supabaseClient
+          .from('quotes')
+          .select('*')
+          .eq('booking_id', bookingId)
+          .order('version', { ascending: false })
+          .limit(1);
+        if (qErr) throw qErr;
+        const q = quotes && quotes[0] ? quotes[0] : null;
+        finalPrice = {
+          total: q ? Number(q.total_estimate) : 0,
+          labor: q ? Number(q.labour_charge) : 0,
+          mat: q ? Number(q.materials_charge) : 0,
+          travel: q ? Number(q.travel_charge) : 0
+        };
+      }
+
+      const { data, error } = await supabaseClient
+        .from('bookings')
+        .update({
+          status: 'approved',
+          agreed_total: Number(finalPrice.total),
+          agreed_breakdown: {
+            ...finalPrice,
+            agreedAt: new Date().toISOString()
+          }
+        })
+        .eq('id', bookingId)
+        .select()
+        .single();
+      if (error) throw error;
+      return normalizeBooking(data);
+    },
+
+    async acceptCounterOffer(bookingId) {
+      return this.approveBooking(bookingId, null);
     },
 
     async addReview(bookingId, reviewData) {
@@ -883,6 +1133,21 @@
     // 5. saveQuote
     async saveQuote(bookingId, quoteData) {
       return await execute('saveQuote', bookingId, quoteData);
+    },
+
+    // 5b. sendCounterOffer (Phase 2 bargaining)
+    async sendCounterOffer(bookingId, counterData) {
+      return await execute('sendCounterOffer', bookingId, counterData);
+    },
+
+    // 5c. approveBooking (locks agreed price)
+    async approveBooking(bookingId, agreedPriceData) {
+      return await execute('approveBooking', bookingId, agreedPriceData);
+    },
+
+    // 5d. acceptCounterOffer
+    async acceptCounterOffer(bookingId) {
+      return await execute('acceptCounterOffer', bookingId);
     },
 
     // 6. addReview

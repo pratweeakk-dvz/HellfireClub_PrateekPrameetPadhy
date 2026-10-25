@@ -1,225 +1,1732 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>SevaSetu – Trust for every home, Work for every hand</title><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 76 76%27%3E%3Crect width=%2776%27 height=%2776%27 rx=%2720%27 fill=%27%231F7A70%27/%3E%3Cpath d=%27M14 50Q38 8 62 50%27 fill=%27none%27 stroke=%27white%27 stroke-width=%277%27 stroke-linecap=%27round%27/%3E%3Crect x=%2712%27 y=%2750%27 width=%2752%27 height=%277%27 rx=%273.5%27 fill=%27%23F2A66B%27/%3E%3C/svg%3E"><meta name="theme-color" content="#1F7A70">
-<link href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;600;800&family=Outfit:wght@700;800&family=Pacifico&display=swap" rel="stylesheet">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;600;800&display=swap" rel="stylesheet">
-<style>
-:root{--bg:#f6faf9;--card:#fff;--ink:#15302c;--mut:#4f6761;--line:#d6e4e0;--acc:#F2A66B;--soft:#fdeedd;--ok:#12805f;--bad:#b3261e;--pri:#1F7A70;--onpri:#fff;--sh:0 1px 2px rgba(16,35,32,.07);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-[hidden]{display:none!important}
-*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px);-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--bg);color:var(--ink);font:400 18px/1.55 Mukta,system-ui,-apple-system,"Segoe UI",sans-serif}
-body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--card);z-index:10}
-h1,h2,h3{line-height:1.15;margin:0 0 .5rem;font-weight:800}h1{font-size:clamp(2.1rem,7vw,3.6rem);letter-spacing:-.01em}h2{font-size:1.75rem}h3{font-size:1.2rem}
-a{color:var(--pri);font-weight:600}
-header{background:var(--card);border-bottom:1px solid var(--line);position:sticky;top:env(safe-area-inset-top,0px);z-index:9}
-.bar{max-width:1060px;margin:auto;padding:.55rem 1rem;display:flex;gap:.5rem;align-items:center;flex-wrap:wrap}
-.logo{font-weight:800;font-size:1.5rem;text-decoration:none;color:var(--ink);margin-right:.6rem}.logo span{color:var(--pri)}
-nav{display:flex;gap:.25rem;flex-wrap:wrap}
-nav a{padding:.45rem .8rem;border-radius:10px;text-decoration:none;font-weight:600;color:var(--mut);display:flex;align-items:center;gap:.4rem}
-nav a.on{background:var(--soft);color:var(--ink)}
-#nav{margin-left:auto}#nav a{font-size:.92rem;padding:.35rem .6rem}
-#tabs i{display:none;font-style:normal}
-main{max-width:1060px;margin:auto;padding:1.2rem 1rem 3rem}
-.demo{background:var(--soft);border-bottom:1px solid var(--acc);text-align:center;font-size:.9rem;padding:.4rem 1rem}
-.grid{display:grid;gap:1rem;grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}
-.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:1.1rem;box-shadow:var(--sh)}
-a.card{color:var(--ink);transition:border-color .15s}a.card:hover{border-color:var(--pri)}a.card:active{background:var(--soft)}
-.row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center}.sp{justify-content:space-between}
-.btn{font:inherit;font-weight:700;border:2px solid var(--pri);background:var(--pri);color:var(--onpri);border-radius:12px;padding:.6rem 1.1rem;min-height:48px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center}
-.btn:active{transform:scale(.98)}
-.btn.alt{background:transparent;color:var(--ink);border-color:var(--line)}.btn.bad{background:transparent;color:var(--bad);border-color:var(--bad)}.btn.sm{padding:.3rem .8rem;font-size:.95rem;min-height:42px}
-:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
-label{display:block;font-weight:600;font-size:.98rem;margin:.8rem 0 .25rem}
-input,select,textarea{font:inherit;font-size:1rem;width:100%;min-height:48px;padding:.6rem .75rem;border:1.5px solid var(--line);border-radius:12px;background:var(--bg);color:var(--ink)}
-textarea{min-height:5rem}
-input[type=checkbox]{min-height:0;width:1.3rem;height:1.3rem;accent-color:var(--pri);vertical-align:middle;margin-right:.5rem}
-.tag{display:inline-flex;align-items:center;font-size:.85rem;font-weight:600;padding:.1rem .6rem;border-radius:99px;border:1px solid var(--line);color:var(--mut)}
-.tag.ok{color:var(--ok);border-color:var(--ok)}.tag.warn{color:var(--bad);border-color:var(--bad)}.tag.demo{background:var(--soft);color:var(--ink);border-color:var(--acc)}
-.dot{width:.6rem;height:.6rem;border-radius:50%;background:var(--mut);display:inline-block;margin-right:.4rem}.tag.ok .dot{background:var(--ok)}
-.mut{color:var(--mut);font-size:.95rem}.err{color:var(--bad);font-size:.95rem;min-height:1.2em}
-.hero{display:grid;gap:1.5rem;grid-template-columns:1.2fr 1fr;align-items:center;padding:1rem 0 1.5rem}
-.hero>.card{border-top:6px solid var(--acc)}
-@media(max-width:760px){.hero{grid-template-columns:1fr}}
-table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}td,th{padding:.5rem 0;text-align:left;border-bottom:1px dashed var(--line)}td:last-child,th:last-child{text-align:right}
-.tot td{font-weight:800;font-size:1.15rem;border-bottom:0;border-top:2px solid var(--ink)}
-.stat{font-size:2.2rem;font-weight:800;color:var(--pri)}
-.steps{display:flex;gap:.3rem;flex-wrap:wrap;margin:.6rem 0}.steps span{font-size:.82rem;padding:.2rem .6rem;border-radius:8px;background:var(--bg);color:var(--mut)}.steps .d{background:var(--ok);color:#fff}.steps .c{background:var(--acc);color:#14213d;font-weight:700}
-.wc{display:grid;grid-template-columns:56px 1fr;gap:.2rem .85rem;align-content:start}.wc .wm{min-width:0}.wc .full{grid-column:1/-1}.wc h3{margin:0}.wc p{margin:.3rem 0}
-.av{width:56px;height:56px;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:1.2rem;background:hsl(var(--h) 55% 88%);color:hsl(var(--h) 60% 22%)}
-.price{margin:.3rem 0}.price b{font-size:1.5rem;font-weight:800}
-details summary{cursor:pointer;min-height:44px;display:flex;align-items:center}
-#toast{position:fixed;left:50%;bottom:calc(1rem + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--pri);color:var(--onpri);font-weight:600;padding:.7rem 1.1rem;border-radius:12px;display:none;z-index:20;max-width:90%}
-@media(max-width:760px){
-#tabs{position:fixed;left:0;right:0;bottom:0;z-index:12;background:var(--card);border-top:1px solid var(--line);padding:.35rem .5rem calc(.35rem + env(safe-area-inset-bottom,0px));gap:.25rem;flex-wrap:nowrap}
-#tabs a{flex:1;flex-direction:column;gap:0;padding:.35rem .2rem;font-size:.85rem;text-align:center;justify-content:center;min-height:56px}
-#tabs i{display:block;font-size:1.45rem;line-height:1.2}
-body.hastabs main{padding-bottom:6.5rem}
-body.hastabs #toast{bottom:calc(5.5rem + env(safe-area-inset-bottom,0px))}
-#nav{margin-left:auto}
-}
-form.card>.grid{grid-template-columns:1fr 1fr;gap:0 .7rem}form.card>.grid>div:first-child{grid-column:1/-1}
-.svc{grid-template-columns:repeat(4,1fr)}@media(max-width:760px){.svc{grid-template-columns:1fr 1fr}}
-@media(min-width:761px){form.card>.grid{grid-template-columns:2fr 1fr 1fr 1fr}form.card>.grid>div:first-child{grid-column:auto}}
-.logo{display:flex;align-items:center;gap:.55rem;color:var(--ink);text-decoration:none;font-weight:400}.logo .mk{width:38px;height:38px;flex:none}
-.wm{display:flex;align-items:baseline;line-height:1.1}.sv{font-family:Outfit,Mukta,system-ui,sans-serif;font-weight:800;letter-spacing:-.02em;color:var(--ink)}.st{font-family:Pacifico,cursive;font-weight:400;color:#25B8A8;margin-left:2px}
-.logo .sv{font-size:1.45rem}.logo .st{font-size:1.3rem}
-.lkb{display:flex;align-items:center;gap:.8rem}.lkb .mk{width:64px;height:64px;flex:none}.lkb .sv{font-size:2.6rem}.lkb .st{font-size:2.3rem}
-.mt{font-family:Outfit,Mukta,system-ui,sans-serif;font-weight:700;font-size:1.05rem;margin-top:.7rem;color:var(--ink)}
-@media(max-width:760px){.logo .st{font-size:1.2rem}.lkb .mk{width:52px;height:52px}.lkb .sv{font-size:2.1rem}.lkb .st{font-size:1.9rem}}
-@media(prefers-reduced-motion:reduce){*{transition:none!important}}
-</style></head><body>
-<div class="demo"><b>Demo mode:</b> sample data saved only in this browser. No real workers, payments, verification or bookings.</div>
-<header><div class="bar"><a class="logo" href="#home" aria-label="SevaSetu home"><svg class="mk" viewBox="0 0 76 76" aria-hidden="true"><rect width="76" height="76" rx="20" fill="#1F7A70"/><path d="M14 50 Q38 8 62 50" fill="none" stroke="#FFFFFF" stroke-width="7" stroke-linecap="round"/><rect x="12" y="50" width="52" height="7" rx="3.5" fill="#F2A66B"/></svg><span class="wm"><span class="sv">Seva</span><span class="st">Setu</span></span></a>
-<nav id="tabs" aria-label="Main" hidden></nav><nav id="nav" aria-label="More"></nav></div></header>
-<main id="app" aria-live="polite"></main><div id="toast" role="status"></div>
-<script>
-const CATS={Electrician:'⚡',Plumber:'🚰',Cleaner:'🧹',Painter:'🎨',Carpenter:'🪚','Appliance repair':'🛠️',Maid:'🧽',Cook:'🍳'};
-const LOCS=['North Colony','Market Road','Lake View','Station Area'];
-const SEED_W=[
-['w1','Ravi Kumar','Electrician','North Colony',8,300,40,true,'Fan, wiring, switchboards',4.6,31,'Demo profile'],
-['w2','Selvi Devi','Cleaner','Lake View',5,180,30,true,'Deep cleaning, kitchens, bathrooms',4.8,52,'Demo profile'],
-['w3','Imran Shaikh','Plumber','Market Road',11,350,50,true,'Leaks, taps, tank fittings',4.4,27,'Demo profile'],
-['w4','Mohan Das','Painter','Station Area',14,400,60,false,'Interior walls, waterproofing',4.5,19,'Demo profile'],
-['w5','Anita Joseph','Carpenter','North Colony',9,380,40,true,'Doors, shelves, furniture repair',4.7,23,'Demo profile'],
-['w6','Karthik R','Appliance repair','Lake View',6,320,40,true,'Washing machine, fridge, mixer',4.3,35,'Demo profile'],
-['w7','Latha Sundar','Electrician','Station Area',3,260,30,true,'Lights, inverter wiring',4.1,8,'Demo profile'],
-['w8','Faizal Ahmed','Plumber','North Colony',2,280,30,true,'Basic plumbing, bathroom fittings',0,0,'Unverified'],
-['w9','Meena Kumari','Maid','Lake View',7,120,20,true,'Daily cleaning, utensils, laundry',4.5,14,'Demo profile'],
-['w10','Suresh Babu','Cook','Market Road',10,200,20,true,'Home-style meals, tiffin prep',4.6,12,'Demo profile']].map(a=>({id:a[0],name:a[1],cat:a[2],loc:a[3],exp:a[4],rate:a[5],travel:a[6],avail:a[7],skills:a[8],rating:a[9],rc:a[10],ver:a[11],demo:a[11]=='Demo profile',hidden:false}));
-let S,mem=false,loading=true;
-function seed(){return{workers:SEED_W,bookings:[],reports:[],me:'w1',n:1,role:null,user:null}}
-try{S=JSON.parse(localStorage.getItem('kaamsetu')||'null')||seed()}catch(e){S=seed();mem=true}
-SEED_W.forEach(w=>{if(!S.workers.find(x=>x.id==w.id))S.workers.push({...w})});
-function save(){try{localStorage.setItem('kaamsetu',JSON.stringify(S))}catch(e){mem=true}}
-const $=s=>document.querySelector(s),esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const R=n=>'₹'+Number(n).toLocaleString('en-IN'),W=id=>S.workers.find(w=>w.id==id),B=id=>S.bookings.find(b=>b.id==id);
-function toast(m){const t=$('#toast');t.textContent=m;t.style.display='block';clearTimeout(t._t);t._t=setTimeout(()=>t.style.display='none',2600)}
-const FLOW=['requested','accepted','quoted','approved','completed'];
-const LBL={requested:'Requested',accepted:'Accepted',quoted:'Quote sent',negotiating:'Revision asked',approved:'Quote approved',completed:'Completed (demo)',rejected:'Declined',cancelled:'Cancelled'};
-function steps(b){if(['rejected','cancelled'].includes(b.status))return`<div class="steps"><span class="c">${LBL[b.status]}</span></div>`;
-const i=FLOW.indexOf(b.status==='negotiating'?'quoted':b.status);return`<div class="steps">${FLOW.map((s,k)=>`<span class="${k<i?'d':k==i?'c':''}">${LBL[s]}</span>`).join('')}</div>${b.status==='negotiating'?'<div class="mut">Customer asked for a revised quote.</div>':''}`}
-function verTag(w){return w.ver=='Demo verified'?'<span class="tag ok">Sample verification (demo) – no real Aadhaar check</span>':w.ver=='Unverified'?'<span class="tag warn">Unverified – self-registered</span>':'<span class="tag demo">Demo profile – not a real person</span>'}
-function total(q){return q.labor+q.mat+q.travel}
-function fmtW(b){return b.when=='ASAP'?'As soon as possible (urgent)':new Date(b.when).toLocaleString('en-IN',{dateStyle:'medium',timeStyle:'short'})}
-function table(q){return`<table><tr><td>Labour</td><td>${R(q.labor)}</td></tr><tr><td>Estimated materials</td><td>${R(q.mat)}</td></tr><tr><td>Travel</td><td>${R(q.travel)}</td></tr><tr class="tot"><td>Total estimate</td><td>${R(total(q))}</td></tr></table>`}
-function ini(n){return n.split(' ').filter(Boolean).map(x=>x[0]).slice(0,2).join('').toUpperCase()}
-function wcard(w){const h=Object.keys(CATS).indexOf(w.cat)*45;return`<div class="card wc"><div class="av" style="--h:${h}" aria-hidden="true">${esc(ini(w.name))}</div><div class="wm"><div class="row sp"><h3>${esc(w.name)}</h3><span class="tag ${w.avail?'ok':''}"><span class="dot"></span>${w.avail?'Available':'Busy'}</span></div>
-<div class="mut">${CATS[w.cat]} ${esc(w.cat)} · ${esc(w.loc)} · ${w.exp} yrs</div></div>
-<div class="full"><p>${esc(w.skills)}</p><div class="price"><b>${R(w.rate)}</b>/hr <span class="mut">+ ${R(w.travel)} travel</span></div>
-<div>${w.rc?`★ ${w.rating.toFixed(1)} <span class="mut">(${w.rc}${w.demo?' demo ratings':' ratings'})</span>`:'<span class="mut">No ratings yet</span>'}</div><div style="margin:.5rem 0">${verTag(w)}</div>
-<a class="btn alt sm" href="#worker/${w.id}">View profile</a></div></div>`}
-/* ---------- views ---------- */
-function home(){return`<section class="hero"><div><h1>Know the price before the work starts.</h1><p>Find nearby electricians, plumbers, cleaners and more. Workers set their own availability and send itemised quotes. You approve before anything begins.</p>
-<div class="row"><a class="btn" href="#find">Find a worker</a><a class="btn alt" href="#work">I am a worker</a></div></div>
-<div class="card"><h3>Sample quote: ceiling fan repair</h3>${table({labor:350,mat:120,travel:40})}<p class="mut">Example only. Real quotes come from workers in this demo.</p></div></section>
-<h2>Services</h2><div class="grid svc">${Object.keys(CATS).map(c=>`<a class="card" style="text-decoration:none" href="#find/${encodeURIComponent(c)}"><div style="font-size:2rem">${CATS[c]}</div><b>${c}</b></a>`).join('')}</div>
-<h2 style="margin-top:1.5rem">How it works</h2><div class="grid"><div class="card"><b>1. Request</b><br>Describe the job, pick a time and locality. No street address or phone number is collected.</div><div class="card"><b>2. Quote</b><br>The worker accepts, then sends labour, materials and travel as separate lines. Ask for a revision if needed.</div><div class="card"><b>3. Approve and review</b><br>Approve the quote, track status, and review after the demo job is completed.</div></div>
-<div class="card" style="margin-top:1rem"><b>Cancellation rules:</b> free to cancel before you approve a quote. After approval, cancel only by reporting an issue so the worker is informed. Complaints are reviewed on the <a href="#admin">admin page</a>.</div>`}
-function find(arg){const p=new URLSearchParams(arg||'');const f={q:p.get('q')||'',cat:p.get('cat')||'',loc:p.get('loc')||'',av:p.get('av')||'',max:p.get('max')||''};
-return`<h2>Find a worker</h2><form class="card" onsubmit="event.preventDefault();filt()"><div class="grid">
-<div><label for="fq">Search skills or name</label><input id="fq" value="${esc(f.q)}"></div>
-<div><label for="fc">Category</label><select id="fc"><option value="">All</option>${Object.keys(CATS).map(c=>`<option ${c==f.cat?'selected':''}>${c}</option>`).join('')}</select></div>
-<div><label for="fl">Locality</label><select id="fl"><option value="">All</option>${LOCS.map(c=>`<option ${c==f.loc?'selected':''}>${c}</option>`).join('')}</select></div>
-<div><label for="fm">Max labour rate per hour (₹)</label><input id="fm" type="number" min="0" value="${esc(f.max)}"></div></div>
-<label><input id="fa" type="checkbox" style="width:auto" ${f.av?'checked':''}> Available now only</label><button class="btn" style="margin-top:.6rem">Apply filters</button> <a class="btn alt" href="#find">Clear</a></form>
-<div id="res" style="margin-top:1rem">${(()=>{if(loading)return'<p>Loading workers…</p>';const l=S.workers.filter(w=>!w.hidden&&(!f.cat||w.cat==f.cat)&&(!f.loc||w.loc==f.loc)&&(!f.av||w.avail)&&(!f.max||w.rate<=+f.max)&&(!f.q||(w.name+w.skills+w.cat).toLowerCase().includes(f.q.toLowerCase())));
-return l.length?`<p class="mut">${l.length} worker(s) found</p><div class="grid">${l.map(wcard).join('')}</div>`:'<div class="card"><b>No workers match.</b><br>Try another locality or clear the filters.</div>'})()}</div>`}
-function filt(){const p=new URLSearchParams();[['q','fq'],['cat','fc'],['loc','fl'],['max','fm']].forEach(([k,i])=>{const v=$('#'+i).value.trim();if(v)p.set(k,v)});if($('#fa').checked)p.set('av',1);location.hash='find/'+p}
-function profile(id){const w=W(id);if(!w)return'<div class="card">Worker not found. <a href="#find">Back to search</a></div>';
-const rv=S.bookings.filter(b=>b.wid==id&&b.review);
-return`<a href="#find">← Back</a><div class="card" style="margin-top:.6rem"><h2>${CATS[w.cat]} ${esc(w.name)}</h2><div class="row">${verTag(w)}<span class="tag ${w.avail?'ok':''}">${w.avail?'Available':'Busy'}</span></div>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>SevaSetu – Trust for every home, Work for every hand</title>
+  <link rel="icon" href="assets/favicon-32.png">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#1F7A70">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;600;800&family=Outfit:wght@700;800&family=Pacifico&display=swap"
+    rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" crossorigin="">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js" crossorigin=""></script>
+  <style>
+    :root {
+      --bg: #f6faf9;
+      --card: #fff;
+      --ink: #15302c;
+      --mut: #4f6761;
+      --line: #d6e4e0;
+      --acc: #F2A66B;
+      --soft: #fdeedd;
+      --ok: #12805f;
+      --bad: #b3261e;
+      --pri: #1F7A70;
+      --onpri: #fff;
+      --sh: 0 1px 2px rgba(16, 35, 32, .07);
+      box-sizing: border-box;
+      padding-top: env(safe-area-inset-top, 0px);
+      padding-bottom: env(safe-area-inset-bottom, 0px)
+    }
+
+    [hidden] {
+      display: none !important
+    }
+
+    * {
+      box-sizing: border-box
+    }
+
+    html {
+      scroll-padding-top: env(safe-area-inset-top, 0px);
+      -webkit-text-size-adjust: 100%
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font: 400 18px/1.55 Mukta, system-ui, -apple-system, "Segoe UI", sans-serif
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0 0 auto;
+      height: env(safe-area-inset-top, 0px);
+      background: var(--card);
+      z-index: 10
+    }
+
+    h1,
+    h2,
+    h3 {
+      line-height: 1.15;
+      margin: 0 0 .5rem;
+      font-weight: 800
+    }
+
+    h1 {
+      font-size: clamp(2.1rem, 7vw, 3.6rem);
+      letter-spacing: -.01em
+    }
+
+    h2 {
+      font-size: 1.75rem
+    }
+
+    h3 {
+      font-size: 1.2rem
+    }
+
+    a {
+      color: var(--pri);
+      font-weight: 600
+    }
+
+    header {
+      background: var(--card);
+      border-bottom: 1px solid var(--line);
+      position: sticky;
+      top: env(safe-area-inset-top, 0px);
+      z-index: 9
+    }
+
+    .bar {
+      max-width: 1060px;
+      margin: auto;
+      padding: .55rem 1rem;
+      display: flex;
+      gap: .5rem;
+      align-items: center;
+      flex-wrap: wrap
+    }
+
+    .logo {
+      font-weight: 800;
+      font-size: 1.5rem;
+      text-decoration: none;
+      color: var(--ink);
+      margin-right: .6rem
+    }
+
+    .logo span {
+      color: var(--pri)
+    }
+
+    nav {
+      display: flex;
+      gap: .25rem;
+      flex-wrap: wrap
+    }
+
+    nav a {
+      padding: .45rem .8rem;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 600;
+      color: var(--mut);
+      display: flex;
+      align-items: center;
+      gap: .4rem
+    }
+
+    nav a.on {
+      background: var(--soft);
+      color: var(--ink)
+    }
+
+    #nav {
+      margin-left: auto
+    }
+
+    #nav a {
+      font-size: .92rem;
+      padding: .35rem .6rem
+    }
+
+    #tabs i {
+      display: none;
+      font-style: normal
+    }
+
+    main {
+      max-width: 1060px;
+      margin: auto;
+      padding: 1.2rem 1rem 3rem
+    }
+
+    .demo {
+      background: var(--soft);
+      border-bottom: 1px solid var(--acc);
+      text-align: center;
+      font-size: .9rem;
+      padding: .4rem 1rem
+    }
+
+    .grid {
+      display: grid;
+      gap: 1rem;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr))
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 1.1rem;
+      box-shadow: var(--sh)
+    }
+
+    a.card {
+      color: var(--ink);
+      transition: border-color .15s
+    }
+
+    a.card:hover {
+      border-color: var(--pri)
+    }
+
+    a.card:active {
+      background: var(--soft)
+    }
+
+    .row {
+      display: flex;
+      gap: .6rem;
+      flex-wrap: wrap;
+      align-items: center
+    }
+
+    .sp {
+      justify-content: space-between
+    }
+
+    .btn {
+      font: inherit;
+      font-weight: 700;
+      border: 2px solid var(--pri);
+      background: var(--pri);
+      color: var(--onpri);
+      border-radius: 12px;
+      padding: .6rem 1.1rem;
+      min-height: 48px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center
+    }
+
+    .btn:active {
+      transform: scale(.98)
+    }
+
+    .btn.alt {
+      background: transparent;
+      color: var(--ink);
+      border-color: var(--line)
+    }
+
+    .btn.bad {
+      background: transparent;
+      color: var(--bad);
+      border-color: var(--bad)
+    }
+
+    .btn.sm {
+      padding: .3rem .8rem;
+      font-size: .95rem;
+      min-height: 42px
+    }
+
+    :focus-visible {
+      outline: 3px solid var(--acc);
+      outline-offset: 2px
+    }
+
+    label {
+      display: block;
+      font-weight: 600;
+      font-size: .98rem;
+      margin: .8rem 0 .25rem
+    }
+
+    input,
+    select,
+    textarea {
+      font: inherit;
+      font-size: 1rem;
+      width: 100%;
+      min-height: 48px;
+      padding: .6rem .75rem;
+      border: 1.5px solid var(--line);
+      border-radius: 12px;
+      background: var(--bg);
+      color: var(--ink)
+    }
+
+    textarea {
+      min-height: 5rem
+    }
+
+    input[type=checkbox] {
+      min-height: 0;
+      width: 1.3rem;
+      height: 1.3rem;
+      accent-color: var(--pri);
+      vertical-align: middle;
+      margin-right: .5rem
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      font-size: .85rem;
+      font-weight: 600;
+      padding: .1rem .6rem;
+      border-radius: 99px;
+      border: 1px solid var(--line);
+      color: var(--mut)
+    }
+
+    .tag.ok {
+      color: var(--ok);
+      border-color: var(--ok)
+    }
+
+    .tag.warn {
+      color: var(--bad);
+      border-color: var(--bad)
+    }
+
+    .tag.demo {
+      background: var(--soft);
+      color: var(--ink);
+      border-color: var(--acc)
+    }
+
+    .dot {
+      width: .6rem;
+      height: .6rem;
+      border-radius: 50%;
+      background: var(--mut);
+      display: inline-block;
+      margin-right: .4rem
+    }
+
+    .tag.ok .dot {
+      background: var(--ok)
+    }
+
+    .mut {
+      color: var(--mut);
+      font-size: .95rem
+    }
+
+    .err {
+      color: var(--bad);
+      font-size: .95rem;
+      min-height: 1.2em
+    }
+
+    .hero {
+      display: grid;
+      gap: 1.5rem;
+      grid-template-columns: 1.2fr 1fr;
+      align-items: center;
+      padding: 1rem 0 1.5rem
+    }
+
+    .hero>.card {
+      border-top: 6px solid var(--acc)
+    }
+
+    @media(max-width:760px) {
+      .hero {
+        grid-template-columns: 1fr
+      }
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-variant-numeric: tabular-nums
+    }
+
+    td,
+    th {
+      padding: .5rem 0;
+      text-align: left;
+      border-bottom: 1px dashed var(--line)
+    }
+
+    td:last-child,
+    th:last-child {
+      text-align: right
+    }
+
+    .tot td {
+      font-weight: 800;
+      font-size: 1.15rem;
+      border-bottom: 0;
+      border-top: 2px solid var(--ink)
+    }
+
+    .stat {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--pri)
+    }
+
+    .steps {
+      display: flex;
+      gap: .3rem;
+      flex-wrap: wrap;
+      margin: .6rem 0
+    }
+
+    .steps span {
+      font-size: .82rem;
+      padding: .2rem .6rem;
+      border-radius: 8px;
+      background: var(--bg);
+      color: var(--mut)
+    }
+
+    .steps .d {
+      background: var(--ok);
+      color: #fff
+    }
+
+    .steps .c {
+      background: var(--acc);
+      color: #14213d;
+      font-weight: 700
+    }
+
+    .wc {
+      display: grid;
+      grid-template-columns: 56px 1fr;
+      gap: .2rem .85rem;
+      align-content: start
+    }
+
+    .wc .wm {
+      min-width: 0
+    }
+
+    .wc .full {
+      grid-column: 1/-1
+    }
+
+    .wc h3 {
+      margin: 0
+    }
+
+    .wc p {
+      margin: .3rem 0
+    }
+
+    .av {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      font-size: 1.2rem;
+      background: hsl(var(--h) 55% 88%);
+      color: hsl(var(--h) 60% 22%)
+    }
+
+    .price {
+      margin: .3rem 0
+    }
+
+    .price b {
+      font-size: 1.5rem;
+      font-weight: 800
+    }
+
+    details summary {
+      cursor: pointer;
+      min-height: 44px;
+      display: flex;
+      align-items: center
+    }
+
+    #toast {
+      position: fixed;
+      left: 50%;
+      bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
+      transform: translateX(-50%);
+      background: var(--pri);
+      color: var(--onpri);
+      font-weight: 600;
+      padding: .7rem 1.1rem;
+      border-radius: 12px;
+      display: none;
+      z-index: 20;
+      max-width: 90%
+    }
+
+    @media(max-width:760px) {
+      #tabs {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 12;
+        background: var(--card);
+        border-top: 1px solid var(--line);
+        padding: .35rem .5rem calc(.35rem + env(safe-area-inset-bottom, 0px));
+        gap: .25rem;
+        flex-wrap: nowrap
+      }
+
+      #tabs a {
+        flex: 1;
+        flex-direction: column;
+        gap: 0;
+        padding: .35rem .2rem;
+        font-size: .75rem;
+        text-align: center;
+        justify-content: center;
+        min-height: 56px
+      }
+
+      #tabs i {
+        display: block;
+        font-size: 1.35rem;
+        line-height: 1.2
+      }
+
+      body.hastabs main {
+        padding-bottom: 6.5rem
+      }
+
+      body.hastabs #toast {
+        bottom: calc(5.5rem + env(safe-area-inset-bottom, 0px))
+      }
+
+      #nav {
+        margin-left: auto
+      }
+    }
+
+    form.card>.grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 0 .7rem
+    }
+
+    form.card>.grid>div:first-child {
+      grid-column: 1/-1
+    }
+
+    .svc {
+      grid-template-columns: repeat(4, 1fr)
+    }
+
+    @media(max-width:760px) {
+      .svc {
+        grid-template-columns: 1fr 1fr
+      }
+    }
+
+    @media(min-width:761px) {
+      form.card>.grid {
+        grid-template-columns: 2fr 1fr 1fr 1fr
+      }
+
+      form.card>.grid>div:first-child {
+        grid-column: auto
+      }
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: .55rem;
+      color: var(--ink);
+      text-decoration: none;
+      font-weight: 400
+    }
+
+    .logo .mk {
+      width: 38px;
+      height: 38px;
+      flex: none
+    }
+
+    .wm {
+      display: flex;
+      align-items: baseline;
+      line-height: 1.1
+    }
+
+    .sv {
+      font-family: Outfit, Mukta, system-ui, sans-serif;
+      font-weight: 800;
+      letter-spacing: -.02em;
+      color: var(--ink)
+    }
+
+    .st {
+      font-family: Pacifico, cursive;
+      font-weight: 400;
+      color: #25B8A8;
+      margin-left: 2px
+    }
+
+    .logo .sv {
+      font-size: 1.45rem
+    }
+
+    .logo .st {
+      font-size: 1.3rem
+    }
+
+    .lkb {
+      display: flex;
+      align-items: center;
+      gap: .8rem
+    }
+
+    .lkb .mk {
+      width: 64px;
+      height: 64px;
+      flex: none
+    }
+
+    .lkb .sv {
+      font-size: 2.6rem
+    }
+
+    .lkb .st {
+      font-size: 2.3rem
+    }
+
+    .mt {
+      font-family: Outfit, Mukta, system-ui, sans-serif;
+      font-weight: 700;
+      font-size: 1.05rem;
+      margin-top: .7rem;
+      color: var(--ink)
+    }
+
+    @media(max-width:760px) {
+      .logo .st {
+        font-size: 1.2rem
+      }
+
+      .lkb .mk {
+        width: 52px;
+        height: 52px
+      }
+
+      .lkb .sv {
+        font-size: 2.1rem
+      }
+
+      .lkb .st {
+        font-size: 1.9rem
+      }
+    }
+
+    @media(prefers-reduced-motion:reduce) {
+      * {
+        transition: none !important
+      }
+    }
+
+    /* Map styles */
+    #map-container {
+      position: relative;
+      width: 100%;
+      height: 400px;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: var(--card);
+      box-shadow: var(--sh);
+      z-index: 1
+    }
+
+    @media(max-width:600px) {
+      #map-container {
+        height: 330px
+      }
+    }
+
+    .map-badge-bar {
+      display: flex;
+      gap: .5rem;
+      align-items: center;
+      flex-wrap: wrap;
+      margin: .6rem 0
+    }
+
+    .map-pin {
+      background: var(--pri);
+      color: #fff;
+      border-radius: 50%;
+      width: 38px;
+      height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, .25);
+      border: 2.5px solid #fff;
+      cursor: pointer
+    }
+
+    .map-pin.busy {
+      background: #718096
+    }
+
+    .leaflet-popup-content-wrapper {
+      border-radius: 14px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, .18);
+      font-family: inherit
+    }
+
+    .leaflet-popup-content {
+      margin: 10px 12px;
+      line-height: 1.4
+    }
+
+    /* Task chips */
+    .chips {
+      display: flex;
+      gap: .3rem;
+      flex-wrap: wrap;
+      margin: .3rem 0
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      font-size: .78rem;
+      font-weight: 600;
+      padding: .15rem .55rem;
+      border-radius: 99px;
+      background: var(--bg);
+      border: 1px solid var(--line);
+      color: var(--mut)
+    }
+
+    .chip.ok {
+      background: #e8f5f0;
+      border-color: var(--ok);
+      color: var(--ok)
+    }
+
+    /* House-help section banner */
+    .hh-banner {
+      background: linear-gradient(135deg, #1F7A70 0%, #25B8A8 100%);
+      color: #fff;
+      border-radius: 16px;
+      padding: 1.2rem;
+      margin-bottom: 1rem
+    }
+
+    .hh-banner h2 {
+      color: #fff;
+      margin-bottom: .3rem
+    }
+
+    .hh-banner .mut {
+      color: rgba(255, 255, 255, .8)
+    }
+
+    /* Safety note */
+    .safety-note {
+      background: #fff8f0;
+      border: 1.5px solid var(--acc);
+      border-radius: 12px;
+      padding: .7rem 1rem;
+      font-size: .9rem;
+      margin: .5rem 0
+    }
+
+    /* Task checklist group */
+    .task-group {
+      margin: .7rem 0
+    }
+
+    .task-group h4 {
+      font-size: .95rem;
+      font-weight: 700;
+      color: var(--mut);
+      margin: 0 0 .3rem;
+      text-transform: uppercase;
+      letter-spacing: .04em
+    }
+
+    .task-check-row {
+      display: flex;
+      align-items: center;
+      gap: .4rem;
+      padding: .2rem 0
+    }
+
+    .task-check-row input[type=checkbox] {
+      flex: none
+    }
+
+    .task-check-row label {
+      margin: 0;
+      font-weight: 400;
+      font-size: .95rem
+    }
+  </style>
+</head>
+
+<body>
+  <div class="demo"><b>Demo mode:</b> sample data saved only in this browser. No real workers, payments, verification or
+    bookings.</div>
+  <header>
+    <div class="bar"><a class="logo" href="#home" aria-label="SevaSetu home"><svg class="mk" viewBox="0 0 76 76"
+          aria-hidden="true">
+          <rect width="76" height="76" rx="20" fill="#1F7A70" />
+          <path d="M14 50 Q38 8 62 50" fill="none" stroke="#FFFFFF" stroke-width="7" stroke-linecap="round" />
+          <rect x="12" y="50" width="52" height="7" rx="3.5" fill="#F2A66B" />
+        </svg><span class="wm"><span class="sv">Seva</span><span class="st">Setu</span></span></a>
+      <nav id="tabs" aria-label="Main" hidden></nav>
+      <nav id="nav" aria-label="More"></nav>
+    </div>
+  </header>
+  <main id="app" aria-live="polite"></main>
+  <div id="toast" role="status"></div>
+  <script>
+    /* ============================================================
+       CONSTANTS & CATEGORIES
+       ============================================================ */
+    const CATS = {
+      'House help': '🧹',
+      Electrician: '⚡',
+      Plumber: '🚰',
+      Painter: '🎨',
+      Carpenter: '🪚',
+      'Appliance repair': '🛠️'
+    };
+    const PRIMARY_CATS = ['House help', 'Electrician', 'Plumber', 'Painter', 'Carpenter', 'Appliance repair'];
+    const CAT_DESC = {
+      'House help': 'Maid, cook, senior care, baby care & more',
+      Electrician: 'Fan, wiring, switches & inverters',
+      Plumber: 'Taps, pipes, leaks & tank fittings',
+      Painter: 'Walls, touch-ups & waterproofing',
+      Carpenter: 'Doors, furniture, locks & repairs',
+      'Appliance repair': 'Washing machine, fridge & mixer'
+    };
+    const LOCS = ['North Colony', 'Market Road', 'Lake View', 'Station Area'];
+
+    /* Task definitions for House help (Task C) */
+    const HH_TASK_GROUPS = {
+      'Daily chores': ['Dish washing', 'Sweeping and mopping', 'Clothes washing', 'Clothes drying and folding', 'Ironing', 'Bathroom cleaning', 'Kitchen cleaning', 'Dusting', 'Utensil cleaning', 'Grocery shopping'],
+      'Cooking': ['Cook full meals', 'Tiffin / meal prep', 'Breakfast only', 'Snacks and tea', 'Vegetarian only'],
+      'Senior care': ['Senior care – companionship, medicine reminders, help with walking and bathing, hospital visits'],
+      'Baby care': ['Baby sitting (day)', 'Baby sitting (night)', 'Child pick-up and drop', 'Feeding and play']
+    };
+    // Flat list for convenience
+    const ALL_HH_TASKS = Object.values(HH_TASK_GROUPS).flat();
+    // Tasks that trigger safety note
+    const SAFETY_TASKS = ['Senior care – companionship, medicine reminders, help with walking and bathing, hospital visits', 'Baby sitting (day)', 'Baby sitting (night)'];
+
+    /* ============================================================
+       I18N – English + Hindi only (Task G: Bengali removed)
+       ============================================================ */
+    const I18N = {
+      en: {
+        app_tagline: 'Trust for every home, Work for every hand.',
+        hero_h: 'Know the price before the work starts.',
+        hero_p: 'Find nearby electricians, plumbers, house help and more. Workers set their own availability and send itemised quotes. You approve before anything begins.',
+        find_btn: 'Find a worker',
+        work_btn: 'I am a worker',
+        services: 'Services',
+        how_it_works: 'How it works',
+        step1_t: '1. Request',
+        step1_d: 'Describe the job, pick a time and locality. No street address or phone number is collected.',
+        step2_t: '2. Quote',
+        step2_d: 'The worker accepts, then sends labour, materials and travel as separate lines. Ask for a revision if needed.',
+        step3_t: '3. Approve and review',
+        step3_d: 'Approve the quote, track status, and review after the demo job is completed.',
+        tab_home: 'Home',
+        tab_find: 'Find',
+        tab_hh: 'House Help',
+        tab_map: 'Map',
+        tab_cust: 'Bookings',
+        tab_work: 'My jobs',
+        tab_impact: 'Impact',
+        tab_join: 'Join',
+        tab_about: 'About',
+        demo_bar: 'Demo mode: sample data saved only in this browser. No real workers, payments, verification or bookings.',
+        hh_title: 'House Help',
+        hh_sub: 'Maids, cooks, senior care, baby care & more – all in one place.',
+        hh_daily: 'Daily chores',
+        hh_cooking: 'Cooking',
+        hh_senior: 'Senior care',
+        hh_baby: 'Baby care',
+        tasks_needed: 'Tasks you need',
+        safety_note: '⚠️ Meet the worker first. Keep emergency numbers handy. Demo profiles are not verified.',
+        senior_note: 'Not a replacement for trained medical care.',
+        verification_pending: 'Verification pending'
+      },
+      hi: {
+        app_tagline: 'हर घर का भरोसा, हर हाथ को काम।',
+        hero_h: 'काम शुरू होने से पहले तय दाम जानें।',
+        hero_p: 'अपने आस-पास इलेक्ट्रीशियन, प्लंबर, घरेलू सहायिका (House help) और अन्य कामगार ढूंढें। कामगार अपनी उपलब्धता तय करते हैं और पारदर्शी रेट देते हैं।',
+        find_btn: 'कामगार ढूंढें',
+        work_btn: 'मैं कामगार हूँ',
+        services: 'सेवाएं',
+        how_it_works: 'यह कैसे काम करता है',
+        step1_t: '1. अनुरोध करें',
+        step1_d: 'काम बताएं, समय और इलाका चुनें। आपका पूरा पता या फोन नंबर नहीं मांगा जाता।',
+        step2_t: '2. कोटेशन',
+        step2_d: 'कामगार लेबर, सामग्री और यात्रा शुल्क का ब्योरा भेजते हैं। यदि आवश्यक हो तो संशोधन मांगें।',
+        step3_t: '3. स्वीकृति और समीक्षा',
+        step3_d: 'दाम मंजूर करें, काम पूरा होने पर समीक्षा और रेटिंग दें।',
+        tab_home: 'होम',
+        tab_find: 'खोजें',
+        tab_hh: 'घरेलू सहायता',
+        tab_map: 'मैप',
+        tab_cust: 'बुकिंग',
+        tab_work: 'मेरे काम',
+        tab_impact: 'इम्पैक्ट',
+        tab_join: 'जुड़ें',
+        tab_about: 'बारे में',
+        demo_bar: 'डेमो मोड: डेटा केवल इस ब्राउज़र में सुरक्षित है। कोई वास्तविक कामगार या भुगतान नहीं।',
+        hh_title: 'घरेलू सहायता',
+        hh_sub: 'घरेलू कामगार, रसोइया, बुजुर्ग देखभाल, बच्चों की देखभाल – सब एक जगह।',
+        hh_daily: 'दैनिक काम',
+        hh_cooking: 'खाना पकाना',
+        hh_senior: 'बुजुर्ग देखभाल',
+        hh_baby: 'बच्चों की देखभाल',
+        tasks_needed: 'आपको क्या काम चाहिए',
+        safety_note: '⚠️ काम शुरू होने से पहले कामगार से मिलें। आपातकालीन नंबर तैयार रखें। डेमो प्रोफाइल सत्यापित नहीं हैं।',
+        senior_note: 'यह प्रशिक्षित चिकित्सा देखभाल का विकल्प नहीं है।',
+        verification_pending: 'सत्यापन प्रतीक्षित'
+      }
+    };
+    function t(k) { return (I18N[S && S.lang || 'en'] && I18N[S && S.lang || 'en'][k]) || I18N.en[k] || k; }
+    // Task G: toggleLang only toggles en/hi
+    function toggleLang() { S.lang = (S.lang === 'hi') ? 'en' : 'hi'; save(); render(); }
+
+    /* ============================================================
+       LOC COORDS for map
+       ============================================================ */
+    const LOC_COORDS = {
+      'North Colony': { lat: 12.9782, lng: 77.5915 },
+      'Market Road': { lat: 12.9695, lng: 77.5982 },
+      'Lake View': { lat: 12.9648, lng: 77.5892 },
+      'Station Area': { lat: 12.9772, lng: 77.6035 }
+    };
+
+    /* ============================================================
+       SEED WORKERS
+       Task E: 8-10 House help workers with varied tasks,
+       including 2 senior care + 2 baby care workers.
+       All marked Demo profile.
+       ============================================================ */
+    const SEED_W = [
+      // --- Non-House-help workers ---
+      { id: 'w1', name: 'Ravi Kumar', cat: 'Electrician', loc: 'North Colony', exp: 8, rate: 300, unit: 'per_hour', travel: 40, avail: true, skills: 'Fan, wiring, switchboards', rating: 4.6, rc: 31, ver: 'Demo profile', demo: true, hidden: false, tasks: [] },
+      { id: 'w3', name: 'Imran Shaikh', cat: 'Plumber', loc: 'Market Road', exp: 11, rate: 350, unit: 'per_hour', travel: 50, avail: true, skills: 'Leaks, taps, tank fittings, drainage', rating: 4.4, rc: 27, ver: 'Demo profile', demo: true, hidden: false, tasks: [] },
+      { id: 'w4', name: 'Mohan Das', cat: 'Painter', loc: 'Station Area', exp: 14, rate: 500, unit: 'per_day', travel: 60, avail: false, skills: 'Interior walls, waterproofing', rating: 4.5, rc: 19, ver: 'Demo profile', demo: true, hidden: false, tasks: [] },
+      { id: 'w5', name: 'Anita Joseph', cat: 'Carpenter', loc: 'North Colony', exp: 9, rate: 380, unit: 'per_hour', travel: 40, avail: true, skills: 'Doors, shelves, furniture repair', rating: 4.7, rc: 23, ver: 'Demo profile', demo: true, hidden: false, tasks: [] },
+      { id: 'w6', name: 'Karthik R', cat: 'Appliance repair', loc: 'Lake View', exp: 6, rate: 350, unit: 'per_visit', travel: 40, avail: true, skills: 'Washing machine, fridge, mixer', rating: 4.3, rc: 35, ver: 'Demo profile', demo: true, hidden: false, tasks: [] },
+      { id: 'w7', name: 'Latha Sundar', cat: 'Electrician', loc: 'Station Area', exp: 3, rate: 260, unit: 'per_hour', travel: 30, avail: true, skills: 'Lights, inverter wiring', rating: 4.1, rc: 8, ver: 'Demo profile', demo: true, hidden: false, tasks: [] },
+      { id: 'w8', name: 'Faizal Ahmed', cat: 'Plumber', loc: 'North Colony', exp: 2, rate: 280, unit: 'per_hour', travel: 30, avail: true, skills: 'Basic plumbing, bathroom fittings', rating: 0, rc: 0, ver: 'Unverified', demo: false, hidden: false, tasks: [] },
+      // --- House help workers (10 total) ---
+      {
+        id: 'w2', name: 'Selvi Devi', cat: 'House help', loc: 'Lake View', exp: 5, rate: 250, unit: 'per_visit', travel: 30, avail: true,
+        skills: 'Maid & deep cleaning: kitchens, bathrooms, floors', rating: 4.8, rc: 52, ver: 'Demo profile', demo: true, hidden: false,
+        tasks: ['Sweeping and mopping', 'Bathroom cleaning', 'Kitchen cleaning', 'Dusting', 'Utensil cleaning']
+      },
+      {
+        id: 'w9', name: 'Meena Kumari', cat: 'House help', loc: 'Lake View', exp: 7, rate: 180, unit: 'per_visit', travel: 20, avail: true,
+        skills: 'Maid: daily cleaning, utensils, laundry, dusting', rating: 4.5, rc: 14, ver: 'Demo profile', demo: true, hidden: false,
+        tasks: ['Dish washing', 'Sweeping and mopping', 'Clothes washing', 'Clothes drying and folding', 'Dusting', 'Utensil cleaning']
+      },
+      {
+        id: 'w10', name: 'Suresh Babu', cat: 'House help', loc: 'Market Road', exp: 10, rate: 300, unit: 'per_visit', travel: 20, avail: true,
+        skills: 'Cook: North & South Indian home meals, tiffin prep', rating: 4.6, rc: 12, ver: 'Demo profile', demo: true, hidden: false,
+        tasks: ['Cook full meals', 'Tiffin / meal prep', 'Breakfast only', 'Vegetarian only']
+      },
+      {
+        id: 'w11', name: 'Sunita Bai', cat: 'House help', loc: 'North Colony', exp: 6, rate: 200, unit: 'per_visit', travel: 25, avail: true,
+        skills: 'All-rounder maid: sweeping, veg prep, helper', rating: 4.7, rc: 29, ver: 'Demo profile', demo: true, hidden: false,
+        tasks: ['Sweeping and mopping', 'Dish washing', 'Utensil cleaning', 'Snacks and tea', 'Grocery shopping']
+      },
+      {
+        id: 'w12', name: 'Kalyani Rao', cat: 'House help', loc: 'Station Area', exp: 4, rate: 220, unit: 'per_visit', travel: 25, avail: true,
+        skills: 'Ironing, laundry, light cooking', rating: 4.3, rc: 9, ver: 'Demo profile', demo: true, hidden: false,
+        tasks: ['Ironing', 'Clothes washing', 'Clothes drying and folding', 'Breakfast only']
+      },
+      {
+        id: 'w13', name: 'Parvathi Nair', cat: 'House help', loc: 'North Colony', exp: 12, rate: 400, unit: 'per_day', travel: 30, avail: true,
+        skills: 'Senior care: companionship, medicine reminders, hospital escort', rating: 4.9, rc: 18, ver: 'Demo profile', demo: true, hidden: false,
+        tasks: ['Senior care – companionship, medicine reminders, help with walking and bathing, hospital visits']
+      },
+      {
+        id: 'w14', name: 'Rosy Thomas', cat: 'House help', loc: 'Lake View', exp: 8, rate: 350, unit: 'per_day', travel: 30, avail: true,
+        skills: 'Senior care and light housekeeping', rating: 4.6, rc: 11, ver: 'Demo profile', demo: true, hidden: false,
+        tasks: ['Senior care – companionship, medicine reminders, help with walking and bathing, hospital visits', 'Sweeping and mopping', 'Dusting']
+      },
+      {
+        id: 'w15', name: 'Deepa Menon', cat: 'House help', loc: 'Market Road', exp: 5, rate: 300, unit: 'per_day', travel: 35, avail: true,
+        skills: 'Baby sitting (day & night), feeding, child care', rating: 4.8, rc: 22, ver: 'Demo profile', demo: true, hidden: false,
+        tasks: ['Baby sitting (day)', 'Baby sitting (night)', 'Feeding and play']
+      },
+      {
+        id: 'w16', name: 'Jyothi Pillai', cat: 'House help', loc: 'Station Area', exp: 6, rate: 280, unit: 'per_day', travel: 30, avail: false,
+        skills: 'Baby sitting, child pick-up and drop, play activities', rating: 4.5, rc: 16, ver: 'Demo profile', demo: true, hidden: false,
+        tasks: ['Baby sitting (day)', 'Child pick-up and drop', 'Feeding and play']
+      },
+      {
+        id: 'w17', name: 'Geetha Iyer', cat: 'House help', loc: 'North Colony', exp: 9, rate: 260, unit: 'per_visit', travel: 20, avail: true,
+        skills: 'Full-service maid: cleaning, cooking, grocery', rating: 4.4, rc: 7, ver: 'Demo profile', demo: true, hidden: false,
+        tasks: ['Sweeping and mopping', 'Bathroom cleaning', 'Kitchen cleaning', 'Cook full meals', 'Grocery shopping', 'Dish washing']
+      }
+    ].map((w, i) => {
+      // Attach geo coordinates
+      const bGeo = LOC_COORDS[w.loc] || { lat: 12.9716, lng: 77.5946 };
+      const dLat = (((i % 5) - 2) * 0.0016);
+      const dLng = ((((i * 3) % 5) - 2) * 0.0016);
+      const distKm = (0.8 + (i % 4) * 0.3).toFixed(1);
+      const etaMin = 12 + (i % 4) * 5;
+      return {
+        ...w,
+        geo: {
+          lat: +(bGeo.lat + dLat).toFixed(4), lng: +(bGeo.lng + dLng).toFixed(4),
+          dist: distKm + ' km', eta: '~' + etaMin + ' min'
+        }
+      };
+    });
+
+    /* ============================================================
+       STATE & PERSISTENCE
+       ============================================================ */
+    let S, mem = false, loading = true;
+    function seed() { return { workers: SEED_W, bookings: [], reports: [], me: 'w1', n: 1, role: null, user: null, lang: 'en' }; }
+    try { S = JSON.parse(localStorage.getItem('kaamsetu') || 'null') || seed(); } catch (e) { S = seed(); mem = true; }
+    // Task G: fallback non-en/hi lang to English
+    if (!S.lang || !['en', 'hi'].includes(S.lang)) S.lang = 'en';
+    // Merge seed workers (preserve bookings etc. but add new fields)
+    SEED_W.forEach(sw => {
+      const ex = S.workers.find(x => x.id === sw.id);
+      if (!ex) {
+        S.workers.push({ ...sw });
+      } else {
+        // Migrate old category names
+        if (['Cleaner', 'Maid', 'Cook'].includes(ex.cat)) ex.cat = 'House help';
+        if (!ex.unit) ex.unit = sw.unit || 'per_hour';
+        if (!ex.geo) ex.geo = sw.geo;
+        if (!ex.tasks) ex.tasks = sw.tasks || [];
+      }
+    });
+    function save() { try { localStorage.setItem('kaamsetu', JSON.stringify(S)); } catch (e) { mem = true; } }
+
+    /* ============================================================
+       HELPERS
+       ============================================================ */
+    const $ = s => document.querySelector(s);
+    const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+    const R = n => '₹' + Number(n).toLocaleString('en-IN');
+    const W = id => S.workers.find(w => w.id === id);
+    const B = id => S.bookings.find(b => b.id === id);
+    function fmtUnit(u) { return u === 'per_visit' ? '/visit' : u === 'per_day' ? '/day' : '/hr'; }
+    function fmtUnitFull(u) { return u === 'per_visit' ? 'Per visit' : u === 'per_day' ? 'Per day' : 'Per hour'; }
+    function toast(m) { const el = $('#toast'); el.textContent = m; el.style.display = 'block'; clearTimeout(el._t); el._t = setTimeout(() => el.style.display = 'none', 2600); }
+    const FLOW = ['requested', 'accepted', 'quoted', 'approved', 'completed'];
+    const LBL = { requested: 'Requested', accepted: 'Accepted', quoted: 'Quote sent', negotiating: 'Negotiating', approved: 'Price agreed & approved', completed: 'Completed (demo)', rejected: 'Declined', cancelled: 'Cancelled' };
+
+    function steps(b) {
+      if (['rejected', 'cancelled'].includes(b.status)) return `<div class="steps"><span class="c">${LBL[b.status]}</span></div>`;
+      let roundTxt = '';
+      if (b.status === 'negotiating') roundTxt = ` (Counter ${b.quote?.round || 2}/3)`;
+      else if (b.status === 'quoted' && (b.quote?.round || 1) > 1) roundTxt = ` (Rev ${b.quote.round}/3)`;
+      else if (b.status === 'approved' && b.agreedPrice) roundTxt = ` (${R(b.agreedPrice.total)})`;
+      const i = FLOW.indexOf(b.status === 'negotiating' ? 'quoted' : b.status);
+      return `<div class="steps">${FLOW.map((s, k) => `<span class="${k < i ? 'd' : k === i ? 'c' : ''}">${LBL[s]}${k === i ? roundTxt : ''}</span>`).join('')}</div>` +
+        (b.status === 'negotiating' ? `<div class="mut">Counter-offer in negotiation (Round ${b.quote?.round || 2}/3).</div>` : '');
+    }
+    function verTag(w) {
+      return w.ver === 'Demo verified' ? '<span class="tag ok">Sample verification (demo) – no real Aadhaar check</span>'
+        : w.ver === 'Unverified' ? '<span class="tag warn">Unverified – self-registered</span>'
+          : '<span class="tag demo">Demo profile – not a real person</span>';
+    }
+    function total(q) { return q ? (Number(q.labor) || 0) + (Number(q.mat) || 0) + (Number(q.travel) || 0) : 0; }
+    function fmtW(b) { return b.when === 'ASAP' ? 'As soon as possible (urgent)' : new Date(b.when).toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short' }); }
+    function tableQ(q) { return `<table><tr><td>Base labour</td><td>${R(q.labor)}</td></tr><tr><td>Estimated materials / extras</td><td>${R(q.mat)}</td></tr><tr><td>Travel charge</td><td>${R(q.travel)}</td></tr><tr class="tot"><td>Total estimate</td><td>${R(total(q))}</td></tr></table>`; }
+    function ini(n) { return n.split(' ').filter(Boolean).map(x => x[0]).slice(0, 2).join('').toUpperCase(); }
+
+    /* Task chips helper: show first 3 tasks then "+N more" */
+    function taskChips(tasks, maxShow = 3) {
+      if (!tasks || tasks.length === 0) return '';
+      const show = tasks.slice(0, maxShow);
+      const rest = tasks.length - maxShow;
+      return `<div class="chips">${show.map(tk => `<span class="chip ok">${esc(tk)}</span>`).join('')}${rest > 0 ? `<span class="chip">+${rest} more</span>` : ''}</div>`;
+    }
+
+    /* Safety note for senior/baby tasks */
+    function hasSafetyTask(w) {
+      return w.tasks && w.tasks.some(tk => SAFETY_TASKS.includes(tk));
+    }
+
+    /* Worker card (universal) */
+    function wcard(w) {
+      const h = (PRIMARY_CATS.indexOf(w.cat) >= 0 ? PRIMARY_CATS.indexOf(w.cat) : 0) * 55;
+      const distBadge = w.geo ? `<span class="tag ok" style="font-size:.78rem">📍 ${esc(w.geo.dist)} · Available within ${esc(w.geo.eta || '~30 min')}</span> ` : '';
+      const safetyBadge = hasSafetyTask(w) && w.ver !== 'Demo verified'
+        ? `<span class="tag warn" style="font-size:.78rem">${t('verification_pending')}</span> ` : '';
+      return `<div class="card wc"><div class="av" style="--h:${h}" aria-hidden="true">${esc(ini(w.name))}</div><div class="wm"><div class="row sp"><h3>${esc(w.name)}</h3><span class="tag ${w.avail ? 'ok' : ''}"><span class="dot"></span>${w.avail ? 'Available' : 'Busy'}</span></div>
+<div class="mut">${CATS[w.cat] || '🛠️'} ${esc(w.cat)} · ${esc(w.loc)} · ${w.exp} yrs</div></div>
+<div class="full"><p>${esc(w.skills)}</p>${taskChips(w.tasks)}<div class="price"><b>${R(w.rate)}</b><span class="mut">${fmtUnit(w.unit || 'per_hour')}</span> <span class="mut" style="font-size:.85rem">+ ${R(w.travel)} travel</span></div>
+<div style="margin:.3rem 0">${distBadge}${safetyBadge}${w.rc ? `★ ${w.rating.toFixed(1)} <span class="mut">(${w.rc}${w.demo ? ' demo ratings' : ' ratings'})</span>` : '<span class="mut">No ratings yet</span>'}</div><div style="margin:.4rem 0">${verTag(w)}</div>
+<div class="row"><a class="btn alt sm" href="#worker/${w.id}">View profile</a><a class="btn alt sm" href="#book/${w.id}">Book now</a></div></div></div>`;
+    }
+
+    /* ============================================================
+       VIEWS
+       ============================================================ */
+
+    /* HOME */
+    function home() {
+      return `<section class="hero"><div><h1>${t('hero_h')}</h1><p>${t('hero_p')}</p>
+<div class="row"><a class="btn" href="#find">${t('find_btn')}</a><a class="btn alt" href="#work">${t('work_btn')}</a></div></div>
+<div class="card"><h3>Sample quote: ceiling fan repair</h3>${tableQ({ labor: 350, mat: 120, travel: 40 })}<p class="mut">Example only. Real quotes come from workers in this demo.</p></div></section>
+<h2>${t('services')}</h2><div class="grid svc">${PRIMARY_CATS.map(c => {
+        const isHH = c === 'House help';
+        return `<a class="card" style="text-decoration:none" href="${isHH ? '#hh' : ('#find/' + encodeURIComponent(c))}"><div style="font-size:2.2rem">${CATS[c]}</div><b>${c}</b><div class="mut" style="font-size:.85rem;margin-top:.2rem">${CAT_DESC[c] || ''}</div></a>`;
+      }).join('')}</div>
+<div class="card" style="margin-top:1rem;border-left:4px solid var(--pri)">
+  <div class="row" style="gap:.8rem"><span style="font-size:2rem">🧹</span><div><b>${t('hh_title')}</b><div class="mut">${t('hh_sub')}</div></div><a class="btn sm" href="#hh" style="margin-left:auto">Open →</a></div>
+</div>
+<h2 style="margin-top:1.5rem">${t('how_it_works')}</h2><div class="grid"><div class="card"><b>${t('step1_t')}</b><br>${t('step1_d')}</div><div class="card"><b>${t('step2_t')}</b><br>${t('step2_d')}</div><div class="card"><b>${t('step3_t')}</b><br>${t('step3_d')}</div></div>
+<div class="card" style="margin-top:1rem"><b>Cancellation rules:</b> free to cancel before you approve a quote. After approval, cancel only by reporting an issue so the worker is informed. Complaints are reviewed on the <a href="#admin">admin page</a>.</div>`;
+    }
+
+    /* FIND (all categories) */
+    function find(arg) {
+      const p = new URLSearchParams(arg || '');
+      const f = { q: p.get('q') || '', cat: p.get('cat') || '', loc: p.get('loc') || '', av: p.get('av') || '', max: p.get('max') || '' };
+      return `<div class="row sp" style="margin-bottom:.5rem"><h2>Find a worker</h2><a class="btn alt sm" href="#map">🗺️ View map</a></div>
+<form class="card" onsubmit="event.preventDefault();filt()"><div class="grid">
+<div><label for="fq">Search name, skill or category</label><input id="fq" value="${esc(f.q)}"></div>
+<div><label for="fc">Category</label><select id="fc"><option value="">All categories</option>${PRIMARY_CATS.map(c => `<option ${c === f.cat ? 'selected' : ''}>${c}</option>`).join('')}</select></div>
+<div><label for="fl">Locality</label><select id="fl"><option value="">All localities</option>${LOCS.map(c => `<option ${c === f.loc ? 'selected' : ''}>${c}</option>`).join('')}</select></div>
+<div><label for="fm">Max labour rate (₹)</label><input id="fm" type="number" min="0" value="${esc(f.max)}"></div></div>
+<label><input id="fa" type="checkbox" style="width:auto" ${f.av ? 'checked' : ''}> Available now only</label><button class="btn" style="margin-top:.6rem">Apply filters</button> <a class="btn alt" href="#find">Clear</a></form>
+<div class="row" style="margin-top:.8rem"><a class="btn alt sm" href="#hh">🧹 ${t('hh_title')} – specialist view</a></div>
+<div id="res" style="margin-top:1rem">${(() => {
+          if (loading) return '<p>Loading workers…</p>';
+          const list = S.workers.filter(w => !w.hidden
+            && (!f.cat || w.cat === f.cat || (f.cat === 'House help' && ['House help', 'Cleaner', 'Maid', 'Cook'].includes(w.cat)))
+            && (!f.loc || w.loc === f.loc)
+            && (!f.av || w.avail)
+            && (!f.max || w.rate <= +f.max)
+            && (!f.q || (w.name + ' ' + w.skills + ' ' + w.cat).toLowerCase().includes(f.q.toLowerCase())));
+          return list.length
+            ? `<p class="mut">${list.length} worker(s) found</p><div class="grid">${list.map(wcard).join('')}</div>`
+            : '<div class="card"><b>No workers match.</b><br>Try another category, locality or clear filters.</div>';
+        })()}</div>`;
+    }
+    function filt() { const p = new URLSearchParams();[['q', 'fq'], ['cat', 'fc'], ['loc', 'fl'], ['max', 'fm']].forEach(([k, i]) => { const v = $('#' + i).value.trim(); if (v) p.set(k, v); }); if ($('#fa').checked) p.set('av', 1); location.hash = 'find/' + p; }
+
+    /* HOUSE HELP (Task B) – dedicated section */
+    function hhPage(arg) {
+      const p = new URLSearchParams(arg || '');
+      const f = {
+        q: p.get('q') || '',
+        loc: p.get('loc') || '',
+        av: p.get('av') || '',
+        max: p.get('max') || '',
+        tasks: p.getAll('tk')   // task filter checkboxes
+      };
+      const GROUP_KEYS = Object.keys(HH_TASK_GROUPS);
+
+      const allHH = S.workers.filter(w => !w.hidden && w.cat === 'House help');
+      const list = allHH.filter(w =>
+        (!f.loc || w.loc === f.loc)
+        && (!f.av || w.avail)
+        && (!f.max || w.rate <= +f.max)
+        && (!f.q || (w.name + ' ' + w.skills).toLowerCase().includes(f.q.toLowerCase()))
+        && (f.tasks.length === 0 || f.tasks.every(tk => w.tasks && w.tasks.includes(tk)))
+      );
+
+      // Group workers by service type
+      const groups = [
+        { key: 'hh_daily', label: t('hh_daily'), tasks: HH_TASK_GROUPS['Daily chores'] },
+        { key: 'hh_cooking', label: t('hh_cooking'), tasks: HH_TASK_GROUPS['Cooking'] },
+        { key: 'hh_senior', label: t('hh_senior'), tasks: HH_TASK_GROUPS['Senior care'] },
+        { key: 'hh_baby', label: t('hh_baby'), tasks: HH_TASK_GROUPS['Baby care'] }
+      ];
+
+      const taskFilterHtml = GROUP_KEYS.map(grp => `
+    <div class="task-group">
+      <h4>${grp}</h4>
+      ${HH_TASK_GROUPS[grp].map(tk => `<div class="task-check-row"><input type="checkbox" id="htk_${esc(tk.replace(/\s/g, '_'))}" value="${esc(tk)}" ${f.tasks.includes(tk) ? 'checked' : ''}><label for="htk_${esc(tk.replace(/\s/g, '_'))}">${esc(tk)}</label></div>`).join('')}
+    </div>`).join('');
+
+      return `<div class="hh-banner"><h2>🧹 ${t('hh_title')}</h2><p class="mut">${t('hh_sub')}</p></div>
+<form class="card" onsubmit="event.preventDefault();filtHH()"><div class="grid">
+<div><label for="hhq">Search name or skill</label><input id="hhq" value="${esc(f.q)}"></div>
+<div><label for="hhl">Locality</label><select id="hhl"><option value="">All localities</option>${LOCS.map(c => `<option ${c === f.loc ? 'selected' : ''}>${c}</option>`).join('')}</select></div>
+<div><label for="hhm">Max rate (₹)</label><input id="hhm" type="number" min="0" value="${esc(f.max)}"></div></div>
+<label><input id="hha" type="checkbox" style="width:auto" ${f.av ? 'checked' : ''}> Available now only</label>
+<details style="margin-top:.6rem"><summary><b>Filter by tasks</b>${f.tasks.length > 0 ? ` <span class="tag ok">${f.tasks.length} active</span>` : ''}</summary>
+${taskFilterHtml}
+</details>
+<button class="btn" style="margin-top:.6rem">Apply filters</button> <a class="btn alt" href="#hh">Clear</a></form>
+<div style="margin-top:1rem">
+${list.length
+          ? `<p class="mut">${list.length} worker(s) found</p><div class="grid">${list.map(wcard).join('')}</div>`
+          : '<div class="card"><b>No workers match your filters.</b><br>Try clearing some filters or checking a different locality.</div>'}
+</div>
+<h3 style="margin-top:1.5rem">Browse by service type</h3>
+${groups.map(g => {
+            const gList = allHH.filter(w => g.tasks.some(tk => w.tasks && w.tasks.includes(tk)));
+            if (!gList.length) return '';
+            const isSafety = g.key === 'hh_senior' || g.key === 'hh_baby';
+            return `<details class="card" style="margin-bottom:.8rem" open>
+    <summary style="font-weight:700;font-size:1.1rem">${g.label} <span class="mut">(${gList.length})</span></summary>
+    ${isSafety ? `<div class="safety-note">${t('safety_note')}${g.key === 'hh_senior' ? ` <br><small>${t('senior_note')}</small>` : ''}</div>` : ''}
+    <div class="grid" style="margin-top:.6rem">${gList.map(wcard).join('')}</div>
+  </details>`;
+          }).join('')}`;
+    }
+    function filtHH() {
+      const p = new URLSearchParams();
+      const q = $('#hhq')?.value.trim(); if (q) p.set('q', q);
+      const l = $('#hhl')?.value; if (l) p.set('loc', l);
+      const m = $('#hhm')?.value; if (m) p.set('max', m);
+      if ($('#hha')?.checked) p.set('av', 1);
+      document.querySelectorAll('[id^="htk_"]:checked').forEach(el => p.append('tk', el.value));
+      location.hash = 'hh/' + p;
+    }
+
+    /* WORKER PROFILE */
+    function profile(id) {
+      const w = W(id);
+      if (!w) return '<div class="card">Worker not found. <a href="#find">Back to search</a></div>';
+      const rv = S.bookings.filter(b => b.wid === id && b.review);
+      const isHH = w.cat === 'House help';
+      const showSafety = hasSafetyTask(w);
+      return `<a href="${isHH ? '#hh' : '#find'}">← Back</a><div class="card" style="margin-top:.6rem"><h2>${CATS[w.cat] || '🛠️'} ${esc(w.name)}</h2><div class="row">${verTag(w)}<span class="tag ${w.avail ? 'ok' : ''}">${w.avail ? 'Available' : 'Busy'}</span></div>
 <p>${esc(w.cat)} in ${esc(w.loc)}. ${w.exp} years of experience claimed by the worker. Skills: ${esc(w.skills)}.</p>
-<p class="mut">Verification: ${w.ver=='Unverified'?'No documents checked.':w.ver=='Demo verified'?'Sample verification only. No real Aadhaar or identity check was done.':'Sample profile for the demo. SevaSetu has not checked identity, credentials or background.'}</p>
-<p><b>Indicative price:</b> labour ${R(w.rate)}/hr + travel ${R(w.travel)}. The final quote is set by the worker after seeing your request.</p>
+<p class="mut">Verification: ${w.ver === 'Unverified' ? 'No documents checked.' : w.ver === 'Demo verified' ? 'Sample verification only. No real Aadhaar or identity check was done.' : 'Sample profile for the demo. SevaSetu has not checked identity, credentials or background.'}</p>
+<p><b>Base rate:</b> ${R(w.rate)} ${fmtUnit(w.unit || 'per_hour')} + travel ${R(w.travel)}. The final itemised quote and counter-offers are agreed before work starts.</p>
+${w.tasks && w.tasks.length > 0 ? `<p><b>Offered tasks:</b></p>${taskChips(w.tasks, 20)}` : ''}
+${showSafety ? `<div class="safety-note">${t('safety_note')}</div>` : ''}
 <a class="btn" href="#book/${w.id}">Request this worker</a></div>
-<h3 style="margin-top:1rem">Reviews from this demo</h3>${rv.length?rv.map(b=>`<div class="card" style="margin-bottom:.5rem">★ ${b.review.r} <span class="mut">${esc(b.review.t)}</span></div>`).join(''):'<p class="mut">No reviews submitted in this demo yet.</p>'}`}
-function book(id){const w=W(id);if(!w)return'<div class="card">Worker not found.</div>';
-return`<a href="#worker/${id}">← Back</a><h2>Request ${esc(w.name)}</h2><form class="card" onsubmit="event.preventDefault();submitBook('${id}')">
-<label for="bd">What needs doing?</label><textarea id="bd" rows="3" placeholder="Example: Bedroom ceiling fan is slow and makes noise"></textarea>
-<label for="bl">Your locality (no street address needed)</label><select id="bl">${LOCS.map(l=>`<option ${l==w.loc?'selected':''}>${l}</option>`).join('')}</select>
+<h3 style="margin-top:1rem">Reviews from this demo</h3>${rv.length ? rv.map(b => `<div class="card" style="margin-bottom:.5rem">★ ${b.review.r} <span class="mut">${esc(b.review.t)}</span></div>`).join('') : '<p class="mut">No reviews submitted in this demo yet.</p>'}`;
+    }
+
+    /* BOOK */
+    function book(id) {
+      const w = W(id);
+      if (!w) return '<div class="card">Worker not found.</div>';
+      const isHH = w.cat === 'House help';
+      const hasTasks = isHH && w.tasks && w.tasks.length > 0;
+      const showSafety = hasSafetyTask(w);
+      const taskSection = hasTasks ? `
+    <label>${t('tasks_needed')} (tick all that apply)</label>
+    <div class="card" style="padding:.6rem;background:var(--bg)">${w.tasks.map(tk =>
+        `<div class="task-check-row"><input type="checkbox" class="bk-task" id="bkt_${esc(tk.replace(/\W/g, '_'))}" value="${esc(tk)}"><label for="bkt_${esc(tk.replace(/\W/g, '_'))}">${esc(tk)}</label></div>`
+      ).join('')}</div>
+    ${showSafety ? `<div class="safety-note">${t('safety_note')}</div>` : ''}
+    <label>Frequency</label>
+    <select id="bkfreq"><option value="one-time">One-time</option><option value="daily">Daily (recurring)</option><option value="weekly">Weekly (recurring)</option></select>` : '';
+      return `<a href="#worker/${id}">← Back</a><h2>Request ${esc(w.name)}</h2><form class="card" onsubmit="event.preventDefault();submitBook('${id}')">
+<label for="bd">What needs doing?</label><textarea id="bd" rows="3" placeholder="Example: Need maid for daily cleaning of 2-BHK"></textarea>
+<label for="bl">Your locality (no street address needed)</label><select id="bl">${LOCS.map(l => `<option ${l === w.loc ? 'selected' : ''}>${l}</option>`).join('')}</select>
+${taskSection}
 <label><input id="ba" type="checkbox" style="width:auto"> I need help as soon as possible (urgent)</label><label for="bw">Or choose a preferred time</label><input id="bw" type="datetime-local"><div class="err" id="be" role="alert"></div>
-<p class="mut">Your exact address and phone stay private. Share them directly only if you choose to, after a quote is approved.</p><button class="btn">Send request</button></form>`}
-function submitBook(id){const d=$('#bd').value.trim(),t=$('#ba').checked?'ASAP':$('#bw').value,w=W(id);let e='';
-if(d.length<10)e='Describe the job in at least 10 characters.';else if(!t)e='Pick a time, or tick as soon as possible.';else if(t!='ASAP'&&new Date(t)<new Date())e='Choose a time in the future.';
-if(e){$('#be').textContent=e;return}
-S.bookings.push({id:'b'+S.n++,wid:id,cat:w.cat,desc:d,loc:$('#bl').value,when:t,status:'requested',quote:null,review:null,report:null,created:new Date().toISOString()});save();toast('Request sent to '+w.name);location.hash='cust'}
-function cust(){const l=S.bookings.slice().reverse();
-return`<h2>My bookings <span class="tag demo">Demo customer</span></h2>${l.length?l.map(b=>{const w=W(b.wid);return`<div class="card" style="margin-bottom:.8rem"><div class="row sp"><h3>${CATS[b.cat]} ${esc(b.cat)} with ${esc(w.name)}</h3><span class="tag">${LBL[b.status]}</span></div>
-<div class="mut">${esc(b.loc)} · ${fmtW(b)}</div><p>${esc(b.desc)}</p>${steps(b)}
-${b.quote?`<h3>Quote${b.quote.v>1?' (revised v'+b.quote.v+')':''}</h3>${table(b.quote)}${b.quote.note?`<p class="mut">Worker note: ${esc(b.quote.note)}</p>`:''}`:''}
-${b.status=='quoted'?`<div class="row"><button class="btn" onclick="approve('${b.id}')">Approve quote</button></div><label for="rv${b.id}">Or ask for a revision</label><div class="row"><input id="rv${b.id}" placeholder="Example: Can materials be lower?" style="flex:1"><button class="btn alt" onclick="revise('${b.id}')">Ask revision</button></div>`:''}
-${['requested','accepted','quoted','negotiating'].includes(b.status)?`<button class="btn bad sm" style="margin-top:.5rem" onclick="setS('${b.id}','cancelled','Booking cancelled')">Cancel (free)</button>`:''}
-${b.status=='completed'&&!b.review?`<h3>Review this job</h3><div class="row"><select id="rr${b.id}" style="width:auto"><option>5</option><option>4</option><option>3</option><option>2</option><option>1</option></select><input id="rt${b.id}" placeholder="Short comment" style="flex:1"><button class="btn" onclick="review('${b.id}')">Submit review</button></div><div class="err" id="re${b.id}"></div>`:''}
-${b.review?`<p>Your review: ★ ${b.review.r} – ${esc(b.review.t)}</p>`:''}
-${b.report?`<p class="tag warn">Issue reported: ${esc(b.report.s)}</p>`:`${['approved','completed','accepted','quoted'].includes(b.status)?`<details style="margin-top:.5rem"><summary>Report an issue</summary><textarea id="ri${b.id}" rows="2" placeholder="What went wrong?"></textarea><button class="btn alt sm" onclick="report('${b.id}')">Send report</button><div class="err" id="rie${b.id}"></div></details>`:''}`}</div>`}).join(''):'<div class="card"><b>No bookings yet.</b><br><a href="#find">Find a worker</a> to make your first request.</div>'}`}
-function setS(id,s,m){B(id).status=s;save();toast(m||LBL[s]);render()}
-function approve(id){setS(id,'approved','Quote approved. The worker can start.')}
-function revise(id){const t=$('#rv'+id).value.trim();if(!t){toast('Write what you would like changed');return}const b=B(id);b.quote.ask=t;setS(id,'negotiating','Revision requested')}
-function review(id){const t=$('#rt'+id).value.trim();if(t.length<3){$('#re'+id).textContent='Add a short comment.';return}const b=B(id),w=W(b.wid),r=+$('#rr'+id).value;b.review={r,t};w.rating=(w.rating*w.rc+r)/(w.rc+1);w.rc++;save();toast('Review submitted');render()}
-function report(id){const t=$('#ri'+id).value.trim();if(t.length<10){$('#rie'+id).textContent='Describe the issue in at least 10 characters.';return}B(id).report={t,s:'Open',note:''};S.reports.push(id);save();toast('Report sent to admin');render()}
-function work(){const w=W(S.me),l=S.bookings.filter(b=>b.wid==w.id).reverse();const done=l.filter(b=>b.status=='completed'&&b.quote);const earn=done.reduce((a,b)=>a+total(b.quote),0);
-return`<h2>Worker dashboard</h2><div class="card"><div class="row sp"><div><label for="me">Demo sign-in as</label><select id="me" onchange="S.me=this.value;save();render()">${S.workers.map(x=>`<option value="${x.id}" ${x.id==S.me?'selected':''}>${esc(x.name)} (${x.cat})</option>`).join('')}</select></div>
-<div><label>Availability</label><button class="btn ${w.avail?'':'alt'}" onclick="W(S.me).avail=!W(S.me).avail;save();render()">${w.avail?'Available – tap to go busy':'Busy – tap to go available'}</button></div>
-<div><label for="rt">Labour rate per hour (₹)</label><div class="row"><input id="rt" type="number" min="0" value="${w.rate}" style="width:110px"><button class="btn alt sm" onclick="setRate()">Save</button></div></div></div>
-<div style="margin-top:.5rem">${verTag(w)}</div>${w.ver=='Unverified'?'<p class="err">Verify to accept jobs. <a href="#join">Start sample verification</a></p>':''}</div>
-<div class="grid" style="margin:1rem 0"><div class="card"><div class="stat">${R(earn)}</div>Demo earnings from ${done.length} completed demo job(s)<div class="mut">Not real income. No payments are processed.</div></div><div class="card"><div class="stat">${l.filter(b=>b.status=='requested').length}</div>New requests waiting</div></div>
-<h3>Job requests and history</h3>${l.length?l.map(b=>`<div class="card" style="margin-bottom:.8rem"><div class="row sp"><b>${esc(b.cat)} · ${esc(b.loc)}</b><span class="tag">${LBL[b.status]}</span></div><div class="mut">${fmtW(b)}</div><p>${esc(b.desc)}</p>${steps(b)}
-${b.quote?table(b.quote):''}${b.quote&&b.quote.ask?`<p class="mut">Customer asked: ${esc(b.quote.ask)}</p>`:''}
-${b.status=='requested'?`<div class="row"><button class="btn" onclick="acceptJob('${b.id}')">Accept</button><button class="btn bad" onclick="setS('${b.id}','rejected','Request declined')">Decline</button></div>`:''}
-${['accepted','negotiating'].includes(b.status)?`<h3>${b.status=='accepted'?'Send quote':'Send revised quote'}</h3><div class="grid" style="grid-template-columns:repeat(3,1fr)"><div><label for="ql${b.id}">Labour ₹</label><input id="ql${b.id}" type="number" min="0" value="${b.quote?b.quote.labor:w.rate}"></div><div><label for="qm${b.id}">Materials ₹</label><input id="qm${b.id}" type="number" min="0" value="${b.quote?b.quote.mat:0}"></div><div><label for="qt${b.id}">Travel ₹</label><input id="qt${b.id}" type="number" min="0" value="${b.quote?b.quote.travel:w.travel}"></div></div><label for="qn${b.id}">Note (what the materials are)</label><input id="qn${b.id}"><div class="err" id="qe${b.id}"></div><button class="btn" onclick="quote('${b.id}')">Send quote</button>`:''}
-${b.status=='approved'?`<button class="btn" onclick="setS('${b.id}','completed','Marked completed (demo)')">Mark job completed</button>`:''}</div>`).join(''):'<div class="card"><b>No requests yet.</b><br>Open the customer side, request this worker, then come back here.</div>'}
-<details class="card"><summary><b>Register a new worker profile</b></summary><form onsubmit="event.preventDefault();reg()"><label for="rn">Name</label><input id="rn"><label for="rc">Category</label><select id="rc2">${Object.keys(CATS).map(c=>`<option>${c}</option>`).join('')}</select><label for="rl">Locality served</label><select id="rl">${LOCS.map(c=>`<option>${c}</option>`).join('')}</select><label for="rs">Skills</label><input id="rs"><label for="re2">Years of experience</label><input id="re2" type="number" min="0" max="60"><label for="rr2">Labour rate per hour (₹)</label><input id="rr2" type="number" min="50"><div class="err" id="rg" role="alert"></div><button class="btn">Create profile</button><p class="mut">New profiles start as Unverified.</p></form></details>`}
-function setRate(){const v=+$('#rt').value;if(!(v>=50)){toast('Enter a rate of at least ₹50');return}W(S.me).rate=v;save();toast('Rate saved')}
-function quote(id){const l=+$('#ql'+id).value,m=+$('#qm'+id).value,t=+$('#qt'+id).value;if(!(l>0)||m<0||t<0||isNaN(m)||isNaN(t)){$('#qe'+id).textContent='Labour must be above 0. Materials and travel cannot be negative.';return}
-const b=B(id);b.quote={labor:l,mat:m,travel:t,note:$('#qn'+id).value.trim(),v:(b.quote?b.quote.v:0)+1};setS(id,'quoted','Quote sent to customer')}
-function reg(){const n=$('#rn').value.trim(),s=$('#rs').value.trim(),e=$('#re2').value,r=+$('#rr2').value;if(n.length<2||s.length<3||e===''||!(r>=50)){$('#rg').textContent='Fill every field. Rate must be at least ₹50.';return}
-const id='w'+(S.workers.length+1+Date.now()%1000);S.workers.push({id,name:n,cat:$('#rc2').value,loc:$('#rl').value,exp:+e,rate:r,travel:30,avail:true,skills:s,rating:0,rc:0,ver:'Unverified',demo:false,hidden:false});S.me=id;save();toast('Profile created as Unverified');render()}
-function impact(){const c=s=>S.bookings.filter(b=>s.includes(b.status)).length,rv=S.bookings.filter(b=>b.review);
-const ev=['requested','accepted','quoted','negotiating','approved','completed','rejected','cancelled'];
-return`<h2>Prototype impact dashboard</h2><p class="mut">Counts come only from actions taken in this browser demo. They are not real-world impact.</p><div class="grid">
-${[['Requests created',S.bookings.length],['Requests accepted',S.bookings.filter(b=>b.quote||['accepted','approved','completed'].includes(b.status)).length],['Quotes approved',S.bookings.filter(b=>['approved','completed'].includes(b.status)).length],['Completed demo bookings',c(['completed'])],['Reviews submitted',rv.length],['Issues reported',S.bookings.filter(b=>b.report).length]].map(x=>`<div class="card"><div class="stat">${x[1]}</div>${x[0]}</div>`).join('')}</div>
-<button class="btn alt" style="margin-top:1rem" onclick="if(confirm('Reset all demo data?')){localStorage.removeItem('kaamsetu');S=seed();render()}">Reset demo data</button>`}
-function admin(){const rs=S.bookings.filter(b=>b.report);
-return`<h2>Admin and safety <span class="tag demo">Demo – no login</span></h2><p class="mut">In production this page needs admin sign-in. Here it is open so judges can see the workflow.</p>
-<h3>Complaints</h3>${rs.length?rs.map(b=>`<div class="card" style="margin-bottom:.6rem"><b>${esc(b.cat)} with ${esc(W(b.wid).name)}</b> <span class="tag ${b.report.s=='Open'?'warn':'ok'}">${b.report.s}</span><p>${esc(b.report.t)}</p>${b.report.note?`<p class="mut">Resolution: ${esc(b.report.note)}</p>`:`<div class="row"><input id="rn${b.id}" placeholder="Resolution note" style="flex:1"><button class="btn sm" onclick="resolve('${b.id}')">Resolve</button></div>`}</div>`).join(''):'<div class="card">No complaints. Reports from customers appear here.</div>'}
-<h3>Listings</h3><div class="grid">${S.workers.map(w=>`<div class="card row sp"><span>${esc(w.name)}<br><span class="mut">${w.hidden?'Hidden from search':'Listed'}</span></span><button class="btn alt sm" onclick="W('${w.id}').hidden=!W('${w.id}').hidden;save();render()">${w.hidden?'Show':'Hide'}</button></div>`).join('')}</div>`}
-function resolve(id){const n=$('#rn'+id).value.trim();if(n.length<5){toast('Add a resolution note');return}B(id).report.s='Resolved';B(id).report.note=n;save();toast('Complaint resolved');render()}
-function about(){return`<h2>About this prototype</h2><div class="card"><p><b>Works:</b> search and filters, worker profiles, booking requests, accept or decline, itemised quotes, quote revision, approval, status tracking, completion, reviews, issue reports, admin resolution, worker registration, impact counts.</p><p><b>Not real:</b> sample workers, ratings and earnings. There is no backend, login, payment, identity or background check. Data lives in this browser's storage only.</p><p><b>Next steps:</b> Supabase or Firebase for shared data and sign-in, phone OTP, real document verification with consent, local-language support.</p></div>`}
-/* ---------- role choice and provider sign-up ---------- */
-let J={step:1,d:null,otp:'',tries:0};
-function welcome(){return`<section class="hero" style="grid-template-columns:1fr"><div><div class="lkb"><svg class="mk" viewBox="0 0 76 76" aria-hidden="true"><rect width="76" height="76" rx="20" fill="#1F7A70"/><path d="M14 50 Q38 8 62 50" fill="none" stroke="#FFFFFF" stroke-width="7" stroke-linecap="round"/><rect x="12" y="50" width="52" height="7" rx="3.5" fill="#F2A66B"/></svg><div class="wm"><span class="sv">Seva</span><span class="st">Setu</span></div></div><div class="mt">Trust for every home, Work for every hand.</div><h1 style="margin-top:1.2rem">Welcome to SevaSetu</h1><p>Choose how you want to use the app. You can switch any time.</p></div></section>
-<div class="grid"><div class="card"><h2>🏠 I need a service</h2><p>Find nearby workers and see a clear price before work starts.</p><form onsubmit="event.preventDefault();startCust()"><label for="cn">Your name</label><input id="cn"><label for="cl">Your locality</label><select id="cl">${LOCS.map(l=>`<option>${l}</option>`).join('')}</select><div class="err" id="ce" role="alert"></div><button class="btn">Continue as customer</button></form></div>
-<div class="card"><h2>🛠️ I provide a service</h2><p>List your skills, set your own rate and receive job requests. A sample verification step comes first.</p><a class="btn" href="#join">Continue as service provider</a></div></div>`}
-function startCust(){const n=$('#cn').value.trim();if(n.length<2){$('#ce').textContent='Enter your name.';return}S.role='customer';S.user={name:n,loc:$('#cl').value};save();location.hash='find'}
-function logout(){S.role=null;S.user=null;save();render()}
-function acceptJob(id){if(W(S.me).ver=='Unverified'){toast('Complete sample verification to accept jobs');location.hash='join';return}setS(id,'accepted','Request accepted. Send a quote next.')}
-function join(){if(J.step==2)return`<h2>Verify (sample)</h2><div class="card"><p class="tag demo">Demo code: <b>${J.otp}</b></p><p class="mut">In a real app this code goes to the mobile linked to Aadhaar. Here it is shown on screen because the verification is simulated.</p><label for="jo">Enter the 6-digit code</label><input id="jo" inputmode="numeric" maxlength="6"><div class="err" id="je" role="alert"></div><button class="btn" onclick="joinOtp()">Verify</button> <button class="btn alt" onclick="J.step=1;J.tries=0;render()">Back</button></div>`;
-return`<a href="#welcome">← Back</a><h2>Become a service provider</h2><form class="card" onsubmit="event.preventDefault();joinGo()">
-<label for="jn">Full name</label><input id="jn"><label for="jm">Mobile number (10 digits)</label><input id="jm" inputmode="numeric" maxlength="10">
-<label for="jc">Service</label><select id="jc">${Object.keys(CATS).map(c=>`<option>${c}</option>`).join('')}</select><label for="jl">Locality you serve</label><select id="jl">${LOCS.map(c=>`<option>${c}</option>`).join('')}</select>
-<label for="js">Skills</label><input id="js"><label for="jx">Years of experience</label><input id="jx" type="number" min="0" max="60"><label for="jr">Labour rate per hour (₹)</label><input id="jr" type="number" min="50">
-<label for="ja">Home address (private)</label><textarea id="ja" rows="2"></textarea><p class="mut">Used only for admin checks. Never shown to customers.</p>
-<label for="jd">Aadhaar number (12 digits)</label><input id="jd" inputmode="numeric" maxlength="12"><p class="mut"><b>Demo only: do not enter a real Aadhaar number.</b> Type any 12 digits. Only the last 4 digits are kept.</p>
-<label><input id="jk" type="checkbox" style="width:auto"> I agree to this sample verification</label><div class="err" id="jerr" role="alert"></div><button class="btn">Send demo code</button></form>`}
-function joinGo(){const g=i=>$('#'+i).value.trim(),d=g('jd');let e='';
-if(g('jn').length<2)e='Enter your full name.';else if(!/^\d{10}$/.test(g('jm')))e='Mobile number must be 10 digits.';else if(g('js').length<3)e='Add your skills.';else if(g('jx')===''||+g('jx')<0)e='Enter years of experience.';else if(!(+g('jr')>=50))e='Rate must be at least ₹50.';else if(g('ja').length<10)e='Enter your home address.';else if(!/^\d{12}$/.test(d))e='Aadhaar number must be 12 digits.';else if(!$('#jk').checked)e='Tick the consent box to continue.';
-if(e){$('#jerr').textContent=e;return}
-J={step:2,otp:String(100000+Math.floor(Math.random()*900000)),tries:0,d:{n:g('jn'),m:g('jm'),c:g('jc'),l:g('jl'),s:g('js'),e:+g('jx'),r:+g('jr'),addr:g('ja'),a4:d.slice(-4)}};render()}
-function joinOtp(){const v=$('#jo').value.trim();if(J.tries>=3){$('#je').textContent='Too many wrong codes. Go back and request a new demo code.';return}
-if(v!==J.otp){J.tries++;$('#je').textContent='Wrong code. '+(3-J.tries)+' tries left.';return}
-const d=J.d,id='w'+(S.workers.length+1+Date.now()%1000);S.workers.push({id,name:d.n,cat:d.c,loc:d.l,exp:d.e,rate:d.r,travel:30,avail:true,skills:d.s,rating:0,rc:0,ver:'Demo verified',demo:false,hidden:false,a4:d.a4,addr:d.addr,mobile:d.m});
-S.role='worker';S.me=id;J={step:1,d:null,otp:'',tries:0};save();toast('Sample verification complete');location.hash='work'}
-/* ---------- router ---------- */
-function render(){const [r,...a]=(location.hash.slice(1)||'home').split('/'),arg=a.join('/');let h;
-const V={welcome,join,home,find:()=>find(decodeURIComponent(arg).includes('=')?arg:(arg?'cat='+arg:'')),worker:()=>profile(arg),book:()=>book(arg),cust,work,impact,admin,about};
-h=(!S.role&&!['welcome','join','about','admin'].includes(r))?welcome():(V[r]||home)();
-const act=(r=='worker'||r=='book')?'find':r;
-const IC={work:'🧰',impact:'📊',find:'🔍',cust:'📋'};
-const T=S.role=='worker'?[['work','My jobs'],['impact','Impact']]:S.role=='customer'?[['find','Find'],['cust','My bookings'],['impact','Impact']]:[];
-$('#tabs').innerHTML=T.map(x=>`<a href="#${x[0]}" class="${act==x[0]?'on':''}"><i aria-hidden="true">${IC[x[0]]}</i><span>${x[1]}</span></a>`).join('');
-$('#tabs').hidden=!T.length;document.body.classList.toggle('hastabs',!!T.length);
-$('#nav').innerHTML=`<a href="#about" class="${r=='about'?'on':''}">About</a>`+(S.role?'<a href="#welcome" onclick="logout()">Switch role</a>':'')+`<a href="#admin" class="${r=='admin'?'on':''}">Admin (demo)</a>`;
-$('#app').innerHTML=(mem?'<div class="card err">Browser storage is unavailable. Data will reset when you close this page.</div>':'')+h}
-window.addEventListener('hashchange',()=>{render();scrollTo(0,0)});render();setTimeout(()=>{loading=false;render()},350);
-</script></body></html>
+<p class="mut">Your exact address and phone stay private. Share them directly only if you choose to, after a quote is approved.</p><button class="btn">Send request</button></form>`;
+    }
+    function submitBook(id) {
+      const d = $('#bd').value.trim(), tw = $('#ba').checked ? 'ASAP' : $('#bw').value, w = W(id);
+      let e = '';
+      if (d.length < 10) e = 'Describe the job in at least 10 characters.';
+      else if (!tw) e = 'Pick a time, or tick as soon as possible.';
+      else if (tw !== 'ASAP' && new Date(tw) < new Date()) e = 'Choose a time in the future.';
+      if (e) { $('#be').textContent = e; return; }
+      // Collect selected tasks
+      const selTasks = Array.from(document.querySelectorAll('.bk-task:checked')).map(el => el.value);
+      const freq = $('#bkfreq') ? $('#bkfreq').value : 'one-time';
+      S.bookings.push({
+        id: 'b' + S.n++, wid: id, cat: w.cat, desc: d, loc: $('#bl').value, when: tw, status: 'requested',
+        quote: null, agreedPrice: null, review: null, report: null, created: new Date().toISOString(),
+        tasksRequested: selTasks, frequency: freq
+      });
+      save(); toast('Request sent to ' + w.name); location.hash = 'cust';
+    }
+
+    /* CUSTOMER BOOKINGS */
+    function cust() {
+      const list = S.bookings.slice().reverse();
+      return `<h2>My bookings <span class="tag demo">Demo customer</span></h2>${list.length ? list.map(b => {
+        const w = W(b.wid);
+        return `<div class="card" style="margin-bottom:.8rem"><div class="row sp"><h3>${CATS[b.cat] || '🛠️'} ${esc(b.cat)} with ${esc(w.name)}</h3><span class="tag">${LBL[b.status]}</span></div>
+<div class="mut">${esc(b.loc)} · ${fmtW(b)}</div><p>${esc(b.desc)}</p>
+${b.tasksRequested && b.tasksRequested.length ? `<div class="mut" style="font-size:.9rem"><b>Tasks:</b> ${b.tasksRequested.map(esc).join(', ')}${b.frequency && b.frequency !== 'one-time' ? ' · <b>' + esc(b.frequency) + '</b>' : ''}</div>` : ''}
+${steps(b)}
+${b.agreedPrice ? `<div class="card" style="background:var(--soft);border:1.5px solid var(--acc);margin:.6rem 0"><div class="row sp"><b>🔒 Agreed price locked: ${R(b.agreedPrice.total)}</b><span class="tag ok">Agreed</span></div><div class="mut" style="font-size:.88rem">Labour ${R(b.agreedPrice.labor)} + Materials/Extras ${R(b.agreedPrice.mat)} + Travel ${R(b.agreedPrice.travel)}</div></div>` : ''}
+${b.quote && !b.agreedPrice ? `<h3>Price Quote ${b.quote.round > 1 ? `(Round ${b.quote.round}/3)` : ''}</h3>${tableQ(b.quote)}${b.quote.note ? `<p class="mut">Worker note: ${esc(b.quote.note)}</p>` : ''}` : ''}
+${b.status === 'quoted' ? `<div class="row" style="margin-top:.6rem"><button class="btn" onclick="approve('${b.id}')">Approve quote (${R(total(b.quote))})</button></div>
+${(b.quote?.round || 1) < 3 ? `<details style="margin-top:.7rem"><summary><b>Bargain / Send counter-offer (Round ${(b.quote?.round || 1) + 1}/3)</b></summary><div class="grid" style="grid-template-columns:repeat(3,1fr);margin-top:.4rem"><div><label for="cql${b.id}">Proposed labour ₹</label><input id="cql${b.id}" type="number" min="50" value="${b.quote.labor}"></div><div><label for="cqm${b.id}">Materials ₹</label><input id="cqm${b.id}" type="number" min="0" value="${b.quote.mat}"></div><div><label for="cqt${b.id}">Travel ₹</label><input id="cqt${b.id}" type="number" min="0" value="${b.quote.travel}"></div></div><label for="cqn${b.id}">Reason / note for worker</label><input id="cqn${b.id}" placeholder="Example: Can materials be lower?"><div class="err" id="cqe${b.id}"></div><button class="btn alt" style="margin-top:.5rem" onclick="counterOffer('${b.id}')">Send counter-offer</button></details>` : '<p class="mut" style="margin-top:.5rem">Maximum 3 negotiation rounds reached. Please approve or cancel.</p>'}` : ``}
+${b.status === 'negotiating' ? `<div class="card" style="background:var(--soft);margin:.5rem 0"><b>Counter-offer sent to worker (Round ${b.quote?.round || 2}/3)</b><br>You proposed ${R(b.quote?.total || total(b.quote))}. Waiting for worker to accept or counter.</div>` : ''}
+${['requested', 'accepted', 'quoted', 'negotiating'].includes(b.status) ? `<button class="btn bad sm" style="margin-top:.5rem" onclick="setS('${b.id}','cancelled','Booking cancelled')">Cancel (free)</button>` : ''}
+${b.status === 'completed' && !b.review ? `<h3>Review this job</h3><div class="row"><select id="rr${b.id}" style="width:auto"><option>5</option><option>4</option><option>3</option><option>2</option><option>1</option></select><input id="rt${b.id}" placeholder="Short comment" style="flex:1"><button class="btn" onclick="review('${b.id}')">Submit review</button></div><div class="err" id="re${b.id}"></div>` : ''}
+${b.review ? `<p>Your review: ★ ${b.review.r} – ${esc(b.review.t)}</p>` : ''}
+${b.report ? `<p class="tag warn">Issue reported: ${esc(b.report.s)}</p>` : `${['approved', 'completed', 'accepted', 'quoted'].includes(b.status) ? `<details style="margin-top:.5rem"><summary>Report an issue</summary><textarea id="ri${b.id}" rows="2" placeholder="What went wrong?"></textarea><button class="btn alt sm" onclick="report('${b.id}')">Send report</button><div class="err" id="rie${b.id}"></div></details>` : ''}`}
+</div>`;
+      }).join('') : '<div class="card"><b>No bookings yet.</b><br><a href="#find">Find a worker</a> to make your first request.</div>'}`;
+    }
+    function setS(id, s, m) { B(id).status = s; save(); toast(m || LBL[s]); render(); }
+    function approve(id) { const b = B(id); b.agreedPrice = { total: total(b.quote), labor: b.quote.labor, mat: b.quote.mat, travel: b.quote.travel, agreedAt: new Date().toISOString() }; setS(id, 'approved', 'Quote approved! Price locked at ' + R(b.agreedPrice.total)); }
+    function counterOffer(id) { const b = B(id); const l = +$('#cql' + id).value, m = +$('#cqm' + id).value, tv = +$('#cqt' + id).value; const note = ($('#cqn' + id).value || '').trim(); if (!(l > 0) || m < 0 || tv < 0 || isNaN(l) || isNaN(m) || isNaN(tv)) { $('#cqe' + id).textContent = 'Labour must be above 0. Materials and travel cannot be negative.'; return } const curRound = b.quote ? (b.quote.round || 1) : 1; if (curRound >= 3) { toast('Maximum 3 rounds reached.'); return } const nextRound = curRound + 1; b.quote.labor = l; b.quote.mat = m; b.quote.travel = tv; b.quote.total = l + m + tv; b.quote.ask = note || ('Customer offered ' + R(l + m + tv)); b.quote.round = nextRound; b.quote.rounds = b.quote.rounds || []; b.quote.rounds.push({ by: 'customer', round: nextRound, labor: l, mat: m, travel: tv, total: l + m + tv, note, when: new Date().toISOString() }); setS(id, 'negotiating', 'Counter-offer of ' + R(l + m + tv) + ' sent (Round ' + nextRound + '/3)'); }
+    function acceptCounter(id) { const b = B(id); b.agreedPrice = { total: b.quote.total || total(b.quote), labor: b.quote.labor, mat: b.quote.mat, travel: b.quote.travel, agreedAt: new Date().toISOString() }; setS(id, 'approved', 'Counter-offer accepted! Price locked at ' + R(b.agreedPrice.total)); }
+    function review(id) { const tx = $('#rt' + id).value.trim(); if (tx.length < 3) { $('#re' + id).textContent = 'Add a short comment.'; return } const b = B(id), w = W(b.wid), r = +$('#rr' + id).value; b.review = { r, t: tx }; w.rating = (w.rating * w.rc + r) / (w.rc + 1); w.rc++; save(); toast('Review submitted'); render(); }
+    function report(id) { const tx = $('#ri' + id).value.trim(); if (tx.length < 10) { $('#rie' + id).textContent = 'Describe the issue in at least 10 characters.'; return } B(id).report = { t: tx, s: 'Open', note: '' }; S.reports.push(id); save(); toast('Report sent to admin'); render(); }
+
+    /* WORKER DASHBOARD */
+    function work() {
+      const w = W(S.me);
+      if (!w) return `<h2>Worker dashboard</h2><div class="card"><p>Worker profile not found.</p><a class="btn" href="#join">Register profile</a></div>`;
+      const list = S.bookings.filter(b => b.wid === w.id).reverse();
+      const done = list.filter(b => b.status === 'completed' && (b.agreedPrice || b.quote));
+      const earn = done.reduce((a, b) => a + (b.agreedPrice ? b.agreedPrice.total : total(b.quote)), 0);
+      return `<h2>Worker dashboard</h2><div class="card"><div class="row sp"><div><label for="me">Demo sign-in as</label><select id="me" onchange="S.me=this.value;save();render()">${S.workers.map(x => `<option value="${x.id}" ${x.id === S.me ? 'selected' : ''}>${esc(x.name)} (${x.cat})</option>`).join('')}</select></div>
+<div><label>Availability</label><button class="btn ${w.avail ? '' : 'alt'}" onclick="W(S.me).avail=!W(S.me).avail;save();render()">${w.avail ? 'Available – tap to go busy' : 'Busy – tap to go available'}</button></div>
+<div><label for="rt">Base rate & unit</label><div class="row"><input id="rt" type="number" min="50" value="${w.rate}" style="width:90px"><select id="ru" style="width:115px"><option value="per_hour" ${(w.unit || 'per_hour') === 'per_hour' ? 'selected' : ''}>/ hour</option><option value="per_visit" ${(w.unit || 'per_hour') === 'per_visit' ? 'selected' : ''}>/ visit</option><option value="per_day" ${(w.unit || 'per_hour') === 'per_day' ? 'selected' : ''}>/ day</option></select><button class="btn alt sm" onclick="setRate()">Save</button></div></div></div>
+<div style="margin-top:.5rem">${verTag(w)}</div>
+${w.tasks && w.tasks.length ? `<div style="margin:.5rem 0"><span class="mut" style="font-weight:600">Offered tasks:</span> ${taskChips(w.tasks, 8)}</div>` : ''}
+${w.ver === 'Unverified' ? '<p class="err">Verify to accept jobs. <a href="#join">Start sample verification</a></p>' : ''}</div>
+<div class="grid" style="margin:1rem 0"><div class="card"><div class="stat">${R(earn)}</div>Demo earnings from ${done.length} completed demo job(s)<div class="mut">Not real income. No payments are processed.</div></div><div class="card"><div class="stat">${list.filter(b => b.status === 'requested').length}</div>New requests waiting</div></div>
+<h3>Job requests and history</h3>${list.length ? list.map(b => `<div class="card" style="margin-bottom:.8rem"><div class="row sp"><b>${esc(b.cat)} · ${esc(b.loc)}</b><span class="tag">${LBL[b.status]}</span></div><div class="mut">${fmtW(b)}</div><p>${esc(b.desc)}</p>
+${b.tasksRequested && b.tasksRequested.length ? `<div class="mut" style="font-size:.9rem"><b>Tasks requested:</b> ${b.tasksRequested.map(esc).join(', ')}${b.frequency && b.frequency !== 'one-time' ? ' · <b>' + esc(b.frequency) + '</b>' : ''}</div>` : ''}
+${steps(b)}
+${b.agreedPrice ? `<div class="card" style="background:var(--soft);border:1.5px solid var(--acc);margin:.6rem 0"><div class="row sp"><b>🔒 Agreed price locked: ${R(b.agreedPrice.total)}</b><span class="tag ok">Agreed</span></div><div class="mut" style="font-size:.88rem">Labour ${R(b.agreedPrice.labor)} + Materials/Extras ${R(b.agreedPrice.mat)} + Travel ${R(b.agreedPrice.travel)}</div></div>` : ''}
+${b.quote && !b.agreedPrice ? tableQ(b.quote) : ''}
+${b.status === 'negotiating' ? `<div class="card" style="background:var(--soft);margin:.5rem 0"><div class="row sp"><b>Customer counter-offer: ${R(b.quote?.total || total(b.quote))}</b><span class="tag warn">Round ${b.quote?.round || 2}/3</span></div><p style="margin:.2rem 0">Proposed breakdown: Labour ${R(b.quote.labor)} + Extras ${R(b.quote.mat)} + Travel ${R(b.quote.travel)}</p>${b.quote?.ask ? `<p class="mut">Customer note: ${esc(b.quote.ask)}</p>` : ''}<div class="row" style="margin-top:.5rem"><button class="btn" onclick="acceptCounter('${b.id}')">Accept counter-offer (${R(b.quote?.total || total(b.quote))})</button><button class="btn bad sm" onclick="setS('${b.id}','rejected','Offer declined')">Decline</button></div></div>` : ''}
+${b.status === 'requested' ? `<div class="row"><button class="btn" onclick="acceptJob('${b.id}')">Accept</button><button class="btn bad" onclick="setS('${b.id}','rejected','Request declined')">Decline</button></div>` : ''}
+${['accepted', 'negotiating'].includes(b.status) && (!b.quote || (b.quote.round || 1) < 3) ? `<h3>${b.status === 'accepted' ? 'Send itemised quote' : 'Send counter-offer back (Final Round 3/3)'}</h3><div class="grid" style="grid-template-columns:repeat(3,1fr)"><div><label for="ql${b.id}">Labour ₹</label><input id="ql${b.id}" type="number" min="50" value="${b.quote ? b.quote.labor : w.rate}"></div><div><label for="qm${b.id}">Materials ₹</label><input id="qm${b.id}" type="number" min="0" value="${b.quote ? b.quote.mat : 0}"></div><div><label for="qt${b.id}">Travel ₹</label><input id="qt${b.id}" type="number" min="0" value="${b.quote ? b.quote.travel : w.travel}"></div></div><label for="qn${b.id}">Note (materials / work scope)</label><input id="qn${b.id}" value="${b.quote ? esc(b.quote.note) : ''}"><div class="err" id="qe${b.id}"></div><button class="btn" onclick="quote('${b.id}')">${b.status === 'accepted' ? 'Send quote' : 'Send revised quote'}</button>` : ''}
+${b.status === 'approved' ? `<button class="btn" onclick="setS('${b.id}','completed','Marked completed (demo)')">Mark job completed</button>` : ''}
+</div>`).join('') : '<div class="card"><b>No requests yet.</b><br>Open the customer side, request this worker, then come back here.</div>'}
+<details class="card"><summary><b>Register a new worker profile</b></summary>${regForm()}</details>`;
+    }
+    function setRate() { const v = +$('#rt').value, u = $('#ru').value; if (!(v >= 50)) { toast('Enter a rate of at least ₹50'); return } const w = W(S.me); w.rate = v; w.unit = u; save(); toast('Rate and unit saved'); render(); }
+    function quote(id) { const l = +$('#ql' + id).value, m = +$('#qm' + id).value, tv = +$('#qt' + id).value; if (!(l > 0) || m < 0 || tv < 0 || isNaN(m) || isNaN(tv)) { $('#qe' + id).textContent = 'Labour must be above 0. Materials and travel cannot be negative.'; return } const b = B(id); const curRound = b.quote ? (b.quote.round || 1) : 0; const nextRound = curRound + 1; const note = $('#qn' + id).value.trim(); b.quote = { labor: l, mat: m, travel: tv, total: l + m + tv, note, v: (b.quote ? b.quote.v : 0) + 1, round: nextRound, rounds: (b.quote && b.quote.rounds ? b.quote.rounds : []) }; b.quote.rounds.push({ by: 'worker', round: nextRound, labor: l, mat: m, travel: tv, total: l + m + tv, note, when: new Date().toISOString() }); setS(id, 'quoted', nextRound > 1 ? 'Counter-offer sent to customer (Round ' + nextRound + '/3)' : 'Quote sent to customer'); }
+
+    /* Task C: Registration form with House help task checklist */
+    function regForm() {
+      const taskChecklistHtml = `<div id="reg-task-section" style="display:block">
+  <label>What work can you do? (tick at least one)</label>
+  ${Object.keys(HH_TASK_GROUPS).map(grp => `
+  <div class="task-group"><h4>${grp}${grp === 'Senior care' ? ` <small style="font-weight:400;text-transform:none;font-size:.8rem">${t('senior_note')}</small>` : ''}</h4>
+  ${HH_TASK_GROUPS[grp].map(tk => `<div class="task-check-row"><input type="checkbox" class="reg-task" id="rtk_${esc(tk.replace(/\W/g, '_'))}" value="${esc(tk)}"><label for="rtk_${esc(tk.replace(/\W/g, '_'))}">${esc(tk)}</label></div>`).join('')}
+  </div>`).join('')}
+  <div class="task-group"><h4>Other</h4><label for="reg-task-other">Other (please specify)</label><input id="reg-task-other" maxlength="120" placeholder="Describe any additional services"></div>
+  <div class="err" id="rgtask" role="alert"></div>
+  </div>`;
+      return `<form onsubmit="event.preventDefault();reg()"><label for="rn">Name</label><input id="rn"><label for="rc2">Category</label><select id="rc2" onchange="toggleRegTaskSection(this.value)">${PRIMARY_CATS.map(c => `<option>${c}</option>`).join('')}</select><label for="rl">Locality served</label><select id="rl">${LOCS.map(c => `<option>${c}</option>`).join('')}</select><label for="rs">Skills</label><input id="rs"><label for="re2">Years of experience</label><input id="re2" type="number" min="0" max="60"><label for="rr2">Base rate (₹)</label><input id="rr2" type="number" min="50"><label for="ru2">Rate unit</label><select id="ru2"><option value="per_hour">Per hour (/hr)</option><option value="per_visit">Per visit (/visit)</option><option value="per_day">Per day (/day)</option></select>
+${taskChecklistHtml}
+<div class="err" id="rg" role="alert"></div><button class="btn">Create profile</button><p class="mut">New profiles start as Unverified.</p></form>`;
+    }
+    function toggleRegTaskSection(cat) {
+      const el = document.getElementById('reg-task-section');
+      if (el) el.style.display = cat === 'House help' ? 'block' : 'none';
+    }
+    function reg() {
+      const n = $('#rn').value.trim(), s = $('#rs').value.trim(), e = $('#re2').value, r = +$('#rr2').value;
+      const u = $('#ru2') ? $('#ru2').value : 'per_hour', cat = $('#rc2').value;
+      if (n.length < 2 || s.length < 3 || e === '' || !(r >= 50)) { $('#rg').textContent = 'Fill every field. Rate must be at least ₹50.'; return }
+      // Task C: collect tasks for House help
+      let tasks = [];
+      if (cat === 'House help') {
+        tasks = Array.from(document.querySelectorAll('.reg-task:checked')).map(el => el.value);
+        const otherVal = ($('#reg-task-other')?.value || '').trim().replace(/[<>&"']/g, '').slice(0, 120);
+        if (otherVal) tasks.push(otherVal);
+        if (tasks.length === 0) { document.getElementById('rgtask').textContent = 'Tick at least one task you can do.'; return; }
+        if (document.getElementById('rgtask')) document.getElementById('rgtask').textContent = '';
+      }
+      const id = 'w' + (S.workers.length + 1 + Date.now() % 1000);
+      S.workers.push({ id, name: n, cat, loc: $('#rl').value, exp: +e, rate: r, unit: u, travel: 30, avail: true, skills: s, rating: 0, rc: 0, ver: 'Unverified', demo: false, hidden: false, tasks, geo: { lat: 12.9716, lng: 77.5946, dist: '1.0 km', eta: '~20 min' } });
+      S.me = id; save(); toast('Profile created as Unverified'); render();
+    }
+
+    /* IMPACT */
+    function impact() {
+      const c = s => S.bookings.filter(b => s.includes(b.status)).length;
+      const rv = S.bookings.filter(b => b.review);
+      return `<h2>Prototype impact dashboard</h2><p class="mut">Counts come only from actions taken in this browser demo. They are not real-world impact.</p><div class="grid">
+${[['Requests created', S.bookings.length], ['Requests accepted', S.bookings.filter(b => b.quote || ['accepted', 'approved', 'completed'].includes(b.status)).length], ['Quotes approved', S.bookings.filter(b => ['approved', 'completed'].includes(b.status)).length], ['Completed demo bookings', c(['completed'])], ['Reviews submitted', rv.length], ['Issues reported', S.bookings.filter(b => b.report).length]].map(x => `<div class="card"><div class="stat">${x[1]}</div>${x[0]}</div>`).join('')}</div>
+<button class="btn alt" style="margin-top:1rem" onclick="if(confirm('Reset all demo data?')){localStorage.removeItem('kaamsetu');S=seed();render()}">Reset demo data</button>`;
+    }
+
+    /* ADMIN */
+    function admin() {
+      const rs = S.bookings.filter(b => b.report);
+      return `<h2>Admin and safety <span class="tag demo">Demo – no login</span></h2><p class="mut">In production this page needs admin sign-in. Here it is open so judges can see the workflow.</p>
+<h3>Complaints</h3>${rs.length ? rs.map(b => `<div class="card" style="margin-bottom:.6rem"><b>${esc(b.cat)} with ${esc(W(b.wid).name)}</b> <span class="tag ${b.report.s === 'Open' ? 'warn' : 'ok'}">${b.report.s}</span><p>${esc(b.report.t)}</p>${b.report.note ? `<p class="mut">Resolution: ${esc(b.report.note)}</p>` : `<div class="row"><input id="rn${b.id}" placeholder="Resolution note" style="flex:1"><button class="btn sm" onclick="resolve('${b.id}')">Resolve</button></div>`}</div>`).join('') : '<div class="card">No complaints. Reports from customers appear here.</div>'}
+<h3>Listings</h3><div class="grid">${S.workers.map(w => `<div class="card row sp"><span>${esc(w.name)}<br><span class="mut">${w.hidden ? 'Hidden from search' : 'Listed'}</span></span><button class="btn alt sm" onclick="W('${w.id}').hidden=!W('${w.id}').hidden;save();render()">${w.hidden ? 'Show' : 'Hide'}</button></div>`).join('')}</div>`;
+    }
+    function resolve(id) { const n = $('#rn' + id).value.trim(); if (n.length < 5) { toast('Add a resolution note'); return } B(id).report.s = 'Resolved'; B(id).report.note = n; save(); toast('Complaint resolved'); render(); }
+
+    /* ABOUT */
+    function about() {
+      return `<h2>About this prototype</h2><div class="card"><p><b>Works:</b> search and filters, worker profiles, booking requests, accept or decline, itemised quotes, quote revision, approval, status tracking, completion, reviews, issue reports, admin resolution, worker registration (including House help task checklist), impact counts, map with tile fallback.</p><p><b>Not real:</b> sample workers, ratings and earnings. There is no backend, login, payment, identity or background check. Data lives in this browser's storage only.</p><p><b>Next steps:</b> Supabase or Firebase for shared data and sign-in, phone OTP, real document verification with consent, local-language support.</p></div>`;
+    }
+
+    /* ============================================================
+       MAP VIEW – Task A: OSM → CARTO fallback
+       ============================================================ */
+    function mapView() {
+      const list = S.workers.filter(w => !w.hidden);
+      return `<div class="row sp" style="margin-bottom:.5rem">
+    <h2>Nearby workers map</h2>
+    <a class="btn alt sm" href="#find">List view</a>
+  </div>
+  <div class="map-badge-bar">
+    <span class="tag ok"><span class="dot"></span>Available within ~30 min</span>
+    <span class="tag demo">Central Bengaluru Demo Locality</span>
+  </div>
+  <div id="map-wrap">
+    <div id="map-container" role="region" aria-label="Nearby workers map">
+      <div id="leaflet-map" style="width:100%;height:100%"></div>
+    </div>
+    <div id="map-fallback" style="display:none;margin-top:1rem">
+      <div class="card" style="background:var(--soft);border:1.5px solid var(--acc);margin-bottom:1rem">
+        <b>Map tiles unavailable (offline or access blocked).</b><br>Showing all nearby workers with distance and arrival estimates below.
+      </div>
+      <div class="grid">${list.map(wcard).join('')}</div>
+    </div>
+  </div>
+  <div id="selected-worker-card" style="margin-top:1rem"></div>`;
+    }
+    let _leafletMap = null;
+    function initMap() {
+      const mapEl = $('#leaflet-map'), fallbackEl = $('#map-fallback'), containerEl = $('#map-container');
+      if (!mapEl) return;
+      if (typeof L === 'undefined') {
+        if (containerEl) containerEl.style.display = 'none';
+        if (fallbackEl) fallbackEl.style.display = 'block';
+        return;
+      }
+      try {
+        if (_leafletMap) { try { _leafletMap.remove(); } catch (e) { } _leafletMap = null; }
+        const center = [12.9716, 77.5946];
+        _leafletMap = L.map('leaflet-map', { zoomControl: true, scrollWheelZoom: false }).setView(center, 14);
+
+        // Task A: OSM tile layer with tileerror → switch to CARTO, then fallback to list
+        let usingCarto = false;
+        const osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+          maxZoom: 18, errorTileUrl: ''
+        });
+        osmLayer.on('tileerror', function () {
+          if (usingCarto) return; // already switched
+          usingCarto = true;
+          osmLayer.remove();
+          const cartoLayer = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+            subdomains: 'abcd', maxZoom: 19, errorTileUrl: ''
+          });
+          cartoLayer.on('tileerror', function () {
+            // Both failed – show list fallback
+            if (containerEl) containerEl.style.display = 'none';
+            if (fallbackEl) fallbackEl.style.display = 'block';
+          });
+          cartoLayer.addTo(_leafletMap);
+        });
+        osmLayer.addTo(_leafletMap);
+
+        const userIcon = L.divIcon({
+          className: 'custom-user-pin',
+          html: '<div style="background:#b3261e;color:#fff;border-radius:50%;width:34px;height:34px;display:grid;place-items:center;font-size:1.1rem;border:2.5px solid #fff;box-shadow:0 3px 8px rgba(0,0,0,.3)">📍</div>',
+          iconSize: [34, 34], iconAnchor: [17, 17]
+        });
+        L.marker(center, { icon: userIcon }).addTo(_leafletMap).bindPopup('<b>You are here (Sample Location)</b><br><span class="mut">Central Bengaluru</span>');
+
+        const bounds = L.latLngBounds([center]);
+        const active = S.workers.filter(w => !w.hidden && w.geo);
+        active.forEach(w => {
+          const pinHtml = `<div class="map-pin ${w.avail ? '' : 'busy'}" title="${esc(w.name)}">${CATS[w.cat] || '🛠️'}</div>`;
+          const icon = L.divIcon({ className: 'custom-worker-pin', html: pinHtml, iconSize: [38, 38], iconAnchor: [19, 19], popupAnchor: [0, -18] });
+          const marker = L.marker([w.geo.lat, w.geo.lng], { icon }).addTo(_leafletMap);
+          bounds.extend([w.geo.lat, w.geo.lng]);
+          const popHtml = `<div style="min-width:180px">
+        <div style="font-weight:800;font-size:1.05rem">${esc(w.name)}</div>
+        <div style="font-size:.9rem;color:#4f6761">${CATS[w.cat] || '🛠️'} ${esc(w.cat)} · ${esc(w.loc)}</div>
+        <div style="margin:.3rem 0;display:flex;gap:.3rem;flex-wrap:wrap">
+          <span class="tag ok" style="font-size:.75rem">📍 ${esc(w.geo.dist || '1 km')}</span>
+          <span class="tag ok" style="font-size:.75rem">⚡ ${esc(w.geo.eta || '~25 min')}</span>
+        </div>
+        <div style="font-weight:800;color:#1F7A70;margin:.3rem 0">${R(w.rate)} <span style="font-size:.8rem;color:#4f6761">${fmtUnit(w.unit || 'per_hour')}</span></div>
+        <div style="margin-top:.4rem;display:flex;gap:.4rem">
+          <button class="btn sm" style="min-height:34px;padding:.2rem .6rem;font-size:.85rem;width:100%" onclick="selectMapWorker('${w.id}')">Select</button>
+          <a class="btn alt sm" style="min-height:34px;padding:.2rem .6rem;font-size:.85rem;width:100%" href="#worker/${w.id}">Profile</a>
+        </div>
+      </div>`;
+          marker.bindPopup(popHtml);
+          marker.on('click', () => selectMapWorker(w.id));
+        });
+        if (active.length > 0) _leafletMap.fitBounds(bounds, { padding: [30, 30], maxZoom: 15 });
+        setTimeout(() => { if (_leafletMap) _leafletMap.invalidateSize(); }, 150);
+      } catch (err) {
+        if (containerEl) containerEl.style.display = 'none';
+        if (fallbackEl) fallbackEl.style.display = 'block';
+      }
+    }
+    function selectMapWorker(id) {
+      const cardEl = $('#selected-worker-card'), w = W(id);
+      if (!cardEl || !w) return;
+      cardEl.innerHTML = `<h3 style="margin-bottom:.5rem">Selected worker</h3>` + wcard(w);
+      cardEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    /* ============================================================
+       ROLE CHOICE & PROVIDER SIGN-UP
+       ============================================================ */
+    let J = { step: 1, d: null, otp: '', tries: 0 };
+    function welcome() {
+      return `<section class="hero" style="grid-template-columns:1fr"><div><div class="lkb"><svg class="mk" viewBox="0 0 76 76" aria-hidden="true"><rect width="76" height="76" rx="20" fill="#1F7A70"/><path d="M14 50 Q38 8 62 50" fill="none" stroke="#FFFFFF" stroke-width="7" stroke-linecap="round"/><rect x="12" y="50" width="52" height="7" rx="3.5" fill="#F2A66B"/></svg><div class="wm"><span class="sv">Seva</span><span class="st">Setu</span></div></div><div class="mt">Trust for every home, Work for every hand.</div><h1 style="margin-top:1.2rem">Welcome to SevaSetu</h1><p>Choose how you want to use the app. You can switch any time.</p></div></section>
+<div class="grid"><div class="card"><h2>🏠 I need a service</h2><p>Find nearby workers and see a clear price before work starts.</p><form onsubmit="event.preventDefault();startCust()"><label for="cn">Your name</label><input id="cn"><label for="cl">Your locality</label><select id="cl">${LOCS.map(l => `<option>${l}</option>`).join('')}</select><div class="err" id="ce" role="alert"></div><button class="btn">Continue as customer</button></form></div>
+<div class="card"><h2>🛠️ I provide a service</h2><p>List your skills, set your own rate and receive job requests. A sample verification step comes first.</p><a class="btn" href="#join">Continue as service provider</a></div></div>`;
+    }
+    function startCust() { const n = $('#cn').value.trim(); if (n.length < 2) { $('#ce').textContent = 'Enter your name.'; return } S.role = 'customer'; S.user = { name: n, loc: $('#cl').value }; save(); location.hash = 'find'; }
+    function logout() { S.role = null; S.user = null; save(); render(); }
+    function acceptJob(id) { if (W(S.me).ver === 'Unverified') { toast('Complete sample verification to accept jobs'); location.hash = 'join'; return } setS(id, 'accepted', 'Request accepted. Send a quote next.'); }
+    function clearJoinErr(fieldId) {
+      const el = document.getElementById(fieldId + 'err');
+      if (el) el.textContent = '';
+      const formErr = document.getElementById('jerr');
+      if (formErr) formErr.textContent = '';
+    }
+    function clearAllJoinErrs() {
+      ['jn', 'jm', 'js', 'jx', 'jr', 'jtask', 'ja', 'jd', 'jk'].forEach(k => {
+        const el = document.getElementById(k + 'err');
+        if (el) el.textContent = '';
+      });
+      const formErr = document.getElementById('jerr');
+      if (formErr) formErr.textContent = '';
+    }
+    function showJoinFieldErr(fieldId, msg) {
+      clearAllJoinErrs();
+      const errEl = document.getElementById(fieldId + 'err');
+      if (errEl) errEl.textContent = msg;
+      const formErr = document.getElementById('jerr');
+      if (formErr) formErr.textContent = msg;
+      const inputEl = document.getElementById(fieldId);
+      const target = inputEl || errEl;
+      if (target) {
+        if (typeof target.scrollIntoView === 'function') {
+          target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+        if (typeof target.focus === 'function') {
+          target.focus();
+        }
+      }
+    }
+    function toggleJoinTaskSection(cat) {
+      const el = document.getElementById('join-task-section');
+      if (el) el.style.display = cat === 'House help' ? 'block' : 'none';
+    }
+    function join() {
+      if (J.step === 2) return `<h2>Verify (sample)</h2><div class="card"><p class="tag demo">Demo code: <b>${J.otp}</b></p><p class="mut">In a real app this code goes to the mobile linked to Aadhaar. Here it is shown on screen because the verification is simulated.</p><label for="jo">Enter the 6-digit code</label><input id="jo" inputmode="numeric" maxlength="6" oninput="if($('#je'))$('#je').textContent=''"><div class="err" id="je" role="alert"></div><button class="btn" onclick="joinOtp()">Verify</button> <button class="btn alt" onclick="J.step=1;J.tries=0;render()">Back</button></div>`;
+      return `<a href="#welcome">← Back</a><h2>Become a service provider</h2><form class="card" onsubmit="event.preventDefault();joinGo()" oninput="clearAllJoinErrs()">
+<label for="jn">Full name</label><input id="jn" oninput="clearJoinErr('jn')"><div class="err" id="jnerr" role="alert"></div>
+
+<label for="jm">Mobile number (10 digits)</label><input id="jm" inputmode="numeric" maxlength="10" oninput="clearJoinErr('jm')"><div class="err" id="jmerr" role="alert"></div>
+
+<label for="jc">Service</label><select id="jc" onchange="toggleJoinTaskSection(this.value);clearJoinErr('jtask')">${PRIMARY_CATS.map(c => `<option>${c}</option>`).join('')}</select>
+
+<label for="jl">Locality you serve</label><select id="jl">${LOCS.map(c => `<option>${c}</option>`).join('')}</select>
+
+<label for="js">Skills</label><input id="js" oninput="clearJoinErr('js')"><div class="err" id="jserr" role="alert"></div>
+
+<label for="jx">Years of experience</label><input id="jx" type="number" min="0" max="60" oninput="clearJoinErr('jx')"><div class="err" id="jxerr" role="alert"></div>
+
+<label for="jr">Base rate (₹)</label><input id="jr" type="number" min="50" oninput="clearJoinErr('jr')"><div class="err" id="jrerr" role="alert"></div>
+
+<label for="jru">Rate unit</label><select id="jru"><option value="per_hour">Per hour (/hr)</option><option value="per_visit">Per visit (/visit)</option><option value="per_day">Per day (/day)</option></select>
+
+<!-- Task C: House help task checklist in join flow (visible by default because House help is default category) -->
+<div id="join-task-section" style="display:block">
+  <label>What work can you do? (tick at least one)</label>
+  <div class="card" style="padding:.6rem;background:var(--bg)">
+  ${Object.keys(HH_TASK_GROUPS).map(grp => `
+  <div class="task-group"><h4>${grp}${grp === 'Senior care' ? ` <small style="font-weight:400;text-transform:none">${t('senior_note')}</small>` : ''}</h4>
+  ${HH_TASK_GROUPS[grp].map(tk => `<div class="task-check-row"><input type="checkbox" class="join-task" id="jtk_${esc(tk.replace(/\W/g, '_'))}" value="${esc(tk)}" onchange="clearJoinErr('jtask')"><label for="jtk_${esc(tk.replace(/\W/g, '_'))}">${esc(tk)}</label></div>`).join('')}
+  </div>`).join('')}
+  <div class="task-group"><h4>Other</h4><input id="join-task-other" maxlength="120" placeholder="Describe any additional services" oninput="clearJoinErr('jtask')"></div>
+  </div>
+  <div class="err" id="jtaskerr" role="alert"></div>
+</div>
+
+<label for="ja">Home address (private)</label><textarea id="ja" rows="2" oninput="clearJoinErr('ja')"></textarea><div class="err" id="jaerr" role="alert"></div><p class="mut">Used only for admin checks. Never shown to customers.</p>
+
+<label for="jd">Aadhaar number (12 digits)</label><input id="jd" inputmode="numeric" maxlength="12" oninput="clearJoinErr('jd')"><div class="err" id="jderr" role="alert"></div><p class="mut"><b>Demo only: do not enter a real Aadhaar number.</b> Type any 12 digits. Only the last 4 digits are kept.</p>
+
+<label><input id="jk" type="checkbox" style="width:auto" onchange="clearJoinErr('jk')"> I agree to this sample verification</label><div class="err" id="jkerr" role="alert"></div>
+<div class="err" id="jerr" role="alert"></div>
+<button class="btn" id="join-submit-btn">Send demo code</button></form>`;
+    }
+    function joinGo() {
+      clearAllJoinErrs();
+      const g = i => ($('#' + i)?.value || '').trim();
+      const d = g('jd');
+
+      if (g('jn').length < 2) { showJoinFieldErr('jn', 'Enter your full name.'); return; }
+      if (!/^\d{10}$/.test(g('jm'))) { showJoinFieldErr('jm', 'Mobile number must be 10 digits.'); return; }
+      if (g('js').length < 3) { showJoinFieldErr('js', 'Add your skills.'); return; }
+      if (g('jx') === '' || isNaN(+g('jx')) || +g('jx') < 0) { showJoinFieldErr('jx', 'Enter years of experience.'); return; }
+      const rVal = +g('jr');
+      if (!g('jr') || isNaN(rVal) || rVal < 50) { showJoinFieldErr('jr', 'Rate must be at least ₹50.'); return; }
+
+      // House help task validation
+      const cat = g('jc') || 'House help';
+      let tasks = [];
+      if (cat === 'House help') {
+        tasks = Array.from(document.querySelectorAll('.join-task:checked')).map(el => el.value);
+        const otherVal = ($('#join-task-other')?.value || '').trim().replace(/[<>&"']/g, '').slice(0, 120);
+        if (otherVal) tasks.push(otherVal);
+        if (tasks.length === 0) {
+          toggleJoinTaskSection('House help');
+          showJoinFieldErr('jtask', 'Tick at least one task you can do.');
+          return;
+        }
+      }
+
+      // Address validation
+      if (!g('ja')) { showJoinFieldErr('ja', 'Enter your home address.'); return; }
+      if (g('ja').length < 8) { showJoinFieldErr('ja', 'Address is too short. Add house number, street and area.'); return; }
+
+      // Aadhaar validation
+      if (!/^\d{12}$/.test(d)) { showJoinFieldErr('jd', 'Aadhaar number must be 12 digits.'); return; }
+
+      // Consent validation
+      if (!$('#jk')?.checked) { showJoinFieldErr('jk', 'Tick the consent box to continue.'); return; }
+
+      J = {
+        step: 2,
+        otp: String(100000 + Math.floor(Math.random() * 900000)),
+        tries: 0,
+        d: {
+          n: g('jn'),
+          m: g('jm'),
+          c: cat,
+          l: g('jl'),
+          s: g('js'),
+          e: +g('jx'),
+          r: rVal,
+          u: $('#jru')?.value || 'per_hour',
+          addr: g('ja'),
+          a4: d.slice(-4),
+          tasks
+        }
+      };
+      render();
+    }
+    function joinOtp() {
+      const v = ($('#jo')?.value || '').trim();
+      if (J.tries >= 3) {
+        if ($('#je')) $('#je').textContent = 'Too many wrong codes. Go back and request a new demo code.';
+        return;
+      }
+      if (v !== J.otp) {
+        J.tries++;
+        if ($('#je')) $('#je').textContent = 'Wrong code. ' + (3 - J.tries) + ' tries left.';
+        return;
+      }
+      const d = J.d, id = 'w' + (S.workers.length + 1 + Date.now() % 1000);
+      S.workers.push({
+        id,
+        name: d.n,
+        cat: d.c,
+        loc: d.l,
+        exp: d.e,
+        rate: d.r,
+        unit: d.u || 'per_hour',
+        travel: 30,
+        avail: true,
+        skills: d.s,
+        rating: 0,
+        rc: 0,
+        ver: 'Demo verified',
+        demo: false,
+        hidden: false,
+        a4: d.a4,
+        addr: d.addr,
+        mobile: d.m,
+        tasks: d.tasks || [],
+        geo: { lat: 12.9716, lng: 77.5946, dist: '1.0 km', eta: '~20 min' }
+      });
+      S.role = 'worker';
+      S.me = id;
+      J = { step: 1, d: null, otp: '', tries: 0 };
+      save();
+      toast('Sample verification complete');
+      location.hash = 'work';
+    }
+
+    /* ============================================================
+       ROUTER
+       ============================================================ */
+    function render() {
+      const [r, ...a] = (location.hash.slice(1) || 'home').split('/'), arg = a.join('/');
+      let h;
+      const V = {
+        welcome, join, home,
+        find: () => find(decodeURIComponent(arg).includes('=') ? arg : (arg ? 'cat=' + arg : '')),
+        hh: () => hhPage(arg),
+        map: mapView,
+        worker: () => profile(arg),
+        book: () => book(arg),
+        cust, work, impact, admin, about
+      };
+      h = (!S.role && !['welcome', 'join', 'about', 'admin', 'map', 'hh'].includes(r))
+        ? welcome() : (V[r] || home)();
+
+      const act = (r === 'worker' || r === 'book') ? 'find' : r;
+      const IC = { home: '🏠', work: '🧰', impact: '📊', find: '🔍', hh: '🧹', map: '🗺️', cust: '📋', join: '🤝', about: 'ℹ️' };
+
+      // Tab sets per role — hh tab for customer, map tab for all
+      const T = S.role === 'worker'
+        ? [['work', t('tab_work')], ['map', t('tab_map')], ['impact', t('tab_impact')]]
+        : S.role === 'customer'
+          ? [['find', t('tab_find')], ['hh', t('tab_hh')], ['map', t('tab_map')], ['cust', t('tab_cust')], ['impact', t('tab_impact')]]
+          : [['home', t('tab_home')], ['find', t('tab_find')], ['hh', t('tab_hh')], ['map', t('tab_map')], ['join', t('tab_join')]];
+
+      $('#tabs').innerHTML = T.map(x => `<a href="#${x[0]}" class="${act === x[0] ? 'on' : ''}"><i aria-hidden="true">${IC[x[0]] || '•'}</i><span>${x[1]}</span></a>`).join('');
+      $('#tabs').hidden = false;
+      document.body.classList.add('hastabs');
+
+      // Task G: lang toggle is en ↔ hi only
+      const langBtn = `<button class="btn alt sm" style="min-height:36px;padding:.2rem .65rem;font-size:.85rem;border-radius:99px" onclick="toggleLang()" title="Switch language / भाषा बदलें">🌐 <b>${S.lang === 'hi' ? 'English' : 'हिंदी'}</b></button>`;
+      $('#nav').innerHTML = langBtn + `<a href="#about" class="${r === 'about' ? 'on' : ''}">${t('tab_about')}</a>` + (S.role ? '<a href="#welcome" onclick="logout()">Switch role</a>' : '') + `<a href="#admin" class="${r === 'admin' ? 'on' : ''}">Admin</a>`;
+      $('.demo').innerHTML = `<b>${t('demo_bar')}</b>`;
+      $('#app').innerHTML = (mem ? '<div class="card err">Browser storage is unavailable. Data will reset when you close this page.</div>' : '') + h;
+      if (r === 'map') { setTimeout(initMap, 60); }
+    }
+    window.addEventListener('hashchange', () => { render(); scrollTo(0, 0); });
+    render();
+    setTimeout(() => { loading = false; render(); }, 350);
+    // PWA service worker
+    if (typeof navigator !== 'undefined' && 'serviceWorker' in navigator) {
+      window.addEventListener('load', () => { navigator.serviceWorker.register('./sw.js').catch(err => console.warn('SW registration failed:', err)); });
+    }
+  </script>
+</body>
+
+</html>

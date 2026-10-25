@@ -31,7 +31,7 @@ DROP FUNCTION IF EXISTS update_worker_rating_on_review() CASCADE;
 DROP SEQUENCE IF EXISTS booking_id_seq CASCADE;
 
 -- Human-readable booking ID sequence (e.g. SS-2026-000001)
-CREATE SEQUENCE booking_id_seq START WITH 1;
+CREATE SEQUENCE IF NOT EXISTS booking_id_seq START WITH 1;
 
 
 -- ============================================================================
@@ -42,14 +42,20 @@ CREATE SEQUENCE booking_id_seq START WITH 1;
 -- ----------------------------------------------------------------------------
 -- 2.1 Workers Table (Public Profiles)
 -- Stores non-sensitive, publicly browsable worker details.
+-- Supports Phase 1-2 features:
+--   - 'House help' category (alongside Electrician, Plumber, Painter, Carpenter, Appliance repair)
+--   - Base rate with customizable rate unit (per_hour, per_visit, per_day)
 -- ----------------------------------------------------------------------------
-CREATE TABLE workers (
+CREATE TABLE IF NOT EXISTS workers (
     id TEXT PRIMARY KEY,                           -- Unique ID (e.g. 'w1', 'w2', or generated)
     name TEXT NOT NULL,                            -- Full name displayed to customers
-    category TEXT NOT NULL,                        -- Service category (e.g. Electrician, Plumber)
+    category TEXT NOT NULL,                        -- Service category (House help, Electrician, Plumber, etc.)
     locality TEXT NOT NULL,                        -- Area served (e.g. North Colony, Lake View)
     experience_years INT NOT NULL DEFAULT 0,       -- Years of experience
-    hourly_rate NUMERIC NOT NULL CHECK (hourly_rate >= 50), -- Labour rate per hour in INR (min ₹50)
+    base_rate NUMERIC NOT NULL CHECK (base_rate >= 50), -- Base labour rate in INR (min ₹50)
+    rate_unit TEXT NOT NULL DEFAULT 'per_hour'
+        CHECK (rate_unit IN ('per_hour', 'per_visit', 'per_day')), -- Unit: /hour, /visit, /day
+    hourly_rate NUMERIC NOT NULL DEFAULT 50 CHECK (hourly_rate >= 50), -- Backward compatibility field
     travel_charge NUMERIC NOT NULL DEFAULT 30 CHECK (travel_charge >= 0), -- Base travel fee in INR
     is_available BOOLEAN NOT NULL DEFAULT true,    -- Toggle for worker availability
     skills TEXT NOT NULL,                          -- Summary of skills / services offered
@@ -59,11 +65,23 @@ CREATE TABLE workers (
         CHECK (verification_status IN ('Demo profile', 'Demo verified', 'Unverified')),
     is_demo BOOLEAN NOT NULL DEFAULT false,        -- Flag indicating sample / demo profile
     is_hidden BOOLEAN NOT NULL DEFAULT false,      -- Admin flag to hide profile from search
+    -- Task F: tasks offered by this worker (House help category uses a checklist)
+    tasks TEXT[] NOT NULL DEFAULT '{}',            -- Array of task labels, e.g. '{"Sweeping and mopping","Cooking"}'
     created_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
-CREATE INDEX idx_workers_cat_loc ON workers (category, locality) WHERE is_hidden = false;
-CREATE INDEX idx_workers_avail ON workers (is_available) WHERE is_hidden = false;
+-- Task F: safe migration for databases that were created before this column was added
+DO $$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM information_schema.columns
+    WHERE table_name='workers' AND column_name='tasks'
+  ) THEN
+    ALTER TABLE workers ADD COLUMN tasks TEXT[] NOT NULL DEFAULT '{}';
+  END IF;
+END $$;
+
+CREATE INDEX IF NOT EXISTS idx_workers_cat_loc ON workers (category, locality) WHERE is_hidden = false;
+CREATE INDEX IF NOT EXISTS idx_workers_avail ON workers (is_available) WHERE is_hidden = false;
 
 -- ----------------------------------------------------------------------------
 -- 2.2 Worker Private Table (Sensitive Details)
@@ -71,7 +89,7 @@ CREATE INDEX idx_workers_avail ON workers (is_available) WHERE is_hidden = false
 -- A worker's home address and mobile number must NEVER be readable by customers.
 -- Full Aadhaar is NEVER stored; only the last 4 digits are saved for verification reference.
 -- ----------------------------------------------------------------------------
-CREATE TABLE worker_private (
+CREATE TABLE IF NOT EXISTS worker_private (
     worker_id TEXT PRIMARY KEY REFERENCES workers(id) ON DELETE CASCADE,
     home_address TEXT NOT NULL,                    -- Worker's private residential address
     aadhaar_last4 CHAR(4) NOT NULL CHECK (aadhaar_last4 ~ '^[0-9]{4}$'), -- ONLY last 4 digits
@@ -82,17 +100,18 @@ CREATE TABLE worker_private (
 -- ----------------------------------------------------------------------------
 -- 2.3 Bookings Table
 -- Tracks the customer booking lifecycle with a human-readable identifier.
+-- Supports Phase 2 agreed price locking (agreed_total, agreed_breakdown).
 -- Valid statuses:
 --   - requested:   Initial request sent by customer
 --   - accepted:    Worker accepted the job request
 --   - quoted:      Worker submitted an itemised price quote
---   - negotiating: Customer requested a revised quote
---   - approved:    Customer accepted the quote; job can commence
+--   - negotiating: Customer or worker submitted a counter-offer (up to 3 rounds)
+--   - approved:    Agreed price locked and approved
 --   - completed:   Worker completed the job (demo)
---   - rejected:    Worker declined the initial request
+--   - rejected:    Worker declined the request or counter-offer
 --   - cancelled:   Customer cancelled the booking
 -- ----------------------------------------------------------------------------
-CREATE TABLE bookings (
+CREATE TABLE IF NOT EXISTS bookings (
     id TEXT PRIMARY KEY DEFAULT ('SS-2026-' || LPAD(nextval('booking_id_seq')::TEXT, 6, '0')),
     worker_id TEXT NOT NULL REFERENCES workers(id) ON DELETE RESTRICT,
     category TEXT NOT NULL,
@@ -101,38 +120,64 @@ CREATE TABLE bookings (
     booking_time TEXT NOT NULL,                    -- 'ASAP' or ISO timestamp string
     status TEXT NOT NULL DEFAULT 'requested'
         CHECK (status IN ('requested', 'accepted', 'quoted', 'negotiating', 'approved', 'completed', 'rejected', 'cancelled')),
+    agreed_total NUMERIC CHECK (agreed_total IS NULL OR agreed_total > 0), -- Final agreed price locked in INR
+    agreed_breakdown JSONB,                        -- Itemised locked breakdown {labor, mat, travel, agreedAt}
+    -- Task F: tasks requested by customer at booking time (House help)
+    tasks_requested TEXT[] NOT NULL DEFAULT '{}', -- Array of task labels from the checklist
+    frequency TEXT NOT NULL DEFAULT 'one-time'
+        CHECK (frequency IN ('one-time', 'daily', 'weekly')), -- Recurrence for House help bookings
     created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
     updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
-CREATE INDEX idx_bookings_worker ON bookings (worker_id);
-CREATE INDEX idx_bookings_status ON bookings (status);
+-- Task F: safe migration for databases that were created before these columns were added
+DO $$ BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM information_schema.columns
+    WHERE table_name='bookings' AND column_name='tasks_requested'
+  ) THEN
+    ALTER TABLE bookings ADD COLUMN tasks_requested TEXT[] NOT NULL DEFAULT '{}';
+  END IF;
+  IF NOT EXISTS (
+    SELECT 1 FROM information_schema.columns
+    WHERE table_name='bookings' AND column_name='frequency'
+  ) THEN
+    ALTER TABLE bookings ADD COLUMN frequency TEXT NOT NULL DEFAULT 'one-time'
+      CHECK (frequency IN ('one-time','daily','weekly'));
+  END IF;
+END $$;
+
+CREATE INDEX IF NOT EXISTS idx_bookings_worker ON bookings (worker_id);
+CREATE INDEX IF NOT EXISTS idx_bookings_status ON bookings (status);
 
 -- ----------------------------------------------------------------------------
--- 2.4 Quotes Table (Versioned)
+-- 2.4 Quotes Table (Versioned & Negotiable)
 -- Provides full price transparency with itemised labour, materials, and travel.
--- Each revision increments the version number.
+-- Supports Phase 2 bargaining rounds (up to 3 rounds) and counter-offers.
 -- ----------------------------------------------------------------------------
-CREATE TABLE quotes (
+CREATE TABLE IF NOT EXISTS quotes (
     id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     booking_id TEXT NOT NULL REFERENCES bookings(id) ON DELETE CASCADE,
     version INT NOT NULL DEFAULT 1 CHECK (version >= 1),
+    round_number INT NOT NULL DEFAULT 1 CHECK (round_number >= 1 AND round_number <= 3), -- Max 3 negotiation rounds
+    offered_by TEXT NOT NULL DEFAULT 'worker' CHECK (offered_by IN ('worker', 'customer')),
     labour_charge NUMERIC NOT NULL CHECK (labour_charge > 0),
     materials_charge NUMERIC NOT NULL DEFAULT 0 CHECK (materials_charge >= 0),
     travel_charge NUMERIC NOT NULL DEFAULT 0 CHECK (travel_charge >= 0),
-    note TEXT,                                     -- Worker explanation of materials or work
-    revision_request TEXT,                         -- Customer's ask if negotiating revision
+    total_estimate NUMERIC NOT NULL DEFAULT 0 CHECK (total_estimate >= 0),
+    note TEXT,                                     -- Explanation of materials or scope
+    revision_request TEXT,                         -- Note attached to counter-offer
     created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
     CONSTRAINT uq_booking_quote_version UNIQUE (booking_id, version)
 );
 
-CREATE INDEX idx_quotes_booking ON quotes (booking_id);
+CREATE INDEX IF NOT EXISTS idx_quotes_booking ON quotes (booking_id);
 
 -- ----------------------------------------------------------------------------
 -- 2.5 Reviews Table
 -- Ratings and feedback submitted by customers after job completion.
 -- ----------------------------------------------------------------------------
-CREATE TABLE reviews (
+CREATE TABLE IF NOT EXISTS reviews (
     id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     booking_id TEXT NOT NULL UNIQUE REFERENCES bookings(id) ON DELETE CASCADE,
     worker_id TEXT NOT NULL REFERENCES workers(id) ON DELETE CASCADE,
@@ -141,13 +186,13 @@ CREATE TABLE reviews (
     created_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
-CREATE INDEX idx_reviews_worker ON reviews (worker_id);
+CREATE INDEX IF NOT EXISTS idx_reviews_worker ON reviews (worker_id);
 
 -- ----------------------------------------------------------------------------
 -- 2.6 Reports Table (Complaints & Safety)
 -- Safety mechanism: Customers or workers can report issues.
 -- ----------------------------------------------------------------------------
-CREATE TABLE reports (
+CREATE TABLE IF NOT EXISTS reports (
     id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     booking_id TEXT NOT NULL REFERENCES bookings(id) ON DELETE CASCADE,
     issue_text TEXT NOT NULL CHECK (length(issue_text) >= 10),
@@ -157,7 +202,7 @@ CREATE TABLE reports (
     resolved_at TIMESTAMPTZ
 );
 
-CREATE INDEX idx_reports_status ON reports (status);
+CREATE INDEX IF NOT EXISTS idx_reports_status ON reports (status);
 
 
 -- ============================================================================
@@ -166,11 +211,11 @@ CREATE INDEX idx_reports_status ON reports (status);
 
 -- ----------------------------------------------------------------------------
 -- Trigger 1: Status Transition Validator
--- Enforces the SevaSetu booking lifecycle state machine:
+-- Enforces the SevaSetu booking lifecycle state machine (including Phase 2 bargaining):
 --   requested   -> accepted / rejected / cancelled
 --   accepted    -> quoted / cancelled
 --   quoted      -> approved / negotiating / cancelled
---   negotiating -> quoted / cancelled
+--   negotiating -> approved (accept counter) / quoted (counter back) / rejected / cancelled
 --   approved    -> completed
 -- Any other status change is strictly rejected with a database exception.
 -- ----------------------------------------------------------------------------
@@ -188,7 +233,7 @@ BEGIN
         ELSIF OLD.status = 'quoted' AND NEW.status IN ('approved', 'negotiating', 'cancelled') THEN
             NEW.updated_at = now();
             RETURN NEW;
-        ELSIF OLD.status = 'negotiating' AND NEW.status IN ('quoted', 'cancelled') THEN
+        ELSIF OLD.status = 'negotiating' AND NEW.status IN ('approved', 'quoted', 'rejected', 'cancelled') THEN
             NEW.updated_at = now();
             RETURN NEW;
         ELSIF OLD.status = 'approved' AND NEW.status = 'completed' THEN
@@ -234,7 +279,7 @@ EXECUTE FUNCTION update_worker_rating_on_review();
 -- ============================================================================
 -- 4. ALTER TABLE ... ENABLE ROW LEVEL SECURITY
 -- ============================================================================
--- Enable RLS on every table
+-- Enable RLS on every table to guarantee data security at the database engine level.
 ALTER TABLE workers ENABLE ROW LEVEL SECURITY;
 ALTER TABLE worker_private ENABLE ROW LEVEL SECURITY;
 ALTER TABLE bookings ENABLE ROW LEVEL SECURITY;
@@ -244,26 +289,26 @@ ALTER TABLE reports ENABLE ROW LEVEL SECURITY;
 
 
 -- ============================================================================
--- 5. CREATE POLICY STATEMENTS
+-- 5. CREATE POLICY STATEMENTS (ROW LEVEL SECURITY)
 -- ============================================================================
--- ARCHITECTURAL NOTE:
--- In this hackathon demo, the frontend has no real user authentication (no login).
--- Demo policies allow the public anonymous role (`anon`) to perform demo actions
--- while keeping worker_private locked down.
---
--- PRODUCTION REQUIREMENT:
--- In production, Supabase Auth (e.g. Phone OTP or Email Magic Link) MUST be enabled.
--- Policies must then restrict reads and writes based on `auth.uid()`:
---   - workers: editable only by the authenticated worker matching auth.uid()
---   - worker_private: SELECT and UPDATE restricted strictly to auth.uid() = worker_id
---     or authorized administrative service roles. Customers must NEVER have SELECT.
---   - bookings: visible only to customer_id = auth.uid() OR worker_id = auth.uid().
--- ----------------------------------------------------------------------------
+-- ROW LEVEL SECURITY ARCHITECTURAL NOTES:
+-- 1. In this hackathon demo, the frontend uses the publishable anon key.
+-- 2. CRITICAL PRIVACY GUARANTEE:
+--    - worker_private: Only INSERT is granted to the public/anon role (for registration).
+--      NO SELECT policy is granted on worker_private. Thus, NO customer, anonymous client,
+--      or normal user can ever read full addresses, phone numbers, or Aadhaar numbers.
+-- 3. Public read transparency:
+--    - workers: public reads allowed where is_hidden = false.
+--    - bookings, quotes, reviews, reports: open for demo testing, with strict state machine
+--      triggers preventing invalid status tampering.
+-- 4. Production migration:
+--    - When Supabase Auth is enabled, replace open USING (true) with auth.uid() checks:
+--      workers (auth.uid() = id), worker_private (auth.uid() = worker_id),
+--      bookings (auth.uid() = customer_id OR auth.uid() = worker_id).
+-- ============================================================================
 
 -- ----------------------------------------------------------------------------
 -- 5.1 Workers Table Policies
--- Anyone can browse active workers that are not marked as hidden.
--- Anyone can register or toggle availability in demo mode.
 -- ----------------------------------------------------------------------------
 CREATE POLICY "Demo: anyone can read non-hidden workers"
     ON workers FOR SELECT
@@ -289,12 +334,11 @@ CREATE POLICY "Demo: allow insert of private worker details on registration"
     ON worker_private FOR INSERT
     WITH CHECK (true);
 
--- Explicit note: NO SELECT policy created for worker_private.
--- Any attempt by the client to query `SELECT * FROM worker_private` returns 0 rows.
+-- Explicit security guarantee: NO SELECT policy created for worker_private.
+-- Any client attempt to query `SELECT * FROM worker_private` returns 0 rows.
 
 -- ----------------------------------------------------------------------------
 -- 5.3 Bookings Table Policies
--- In demo mode, anyone can create, view, and transition bookings.
 -- ----------------------------------------------------------------------------
 CREATE POLICY "Demo: anyone can view bookings"
     ON bookings FOR SELECT
@@ -310,7 +354,6 @@ CREATE POLICY "Demo: anyone can update bookings"
 
 -- ----------------------------------------------------------------------------
 -- 5.4 Quotes Table Policies
--- Versioned quotes are readable and creatable by demo users.
 -- ----------------------------------------------------------------------------
 CREATE POLICY "Demo: anyone can view quotes"
     ON quotes FOR SELECT
@@ -326,7 +369,6 @@ CREATE POLICY "Demo: anyone can update quotes"
 
 -- ----------------------------------------------------------------------------
 -- 5.5 Reviews Table Policies
--- Completed job reviews are public for transparency.
 -- ----------------------------------------------------------------------------
 CREATE POLICY "Demo: anyone can read reviews"
     ON reviews FOR SELECT
@@ -338,7 +380,6 @@ CREATE POLICY "Demo: anyone can submit reviews"
 
 -- ----------------------------------------------------------------------------
 -- 5.6 Reports Table Policies
--- Customers can submit reports; admin dashboard can review and resolve them.
 -- ----------------------------------------------------------------------------
 CREATE POLICY "Demo: anyone can view reports"
     ON reports FOR SELECT
