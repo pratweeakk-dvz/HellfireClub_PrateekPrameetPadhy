@@ -3,7 +3,9 @@
 **Trust for every home, work for every hand.**
 
 Team: **Hellfire Club** | Team leader: **Prateek Prameet Padhy**
+
 Hackathon: Vecnaverse | Domain: Social Impact
+
 Problem statement: Hyperlocal On-Demand Blue-Collar Services Platform
 
 **Live demo:** https://pratweeakk-dvz.github.io/HellfireClub_PrateekPrameetPadhy/
