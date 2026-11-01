@@ -67,3 +67,7 @@ SevaSetu is a two-sided hyperlocal marketplace. Customers find and book nearby w
 - `db.js`, `schema.sql`, `seed.sql`, `config.example.js`: database layer
 - `manifest.json`, `sw.js`: installable app
 - `CHANGELOG.md`: what changed in each build step
+
+## Authors 
+- Prateek Prameet Padhy ([@pratweeakk-dvz](https://github.com/pratweeakk-dvz))
+- Niharika Jha ([@niharikajha2307](https://github.com/niharikajha2307))
