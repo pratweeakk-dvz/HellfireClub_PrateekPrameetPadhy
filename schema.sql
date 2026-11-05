@@ -67,6 +67,11 @@ CREATE TABLE IF NOT EXISTS workers (
     is_hidden BOOLEAN NOT NULL DEFAULT false,      -- Admin flag to hide profile from search
     -- Task F: tasks offered by this worker (House help category uses a checklist)
     tasks TEXT[] NOT NULL DEFAULT '{}',            -- Array of task labels, e.g. '{"Sweeping and mopping","Cooking"}'
+    -- BHK-based pricing for House help task "Sweeping and mopping"
+    rate_1bhk NUMERIC CHECK (rate_1bhk IS NULL OR rate_1bhk > 0),
+    rate_2bhk NUMERIC CHECK (rate_2bhk IS NULL OR rate_2bhk > 0),
+    rate_3bhk NUMERIC CHECK (rate_3bhk IS NULL OR rate_3bhk > 0),
+    rate_4bhk NUMERIC CHECK (rate_4bhk IS NULL OR rate_4bhk > 0),
     created_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
@@ -77,6 +82,15 @@ DO $$ BEGIN
     WHERE table_name='workers' AND column_name='tasks'
   ) THEN
     ALTER TABLE workers ADD COLUMN tasks TEXT[] NOT NULL DEFAULT '{}';
+  END IF;
+  IF NOT EXISTS (
+    SELECT 1 FROM information_schema.columns
+    WHERE table_name='workers' AND column_name='rate_1bhk'
+  ) THEN
+    ALTER TABLE workers ADD COLUMN rate_1bhk NUMERIC CHECK (rate_1bhk IS NULL OR rate_1bhk > 0);
+    ALTER TABLE workers ADD COLUMN rate_2bhk NUMERIC CHECK (rate_2bhk IS NULL OR rate_2bhk > 0);
+    ALTER TABLE workers ADD COLUMN rate_3bhk NUMERIC CHECK (rate_3bhk IS NULL OR rate_3bhk > 0);
+    ALTER TABLE workers ADD COLUMN rate_4bhk NUMERIC CHECK (rate_4bhk IS NULL OR rate_4bhk > 0);
   END IF;
 END $$;
 
@@ -126,6 +140,8 @@ CREATE TABLE IF NOT EXISTS bookings (
     tasks_requested TEXT[] NOT NULL DEFAULT '{}', -- Array of task labels from the checklist
     frequency TEXT NOT NULL DEFAULT 'one-time'
         CHECK (frequency IN ('one-time', 'daily', 'weekly')), -- Recurrence for House help bookings
+    bhk_type TEXT CHECK (bhk_type IS NULL OR bhk_type IN ('1 BHK', '2 BHK', '3 BHK', '4 BHK')),
+    agreed_price NUMERIC CHECK (agreed_price IS NULL OR agreed_price > 0),
     created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
     updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
@@ -144,6 +160,18 @@ DO $$ BEGIN
   ) THEN
     ALTER TABLE bookings ADD COLUMN frequency TEXT NOT NULL DEFAULT 'one-time'
       CHECK (frequency IN ('one-time','daily','weekly'));
+  END IF;
+  IF NOT EXISTS (
+    SELECT 1 FROM information_schema.columns
+    WHERE table_name='bookings' AND column_name='bhk_type'
+  ) THEN
+    ALTER TABLE bookings ADD COLUMN bhk_type TEXT CHECK (bhk_type IS NULL OR bhk_type IN ('1 BHK', '2 BHK', '3 BHK', '4 BHK'));
+  END IF;
+  IF NOT EXISTS (
+    SELECT 1 FROM information_schema.columns
+    WHERE table_name='bookings' AND column_name='agreed_price'
+  ) THEN
+    ALTER TABLE bookings ADD COLUMN agreed_price NUMERIC CHECK (agreed_price IS NULL OR agreed_price > 0);
   END IF;
 END $$;
 

@@ -878,7 +878,24 @@
         tasks_needed: 'Tasks you need',
         safety_note: '⚠️ Meet the worker first. Keep emergency numbers handy. Demo profiles are not verified.',
         senior_note: 'Not a replacement for trained medical care.',
-        verification_pending: 'Verification pending'
+        verification_pending: 'Verification pending',
+        sweeping_from: 'Sweeping & mopping from',
+        bhk_rates_title: 'Sweeping & mopping rates by home size',
+        bhk_rates_subtitle: 'Rates in ₹ for 1, 2, 3, and 4 BHK homes',
+        select_bhk: 'Select home size (BHK)',
+        choose_bhk: 'Choose BHK size',
+        filter_bhk: 'Home size (BHK)',
+        all_bhk_sizes: 'All BHK sizes',
+        err_bhk_rates_positive: 'Enter valid rates (> 0) for all 4 BHK sizes.',
+        err_bhk_rates_ascending: 'BHK rates must be in ascending order (1 BHK <= 2 BHK <= 3 BHK <= 4 BHK).',
+        err_bhk_required: 'Please select a BHK size for Sweeping and mopping.',
+        price_breakdown: 'Estimated price breakdown',
+        other_tasks_label: 'Other selected tasks',
+        est_travel: 'Travel charge',
+        est_total: 'Estimated total',
+        bhk_saved: 'BHK rates saved',
+        save_bhk_rates: 'Save BHK rates',
+        select_bhk_for_quote: 'Select home size (BHK) above to see price estimate.'
       },
       hi: {
         app_tagline: 'हर घर का भरोसा, हर हाथ को काम।',
@@ -913,7 +930,24 @@
         tasks_needed: 'आपको क्या काम चाहिए',
         safety_note: '⚠️ काम शुरू होने से पहले कामगार से मिलें। आपातकालीन नंबर तैयार रखें। डेमो प्रोफाइल सत्यापित नहीं हैं।',
         senior_note: 'यह प्रशिक्षित चिकित्सा देखभाल का विकल्प नहीं है।',
-        verification_pending: 'सत्यापन प्रतीक्षित'
+        verification_pending: 'सत्यापन प्रतीक्षित',
+        sweeping_from: 'झाड़ू-पोंछा',
+        bhk_rates_title: 'घर के आकार के अनुसार झाड़ू-पोंछा की दरें',
+        bhk_rates_subtitle: '1, 2, 3, और 4 BHK घरों के लिए ₹ में दरें',
+        select_bhk: 'घर का आकार चुनें (BHK)',
+        choose_bhk: 'BHK आकार चुनें',
+        filter_bhk: 'घर का आकार (BHK)',
+        all_bhk_sizes: 'सभी BHK आकार',
+        err_bhk_rates_positive: 'सभी 4 BHK आकारों के लिए मान्य दरें (> 0) दर्ज करें।',
+        err_bhk_rates_ascending: 'BHK दरें बढ़ते क्रम में होनी चाहिए (1 BHK <= 2 BHK <= 3 BHK <= 4 BHK)।',
+        err_bhk_required: 'कृपया झाड़ू-पोंछा के लिए BHK आकार चुनें।',
+        price_breakdown: 'अनुमानित मूल्य विवरण',
+        other_tasks_label: 'अन्य चुने गए काम',
+        est_travel: 'यात्रा शुल्क',
+        est_total: 'कुल अनुमान',
+        bhk_saved: 'BHK दरें सुरक्षित की गईं',
+        save_bhk_rates: 'BHK दरें सुरक्षित करें',
+        select_bhk_for_quote: 'मूल्य अनुमान देखने के लिए ऊपर घर का आकार (BHK) चुनें।'
       }
     };
     function t(k) { return (I18N[S && S.lang || 'en'] && I18N[S && S.lang || 'en'][k]) || I18N.en[k] || k; }
@@ -949,12 +983,14 @@
       {
         id: 'w2', name: 'Selvi Devi', cat: 'House help', loc: 'Lake View', exp: 5, rate: 250, unit: 'per_visit', travel: 30, avail: true,
         skills: 'Maid & deep cleaning: kitchens, bathrooms, floors', rating: 4.8, rc: 52, ver: 'Demo profile', demo: true, hidden: false,
-        tasks: ['Sweeping and mopping', 'Bathroom cleaning', 'Kitchen cleaning', 'Dusting', 'Utensil cleaning']
+        tasks: ['Sweeping and mopping', 'Bathroom cleaning', 'Kitchen cleaning', 'Dusting', 'Utensil cleaning'],
+        rate_1bhk: 200, rate_2bhk: 250, rate_3bhk: 300, rate_4bhk: 350
       },
       {
         id: 'w9', name: 'Meena Kumari', cat: 'House help', loc: 'Lake View', exp: 7, rate: 180, unit: 'per_visit', travel: 20, avail: true,
         skills: 'Maid: daily cleaning, utensils, laundry, dusting', rating: 4.5, rc: 14, ver: 'Demo profile', demo: true, hidden: false,
-        tasks: ['Dish washing', 'Sweeping and mopping', 'Clothes washing', 'Clothes drying and folding', 'Dusting', 'Utensil cleaning']
+        tasks: ['Dish washing', 'Sweeping and mopping', 'Clothes washing', 'Clothes drying and folding', 'Dusting', 'Utensil cleaning'],
+        rate_1bhk: 150, rate_2bhk: 180, rate_3bhk: 220, rate_4bhk: 260
       },
       {
         id: 'w10', name: 'Suresh Babu', cat: 'House help', loc: 'Market Road', exp: 10, rate: 300, unit: 'per_visit', travel: 20, avail: true,
@@ -964,7 +1000,8 @@
       {
         id: 'w11', name: 'Sunita Bai', cat: 'House help', loc: 'North Colony', exp: 6, rate: 200, unit: 'per_visit', travel: 25, avail: true,
         skills: 'All-rounder maid: sweeping, veg prep, helper', rating: 4.7, rc: 29, ver: 'Demo profile', demo: true, hidden: false,
-        tasks: ['Sweeping and mopping', 'Dish washing', 'Utensil cleaning', 'Snacks and tea', 'Grocery shopping']
+        tasks: ['Sweeping and mopping', 'Dish washing', 'Utensil cleaning', 'Snacks and tea', 'Grocery shopping'],
+        rate_1bhk: 160, rate_2bhk: 200, rate_3bhk: 240, rate_4bhk: 280
       },
       {
         id: 'w12', name: 'Kalyani Rao', cat: 'House help', loc: 'Station Area', exp: 4, rate: 220, unit: 'per_visit', travel: 25, avail: true,
@@ -979,7 +1016,8 @@
       {
         id: 'w14', name: 'Rosy Thomas', cat: 'House help', loc: 'Lake View', exp: 8, rate: 350, unit: 'per_day', travel: 30, avail: true,
         skills: 'Senior care and light housekeeping', rating: 4.6, rc: 11, ver: 'Demo profile', demo: true, hidden: false,
-        tasks: ['Senior care – companionship, medicine reminders, help with walking and bathing, hospital visits', 'Sweeping and mopping', 'Dusting']
+        tasks: ['Senior care – companionship, medicine reminders, help with walking and bathing, hospital visits', 'Sweeping and mopping', 'Dusting'],
+        rate_1bhk: 300, rate_2bhk: 350, rate_3bhk: 400, rate_4bhk: 450
       },
       {
         id: 'w15', name: 'Deepa Menon', cat: 'House help', loc: 'Market Road', exp: 5, rate: 300, unit: 'per_day', travel: 35, avail: true,
@@ -994,7 +1032,8 @@
       {
         id: 'w17', name: 'Geetha Iyer', cat: 'House help', loc: 'North Colony', exp: 9, rate: 260, unit: 'per_visit', travel: 20, avail: true,
         skills: 'Full-service maid: cleaning, cooking, grocery', rating: 4.4, rc: 7, ver: 'Demo profile', demo: true, hidden: false,
-        tasks: ['Sweeping and mopping', 'Bathroom cleaning', 'Kitchen cleaning', 'Cook full meals', 'Grocery shopping', 'Dish washing']
+        tasks: ['Sweeping and mopping', 'Bathroom cleaning', 'Kitchen cleaning', 'Cook full meals', 'Grocery shopping', 'Dish washing'],
+        rate_1bhk: 220, rate_2bhk: 260, rate_3bhk: 300, rate_4bhk: 350
       }
     ].map((w, i) => {
       // Attach geo coordinates
@@ -1031,6 +1070,12 @@
         if (!ex.unit) ex.unit = sw.unit || 'per_hour';
         if (!ex.geo) ex.geo = sw.geo;
         if (!ex.tasks) ex.tasks = sw.tasks || [];
+        if (sw.rate_1bhk && ex.rate_1bhk == null) {
+          ex.rate_1bhk = sw.rate_1bhk;
+          ex.rate_2bhk = sw.rate_2bhk;
+          ex.rate_3bhk = sw.rate_3bhk;
+          ex.rate_4bhk = sw.rate_4bhk;
+        }
       }
     });
     function save() { try { localStorage.setItem('kaamsetu', JSON.stringify(S)); } catch (e) { mem = true; } }
@@ -1082,15 +1127,54 @@
       return w.tasks && w.tasks.some(tk => SAFETY_TASKS.includes(tk));
     }
 
+    /* BHK rates helpers for House help task "Sweeping and mopping" */
+    function getBhkRate(w, bhk) {
+      if (!w) return 0;
+      const key = bhk === '1 BHK' ? 'rate_1bhk'
+        : bhk === '2 BHK' ? 'rate_2bhk'
+        : bhk === '3 BHK' ? 'rate_3bhk'
+        : bhk === '4 BHK' ? 'rate_4bhk' : null;
+      if (key && w[key] != null && !isNaN(w[key]) && Number(w[key]) > 0) {
+        return Number(w[key]);
+      }
+      return Number(w.rate || 0);
+    }
+
+    function getAllBhkRates(w) {
+      return {
+        '1 BHK': getBhkRate(w, '1 BHK'),
+        '2 BHK': getBhkRate(w, '2 BHK'),
+        '3 BHK': getBhkRate(w, '3 BHK'),
+        '4 BHK': getBhkRate(w, '4 BHK')
+      };
+    }
+
+    function calcBookingLabour(w, tasks, bhk) {
+      if (!w) return 0;
+      if (!tasks || !tasks.length) return Number(w.rate || 0);
+      const hasSweeping = tasks.includes('Sweeping and mopping');
+      const otherTasks = tasks.filter(tk => tk !== 'Sweeping and mopping');
+      if (hasSweeping) {
+        const bhkPrice = getBhkRate(w, bhk || '1 BHK');
+        return otherTasks.length > 0 ? bhkPrice + Number(w.rate || 0) : bhkPrice;
+      }
+      return Number(w.rate || 0);
+    }
+
     /* Worker card (universal) */
     function wcard(w) {
       const h = (PRIMARY_CATS.indexOf(w.cat) >= 0 ? PRIMARY_CATS.indexOf(w.cat) : 0) * 55;
       const distBadge = w.geo ? `<span class="tag ok" style="font-size:.78rem">📍 ${esc(w.geo.dist)} · Available within ${esc(w.geo.eta || '~30 min')}</span> ` : '';
       const safetyBadge = hasSafetyTask(w) && w.ver !== 'Demo verified'
         ? `<span class="tag warn" style="font-size:.78rem">${t('verification_pending')}</span> ` : '';
+      const offersSweeping = w.tasks && w.tasks.includes('Sweeping and mopping');
+      const bhkCardTxt = offersSweeping
+        ? `<div style="font-size:.85rem;color:var(--pri);font-weight:700;margin:.2rem 0">🧹 ${S.lang === 'hi' ? `झाड़ू-पोंछा ${R(getBhkRate(w, '1 BHK'))} (1 BHK) से` : `Sweeping & mopping from ${R(getBhkRate(w, '1 BHK'))} (1 BHK)`}</div>`
+        : '';
       return `<div class="card wc"><div class="av" style="--h:${h}" aria-hidden="true">${esc(ini(w.name))}</div><div class="wm"><div class="row sp"><h3>${esc(w.name)}</h3><span class="tag ${w.avail ? 'ok' : ''}"><span class="dot"></span>${w.avail ? 'Available' : 'Busy'}</span></div>
 <div class="mut">${CATS[w.cat] || '🛠️'} ${esc(w.cat)} · ${esc(w.loc)} · ${w.exp} yrs</div></div>
 <div class="full"><p>${esc(w.skills)}</p>${taskChips(w.tasks)}<div class="price"><b>${R(w.rate)}</b><span class="mut">${fmtUnit(w.unit || 'per_hour')}</span> <span class="mut" style="font-size:.85rem">+ ${R(w.travel)} travel</span></div>
+${bhkCardTxt}
 <div style="margin:.3rem 0">${distBadge}${safetyBadge}${w.rc ? `★ ${w.rating.toFixed(1)} <span class="mut">(${w.rc}${w.demo ? ' demo ratings' : ' ratings'})</span>` : '<span class="mut">No ratings yet</span>'}</div><div style="margin:.4rem 0">${verTag(w)}</div>
 <div class="row"><a class="btn alt sm" href="#worker/${w.id}">View profile</a><a class="btn alt sm" href="#book/${w.id}">Book now</a></div></div></div>`;
     }
@@ -1150,6 +1234,7 @@
         loc: p.get('loc') || '',
         av: p.get('av') || '',
         max: p.get('max') || '',
+        bhk: p.get('bhk') || '',
         tasks: p.getAll('tk')   // task filter checkboxes
       };
       const GROUP_KEYS = Object.keys(HH_TASK_GROUPS);
@@ -1158,7 +1243,7 @@
       const list = allHH.filter(w =>
         (!f.loc || w.loc === f.loc)
         && (!f.av || w.avail)
-        && (!f.max || w.rate <= +f.max)
+        && (!f.max || (w.tasks && w.tasks.includes('Sweeping and mopping') && f.bhk ? getBhkRate(w, f.bhk) : w.rate) <= +f.max)
         && (!f.q || (w.name + ' ' + w.skills).toLowerCase().includes(f.q.toLowerCase()))
         && (f.tasks.length === 0 || f.tasks.every(tk => w.tasks && w.tasks.includes(tk)))
       );
@@ -1181,6 +1266,7 @@
 <form class="card" onsubmit="event.preventDefault();filtHH()"><div class="grid">
 <div><label for="hhq">Search name or skill</label><input id="hhq" value="${esc(f.q)}"></div>
 <div><label for="hhl">Locality</label><select id="hhl"><option value="">All localities</option>${LOCS.map(c => `<option ${c === f.loc ? 'selected' : ''}>${c}</option>`).join('')}</select></div>
+<div><label for="hhbhk">${t('filter_bhk')}</label><select id="hhbhk"><option value="">${t('all_bhk_sizes')}</option><option value="1 BHK" ${f.bhk === '1 BHK' ? 'selected' : ''}>1 BHK</option><option value="2 BHK" ${f.bhk === '2 BHK' ? 'selected' : ''}>2 BHK</option><option value="3 BHK" ${f.bhk === '3 BHK' ? 'selected' : ''}>3 BHK</option><option value="4 BHK" ${f.bhk === '4 BHK' ? 'selected' : ''}>4 BHK</option></select></div>
 <div><label for="hhm">Max rate (₹)</label><input id="hhm" type="number" min="0" value="${esc(f.max)}"></div></div>
 <label><input id="hha" type="checkbox" style="width:auto" ${f.av ? 'checked' : ''}> Available now only</label>
 <details style="margin-top:.6rem"><summary><b>Filter by tasks</b>${f.tasks.length > 0 ? ` <span class="tag ok">${f.tasks.length} active</span>` : ''}</summary>
@@ -1208,6 +1294,7 @@ ${groups.map(g => {
       const p = new URLSearchParams();
       const q = $('#hhq')?.value.trim(); if (q) p.set('q', q);
       const l = $('#hhl')?.value; if (l) p.set('loc', l);
+      const bhk = $('#hhbhk')?.value; if (bhk) p.set('bhk', bhk);
       const m = $('#hhm')?.value; if (m) p.set('max', m);
       if ($('#hha')?.checked) p.set('av', 1);
       document.querySelectorAll('[id^="htk_"]:checked').forEach(el => p.append('tk', el.value));
@@ -1221,10 +1308,23 @@ ${groups.map(g => {
       const rv = S.bookings.filter(b => b.wid === id && b.review);
       const isHH = w.cat === 'House help';
       const showSafety = hasSafetyTask(w);
+      const offersSweeping = w.tasks && w.tasks.includes('Sweeping and mopping');
+      const bhkPricingTable = offersSweeping ? `
+<div class="card" style="background:var(--soft);margin:.8rem 0;padding:.8rem">
+  <b>🧹 ${t('bhk_rates_title')}</b>
+  <p class="mut" style="font-size:.85rem;margin:.2rem 0 .5rem">${t('bhk_rates_subtitle')}</p>
+  <table style="width:100%;max-width:340px">
+    <tr><td>1 BHK</td><td><b>${R(getBhkRate(w, '1 BHK'))}</b> <span class="mut">${fmtUnit(w.unit || 'per_visit')}</span></td></tr>
+    <tr><td>2 BHK</td><td><b>${R(getBhkRate(w, '2 BHK'))}</b> <span class="mut">${fmtUnit(w.unit || 'per_visit')}</span></td></tr>
+    <tr><td>3 BHK</td><td><b>${R(getBhkRate(w, '3 BHK'))}</b> <span class="mut">${fmtUnit(w.unit || 'per_visit')}</span></td></tr>
+    <tr><td>4 BHK</td><td><b>${R(getBhkRate(w, '4 BHK'))}</b> <span class="mut">${fmtUnit(w.unit || 'per_visit')}</span></td></tr>
+  </table>
+</div>` : '';
       return `<a href="${isHH ? '#hh' : '#find'}">← Back</a><div class="card" style="margin-top:.6rem"><h2>${CATS[w.cat] || '🛠️'} ${esc(w.name)}</h2><div class="row">${verTag(w)}<span class="tag ${w.avail ? 'ok' : ''}">${w.avail ? 'Available' : 'Busy'}</span></div>
 <p>${esc(w.cat)} in ${esc(w.loc)}. ${w.exp} years of experience claimed by the worker. Skills: ${esc(w.skills)}.</p>
 <p class="mut">Verification: ${w.ver === 'Unverified' ? 'No documents checked.' : w.ver === 'Demo verified' ? 'Sample verification only. No real Aadhaar or identity check was done.' : 'Sample profile for the demo. SevaSetu has not checked identity, credentials or background.'}</p>
 <p><b>Base rate:</b> ${R(w.rate)} ${fmtUnit(w.unit || 'per_hour')} + travel ${R(w.travel)}. The final itemised quote and counter-offers are agreed before work starts.</p>
+${bhkPricingTable}
 ${w.tasks && w.tasks.length > 0 ? `<p><b>Offered tasks:</b></p>${taskChips(w.tasks, 20)}` : ''}
 ${showSafety ? `<div class="safety-note">${t('safety_note')}</div>` : ''}
 <a class="btn" href="#book/${w.id}">Request this worker</a></div>
@@ -1238,11 +1338,25 @@ ${showSafety ? `<div class="safety-note">${t('safety_note')}</div>` : ''}
       const isHH = w.cat === 'House help';
       const hasTasks = isHH && w.tasks && w.tasks.length > 0;
       const showSafety = hasSafetyTask(w);
+      const hasSweeping = isHH && w.tasks && w.tasks.includes('Sweeping and mopping');
       const taskSection = hasTasks ? `
     <label>${t('tasks_needed')} (tick all that apply)</label>
-    <div class="card" style="padding:.6rem;background:var(--bg)">${w.tasks.map(tk =>
-        `<div class="task-check-row"><input type="checkbox" class="bk-task" id="bkt_${esc(tk.replace(/\W/g, '_'))}" value="${esc(tk)}"><label for="bkt_${esc(tk.replace(/\W/g, '_'))}">${esc(tk)}</label></div>`
-      ).join('')}</div>
+    <div class="card" style="padding:.6rem;background:var(--bg)">${w.tasks.map(tk => {
+        const isSweeping = tk === 'Sweeping and mopping';
+        return `<div class="task-check-row"><input type="checkbox" class="bk-task" id="bkt_${esc(tk.replace(/\W/g, '_'))}" value="${esc(tk)}" onchange="onBookingTaskChange('${w.id}')"><label for="bkt_${esc(tk.replace(/\W/g, '_'))}">${esc(tk)}</label></div>`;
+      }).join('')}</div>
+    ${hasSweeping ? `
+    <div id="bk-bhk-wrap" style="display:none;margin:.6rem 0;padding:.6rem;background:var(--soft);border-radius:8px">
+      <label for="bk-bhk-select" style="font-weight:700">🧹 ${t('select_bhk')} <span style="color:var(--bad)">*</span></label>
+      <select id="bk-bhk-select" onchange="onBookingBhkChange('${w.id}')" style="margin-top:.3rem">
+        <option value="">-- ${t('choose_bhk')} --</option>
+        <option value="1 BHK">1 BHK – ${R(getBhkRate(w, '1 BHK'))} (${fmtUnit(w.unit || 'per_visit')})</option>
+        <option value="2 BHK">2 BHK – ${R(getBhkRate(w, '2 BHK'))} (${fmtUnit(w.unit || 'per_visit')})</option>
+        <option value="3 BHK">3 BHK – ${R(getBhkRate(w, '3 BHK'))} (${fmtUnit(w.unit || 'per_visit')})</option>
+        <option value="4 BHK">4 BHK – ${R(getBhkRate(w, '4 BHK'))} (${fmtUnit(w.unit || 'per_visit')})</option>
+      </select>
+    </div>` : ''}
+    <div id="bk-breakdown" style="display:none;margin:.6rem 0"></div>
     ${showSafety ? `<div class="safety-note">${t('safety_note')}</div>` : ''}
     <label>Frequency</label>
     <select id="bkfreq"><option value="one-time">One-time</option><option value="daily">Daily (recurring)</option><option value="weekly">Weekly (recurring)</option></select>` : '';
@@ -1253,20 +1367,105 @@ ${taskSection}
 <label><input id="ba" type="checkbox" style="width:auto"> I need help as soon as possible (urgent)</label><label for="bw">Or choose a preferred time</label><input id="bw" type="datetime-local"><div class="err" id="be" role="alert"></div>
 <p class="mut">Your exact address and phone stay private. Share them directly only if you choose to, after a quote is approved.</p><button class="btn">Send request</button></form>`;
     }
+
+    function onBookingTaskChange(wid) {
+      const w = W(wid);
+      if (!w) return;
+      const sweepingCb = document.getElementById('bkt_Sweeping_and_mopping');
+      const isSweepingChecked = sweepingCb && sweepingCb.checked;
+      const bhkWrap = document.getElementById('bk-bhk-wrap');
+      const bhkSel = document.getElementById('bk-bhk-select');
+      if (bhkWrap) {
+        if (isSweepingChecked) {
+          bhkWrap.style.display = 'block';
+        } else {
+          bhkWrap.style.display = 'none';
+          if (bhkSel) bhkSel.value = '';
+        }
+      }
+      updateBookingBreakdown(w);
+    }
+
+    function onBookingBhkChange(wid) {
+      const w = W(wid);
+      if (!w) return;
+      updateBookingBreakdown(w);
+    }
+
+    function updateBookingBreakdown(w) {
+      const el = document.getElementById('bk-breakdown');
+      if (!el) return;
+      const selTasks = Array.from(document.querySelectorAll('.bk-task:checked')).map(x => x.value);
+      if (!selTasks.length) {
+        el.style.display = 'none';
+        el.innerHTML = '';
+        return;
+      }
+      const sweepingCb = document.getElementById('bkt_Sweeping_and_mopping');
+      const hasSweeping = sweepingCb && sweepingCb.checked;
+      const bhkSel = document.getElementById('bk-bhk-select');
+      const bhk = bhkSel ? bhkSel.value : '';
+
+      if (hasSweeping && !bhk) {
+        el.style.display = 'block';
+        el.innerHTML = `<div class="card" style="background:var(--soft);border:1.5px dashed var(--acc);padding:.6rem"><p class="mut" style="margin:0">${t('select_bhk_for_quote')}</p></div>`;
+        return;
+      }
+
+      let lines = [];
+      let labourTot = 0;
+      if (hasSweeping && bhk) {
+        const rate = getBhkRate(w, bhk);
+        labourTot += rate;
+        lines.push(`<tr><td>🧹 Sweeping and mopping (${esc(bhk)})</td><td style="text-align:right"><b>${R(rate)}</b></td></tr>`);
+      }
+      const other = selTasks.filter(x => x !== 'Sweeping and mopping');
+      if (other.length) {
+        const rate = Number(w.rate || 0);
+        labourTot += rate;
+        lines.push(`<tr><td>${t('other_tasks_label')} <span class="mut">(${esc(other.join(', '))})</span></td><td style="text-align:right"><b>${R(rate)}</b> <small class="mut">${fmtUnit(w.unit || 'per_visit')}</small></td></tr>`);
+      }
+      const travel = Number(w.travel || 0);
+      const grandTot = labourTot + travel;
+
+      el.style.display = 'block';
+      el.innerHTML = `<div class="card" style="background:var(--soft);border:1.5px solid var(--pri);padding:.7rem">
+        <b>${t('price_breakdown')}</b>
+        <table style="width:100%;margin-top:.4rem">
+          ${lines.join('')}
+          <tr><td>${t('est_travel')}</td><td style="text-align:right">${R(travel)}</td></tr>
+          <tr class="tot" style="font-weight:700;border-top:1.5px solid var(--line)"><td>${t('est_total')}</td><td style="text-align:right;color:var(--pri)">${R(grandTot)}</td></tr>
+        </table>
+      </div>`;
+    }
+
     function submitBook(id) {
       const d = $('#bd').value.trim(), tw = $('#ba').checked ? 'ASAP' : $('#bw').value, w = W(id);
       let e = '';
       if (d.length < 10) e = 'Describe the job in at least 10 characters.';
       else if (!tw) e = 'Pick a time, or tick as soon as possible.';
       else if (tw !== 'ASAP' && new Date(tw) < new Date()) e = 'Choose a time in the future.';
-      if (e) { $('#be').textContent = e; return; }
+
       // Collect selected tasks
       const selTasks = Array.from(document.querySelectorAll('.bk-task:checked')).map(el => el.value);
+      const hasSweeping = selTasks.includes('Sweeping and mopping');
+      const bhkSel = document.getElementById('bk-bhk-select');
+      const chosenBhk = (hasSweeping && bhkSel) ? bhkSel.value : null;
+
+      if (!e && hasSweeping && !chosenBhk) {
+        e = t('err_bhk_required');
+      }
+
+      if (e) { $('#be').textContent = e; return; }
+
       const freq = $('#bkfreq') ? $('#bkfreq').value : 'one-time';
       S.bookings.push({
         id: 'b' + S.n++, wid: id, cat: w.cat, desc: d, loc: $('#bl').value, when: tw, status: 'requested',
         quote: null, agreedPrice: null, review: null, report: null, created: new Date().toISOString(),
-        tasksRequested: selTasks, frequency: freq
+        tasksRequested: selTasks, frequency: freq,
+        bhk: chosenBhk,
+        bhk_type: chosenBhk,
+        agreed_price: null
       });
       save(); toast('Request sent to ' + w.name); location.hash = 'cust';
     }
@@ -1278,7 +1477,7 @@ ${taskSection}
         const w = W(b.wid);
         return `<div class="card" style="margin-bottom:.8rem"><div class="row sp"><h3>${CATS[b.cat] || '🛠️'} ${esc(b.cat)} with ${esc(w.name)}</h3><span class="tag">${LBL[b.status]}</span></div>
 <div class="mut">${esc(b.loc)} · ${fmtW(b)}</div><p>${esc(b.desc)}</p>
-${b.tasksRequested && b.tasksRequested.length ? `<div class="mut" style="font-size:.9rem"><b>Tasks:</b> ${b.tasksRequested.map(esc).join(', ')}${b.frequency && b.frequency !== 'one-time' ? ' · <b>' + esc(b.frequency) + '</b>' : ''}</div>` : ''}
+${b.tasksRequested && b.tasksRequested.length ? `<div class="mut" style="font-size:.9rem"><b>Tasks:</b> ${b.tasksRequested.map(tk => (tk === 'Sweeping and mopping' && b.bhk) ? `${esc(tk)} (${esc(b.bhk)})` : esc(tk)).join(', ')}${b.frequency && b.frequency !== 'one-time' ? ' · <b>' + esc(b.frequency) + '</b>' : ''}</div>` : ''}
 ${steps(b)}
 ${b.agreedPrice ? `<div class="card" style="background:var(--soft);border:1.5px solid var(--acc);margin:.6rem 0"><div class="row sp"><b>🔒 Agreed price locked: ${R(b.agreedPrice.total)}</b><span class="tag ok">Agreed</span></div><div class="mut" style="font-size:.88rem">Labour ${R(b.agreedPrice.labor)} + Materials/Extras ${R(b.agreedPrice.mat)} + Travel ${R(b.agreedPrice.travel)}</div></div>` : ''}
 ${b.quote && !b.agreedPrice ? `<h3>Price Quote ${b.quote.round > 1 ? `(Round ${b.quote.round}/3)` : ''}</h3>${tableQ(b.quote)}${b.quote.note ? `<p class="mut">Worker note: ${esc(b.quote.note)}</p>` : ''}` : ''}
@@ -1293,9 +1492,9 @@ ${b.report ? `<p class="tag warn">Issue reported: ${esc(b.report.s)}</p>` : `${[
       }).join('') : '<div class="card"><b>No bookings yet.</b><br><a href="#find">Find a worker</a> to make your first request.</div>'}`;
     }
     function setS(id, s, m) { B(id).status = s; save(); toast(m || LBL[s]); render(); }
-    function approve(id) { const b = B(id); b.agreedPrice = { total: total(b.quote), labor: b.quote.labor, mat: b.quote.mat, travel: b.quote.travel, agreedAt: new Date().toISOString() }; setS(id, 'approved', 'Quote approved! Price locked at ' + R(b.agreedPrice.total)); }
+    function approve(id) { const b = B(id); const tot = total(b.quote); b.agreedPrice = { total: tot, labor: b.quote.labor, mat: b.quote.mat, travel: b.quote.travel, agreedAt: new Date().toISOString() }; b.agreed_price = tot; setS(id, 'approved', 'Quote approved! Price locked at ' + R(tot)); }
     function counterOffer(id) { const b = B(id); const l = +$('#cql' + id).value, m = +$('#cqm' + id).value, tv = +$('#cqt' + id).value; const note = ($('#cqn' + id).value || '').trim(); if (!(l > 0) || m < 0 || tv < 0 || isNaN(l) || isNaN(m) || isNaN(tv)) { $('#cqe' + id).textContent = 'Labour must be above 0. Materials and travel cannot be negative.'; return } const curRound = b.quote ? (b.quote.round || 1) : 1; if (curRound >= 3) { toast('Maximum 3 rounds reached.'); return } const nextRound = curRound + 1; b.quote.labor = l; b.quote.mat = m; b.quote.travel = tv; b.quote.total = l + m + tv; b.quote.ask = note || ('Customer offered ' + R(l + m + tv)); b.quote.round = nextRound; b.quote.rounds = b.quote.rounds || []; b.quote.rounds.push({ by: 'customer', round: nextRound, labor: l, mat: m, travel: tv, total: l + m + tv, note, when: new Date().toISOString() }); setS(id, 'negotiating', 'Counter-offer of ' + R(l + m + tv) + ' sent (Round ' + nextRound + '/3)'); }
-    function acceptCounter(id) { const b = B(id); b.agreedPrice = { total: b.quote.total || total(b.quote), labor: b.quote.labor, mat: b.quote.mat, travel: b.quote.travel, agreedAt: new Date().toISOString() }; setS(id, 'approved', 'Counter-offer accepted! Price locked at ' + R(b.agreedPrice.total)); }
+    function acceptCounter(id) { const b = B(id); const tot = b.quote.total || total(b.quote); b.agreedPrice = { total: tot, labor: b.quote.labor, mat: b.quote.mat, travel: b.quote.travel, agreedAt: new Date().toISOString() }; b.agreed_price = tot; setS(id, 'approved', 'Counter-offer accepted! Price locked at ' + R(tot)); }
     function review(id) { const tx = $('#rt' + id).value.trim(); if (tx.length < 3) { $('#re' + id).textContent = 'Add a short comment.'; return } const b = B(id), w = W(b.wid), r = +$('#rr' + id).value; b.review = { r, t: tx }; w.rating = (w.rating * w.rc + r) / (w.rc + 1); w.rc++; save(); toast('Review submitted'); render(); }
     function report(id) { const tx = $('#ri' + id).value.trim(); if (tx.length < 10) { $('#rie' + id).textContent = 'Describe the issue in at least 10 characters.'; return } B(id).report = { t: tx, s: 'Open', note: '' }; S.reports.push(id); save(); toast('Report sent to admin'); render(); }
 
@@ -1306,26 +1505,59 @@ ${b.report ? `<p class="tag warn">Issue reported: ${esc(b.report.s)}</p>` : `${[
       const list = S.bookings.filter(b => b.wid === w.id).reverse();
       const done = list.filter(b => b.status === 'completed' && (b.agreedPrice || b.quote));
       const earn = done.reduce((a, b) => a + (b.agreedPrice ? b.agreedPrice.total : total(b.quote)), 0);
+      const offersSweeping = w.cat === 'House help' && w.tasks && w.tasks.includes('Sweeping and mopping');
       return `<h2>Worker dashboard</h2><div class="card"><div class="row sp"><div><label for="me">Demo sign-in as</label><select id="me" onchange="S.me=this.value;save();render()">${S.workers.map(x => `<option value="${x.id}" ${x.id === S.me ? 'selected' : ''}>${esc(x.name)} (${x.cat})</option>`).join('')}</select></div>
 <div><label>Availability</label><button class="btn ${w.avail ? '' : 'alt'}" onclick="W(S.me).avail=!W(S.me).avail;save();render()">${w.avail ? 'Available – tap to go busy' : 'Busy – tap to go available'}</button></div>
 <div><label for="rt">Base rate & unit</label><div class="row"><input id="rt" type="number" min="50" value="${w.rate}" style="width:90px"><select id="ru" style="width:115px"><option value="per_hour" ${(w.unit || 'per_hour') === 'per_hour' ? 'selected' : ''}>/ hour</option><option value="per_visit" ${(w.unit || 'per_hour') === 'per_visit' ? 'selected' : ''}>/ visit</option><option value="per_day" ${(w.unit || 'per_hour') === 'per_day' ? 'selected' : ''}>/ day</option></select><button class="btn alt sm" onclick="setRate()">Save</button></div></div></div>
 <div style="margin-top:.5rem">${verTag(w)}</div>
+${offersSweeping ? `
+<div style="margin-top:.8rem;padding:.7rem;background:var(--soft);border-radius:8px">
+  <label style="font-weight:700">🧹 ${t('bhk_rates_title')} (${fmtUnit(w.unit || 'per_visit')})</label>
+  <div class="grid" style="grid-template-columns:repeat(4,1fr);margin-top:.4rem;gap:.5rem">
+    <div><label for="w_bhk1">1 BHK (₹)</label><input id="w_bhk1" type="number" min="1" value="${getBhkRate(w, '1 BHK')}"></div>
+    <div><label for="w_bhk2">2 BHK (₹)</label><input id="w_bhk2" type="number" min="1" value="${getBhkRate(w, '2 BHK')}"></div>
+    <div><label for="w_bhk3">3 BHK (₹)</label><input id="w_bhk3" type="number" min="1" value="${getBhkRate(w, '3 BHK')}"></div>
+    <div><label for="w_bhk4">4 BHK (₹)</label><input id="w_bhk4" type="number" min="1" value="${getBhkRate(w, '4 BHK')}"></div>
+  </div>
+  <div class="err" id="w_bhk_err" role="alert" style="margin-top:.3rem"></div>
+  <button class="btn alt sm" style="margin-top:.4rem" onclick="setBhkRates()">${t('save_bhk_rates')}</button>
+</div>` : ''}
 ${w.tasks && w.tasks.length ? `<div style="margin:.5rem 0"><span class="mut" style="font-weight:600">Offered tasks:</span> ${taskChips(w.tasks, 8)}</div>` : ''}
 ${w.ver === 'Unverified' ? '<p class="err">Verify to accept jobs. <a href="#join">Start sample verification</a></p>' : ''}</div>
 <div class="grid" style="margin:1rem 0"><div class="card"><div class="stat">${R(earn)}</div>Demo earnings from ${done.length} completed demo job(s)<div class="mut">Not real income. No payments are processed.</div></div><div class="card"><div class="stat">${list.filter(b => b.status === 'requested').length}</div>New requests waiting</div></div>
 <h3>Job requests and history</h3>${list.length ? list.map(b => `<div class="card" style="margin-bottom:.8rem"><div class="row sp"><b>${esc(b.cat)} · ${esc(b.loc)}</b><span class="tag">${LBL[b.status]}</span></div><div class="mut">${fmtW(b)}</div><p>${esc(b.desc)}</p>
-${b.tasksRequested && b.tasksRequested.length ? `<div class="mut" style="font-size:.9rem"><b>Tasks requested:</b> ${b.tasksRequested.map(esc).join(', ')}${b.frequency && b.frequency !== 'one-time' ? ' · <b>' + esc(b.frequency) + '</b>' : ''}</div>` : ''}
+${b.tasksRequested && b.tasksRequested.length ? `<div class="mut" style="font-size:.9rem"><b>Tasks requested:</b> ${b.tasksRequested.map(tk => (tk === 'Sweeping and mopping' && b.bhk) ? `${esc(tk)} (${esc(b.bhk)})` : esc(tk)).join(', ')}${b.frequency && b.frequency !== 'one-time' ? ' · <b>' + esc(b.frequency) + '</b>' : ''}</div>` : ''}
 ${steps(b)}
 ${b.agreedPrice ? `<div class="card" style="background:var(--soft);border:1.5px solid var(--acc);margin:.6rem 0"><div class="row sp"><b>🔒 Agreed price locked: ${R(b.agreedPrice.total)}</b><span class="tag ok">Agreed</span></div><div class="mut" style="font-size:.88rem">Labour ${R(b.agreedPrice.labor)} + Materials/Extras ${R(b.agreedPrice.mat)} + Travel ${R(b.agreedPrice.travel)}</div></div>` : ''}
 ${b.quote && !b.agreedPrice ? tableQ(b.quote) : ''}
 ${b.status === 'negotiating' ? `<div class="card" style="background:var(--soft);margin:.5rem 0"><div class="row sp"><b>Customer counter-offer: ${R(b.quote?.total || total(b.quote))}</b><span class="tag warn">Round ${b.quote?.round || 2}/3</span></div><p style="margin:.2rem 0">Proposed breakdown: Labour ${R(b.quote.labor)} + Extras ${R(b.quote.mat)} + Travel ${R(b.quote.travel)}</p>${b.quote?.ask ? `<p class="mut">Customer note: ${esc(b.quote.ask)}</p>` : ''}<div class="row" style="margin-top:.5rem"><button class="btn" onclick="acceptCounter('${b.id}')">Accept counter-offer (${R(b.quote?.total || total(b.quote))})</button><button class="btn bad sm" onclick="setS('${b.id}','rejected','Offer declined')">Decline</button></div></div>` : ''}
 ${b.status === 'requested' ? `<div class="row"><button class="btn" onclick="acceptJob('${b.id}')">Accept</button><button class="btn bad" onclick="setS('${b.id}','rejected','Request declined')">Decline</button></div>` : ''}
-${['accepted', 'negotiating'].includes(b.status) && (!b.quote || (b.quote.round || 1) < 3) ? `<h3>${b.status === 'accepted' ? 'Send itemised quote' : 'Send counter-offer back (Final Round 3/3)'}</h3><div class="grid" style="grid-template-columns:repeat(3,1fr)"><div><label for="ql${b.id}">Labour ₹</label><input id="ql${b.id}" type="number" min="50" value="${b.quote ? b.quote.labor : w.rate}"></div><div><label for="qm${b.id}">Materials ₹</label><input id="qm${b.id}" type="number" min="0" value="${b.quote ? b.quote.mat : 0}"></div><div><label for="qt${b.id}">Travel ₹</label><input id="qt${b.id}" type="number" min="0" value="${b.quote ? b.quote.travel : w.travel}"></div></div><label for="qn${b.id}">Note (materials / work scope)</label><input id="qn${b.id}" value="${b.quote ? esc(b.quote.note) : ''}"><div class="err" id="qe${b.id}"></div><button class="btn" onclick="quote('${b.id}')">${b.status === 'accepted' ? 'Send quote' : 'Send revised quote'}</button>` : ''}
+${['accepted', 'negotiating'].includes(b.status) && (!b.quote || (b.quote.round || 1) < 3) ? `<h3>${b.status === 'accepted' ? 'Send itemised quote' : 'Send counter-offer back (Final Round 3/3)'}</h3><div class="grid" style="grid-template-columns:repeat(3,1fr)"><div><label for="ql${b.id}">Labour ₹</label><input id="ql${b.id}" type="number" min="50" value="${b.quote ? b.quote.labor : calcBookingLabour(w, b.tasksRequested, b.bhk)}"></div><div><label for="qm${b.id}">Materials ₹</label><input id="qm${b.id}" type="number" min="0" value="${b.quote ? b.quote.mat : 0}"></div><div><label for="qt${b.id}">Travel ₹</label><input id="qt${b.id}" type="number" min="0" value="${b.quote ? b.quote.travel : w.travel}"></div></div><label for="qn${b.id}">Note (materials / work scope)</label><input id="qn${b.id}" value="${b.quote ? esc(b.quote.note) : ''}"><div class="err" id="qe${b.id}"></div><button class="btn" onclick="quote('${b.id}')">${b.status === 'accepted' ? 'Send quote' : 'Send revised quote'}</button>` : ''}
 ${b.status === 'approved' ? `<button class="btn" onclick="setS('${b.id}','completed','Marked completed (demo)')">Mark job completed</button>` : ''}
 </div>`).join('') : '<div class="card"><b>No requests yet.</b><br>Open the customer side, request this worker, then come back here.</div>'}
 <details class="card"><summary><b>Register a new worker profile</b></summary>${regForm()}</details>`;
     }
     function setRate() { const v = +$('#rt').value, u = $('#ru').value; if (!(v >= 50)) { toast('Enter a rate of at least ₹50'); return } const w = W(S.me); w.rate = v; w.unit = u; save(); toast('Rate and unit saved'); render(); }
+    function setBhkRates() {
+      const w = W(S.me);
+      if (!w) return;
+      const r1 = +$('#w_bhk1').value, r2 = +$('#w_bhk2').value, r3 = +$('#w_bhk3').value, r4 = +$('#w_bhk4').value;
+      if (!(r1 > 0 && r2 > 0 && r3 > 0 && r4 > 0)) {
+        $('#w_bhk_err').textContent = t('err_bhk_rates_positive');
+        return;
+      }
+      if (!(r1 <= r2 && r2 <= r3 && r3 <= r4)) {
+        $('#w_bhk_err').textContent = t('err_bhk_rates_ascending');
+        return;
+      }
+      w.rate_1bhk = r1;
+      w.rate_2bhk = r2;
+      w.rate_3bhk = r3;
+      w.rate_4bhk = r4;
+      save();
+      toast(t('bhk_saved'));
+      render();
+    }
     function quote(id) { const l = +$('#ql' + id).value, m = +$('#qm' + id).value, tv = +$('#qt' + id).value; if (!(l > 0) || m < 0 || tv < 0 || isNaN(m) || isNaN(tv)) { $('#qe' + id).textContent = 'Labour must be above 0. Materials and travel cannot be negative.'; return } const b = B(id); const curRound = b.quote ? (b.quote.round || 1) : 0; const nextRound = curRound + 1; const note = $('#qn' + id).value.trim(); b.quote = { labor: l, mat: m, travel: tv, total: l + m + tv, note, v: (b.quote ? b.quote.v : 0) + 1, round: nextRound, rounds: (b.quote && b.quote.rounds ? b.quote.rounds : []) }; b.quote.rounds.push({ by: 'worker', round: nextRound, labor: l, mat: m, travel: tv, total: l + m + tv, note, when: new Date().toISOString() }); setS(id, 'quoted', nextRound > 1 ? 'Counter-offer sent to customer (Round ' + nextRound + '/3)' : 'Quote sent to customer'); }
 
     /* Task C: Registration form with House help task checklist */
@@ -1334,8 +1566,22 @@ ${b.status === 'approved' ? `<button class="btn" onclick="setS('${b.id}','comple
   <label>What work can you do? (tick at least one)</label>
   ${Object.keys(HH_TASK_GROUPS).map(grp => `
   <div class="task-group"><h4>${grp}${grp === 'Senior care' ? ` <small style="font-weight:400;text-transform:none;font-size:.8rem">${t('senior_note')}</small>` : ''}</h4>
-  ${HH_TASK_GROUPS[grp].map(tk => `<div class="task-check-row"><input type="checkbox" class="reg-task" id="rtk_${esc(tk.replace(/\W/g, '_'))}" value="${esc(tk)}"><label for="rtk_${esc(tk.replace(/\W/g, '_'))}">${esc(tk)}</label></div>`).join('')}
+  ${HH_TASK_GROUPS[grp].map(tk => {
+    const isSweeping = tk === 'Sweeping and mopping';
+    return `<div class="task-check-row"><input type="checkbox" class="reg-task" id="rtk_${esc(tk.replace(/\W/g, '_'))}" value="${esc(tk)}"${isSweeping ? ' onchange="toggleRegBhk(this.checked)"' : ''}><label for="rtk_${esc(tk.replace(/\W/g, '_'))}">${esc(tk)}</label></div>`;
+  }).join('')}
   </div>`).join('')}
+  <div id="reg-bhk-box" style="display:none;margin:.5rem 0;padding:.6rem;background:var(--soft);border-radius:8px">
+    <b>🧹 ${t('bhk_rates_title')}</b>
+    <p class="mut" style="font-size:.85rem;margin:.2rem 0 .4rem">${t('bhk_rates_subtitle')}</p>
+    <div class="grid" style="grid-template-columns:repeat(4,1fr);margin-top:.4rem;gap:.4rem">
+      <div><label for="reg_bhk1">1 BHK (₹)</label><input id="reg_bhk1" type="number" min="1" placeholder="200"></div>
+      <div><label for="reg_bhk2">2 BHK (₹)</label><input id="reg_bhk2" type="number" min="1" placeholder="250"></div>
+      <div><label for="reg_bhk3">3 BHK (₹)</label><input id="reg_bhk3" type="number" min="1" placeholder="300"></div>
+      <div><label for="reg_bhk4">4 BHK (₹)</label><input id="reg_bhk4" type="number" min="1" placeholder="350"></div>
+    </div>
+    <div class="err" id="regbhkerr" role="alert"></div>
+  </div>
   <div class="task-group"><h4>Other</h4><label for="reg-task-other">Other (please specify)</label><input id="reg-task-other" maxlength="120" placeholder="Describe any additional services"></div>
   <div class="err" id="rgtask" role="alert"></div>
   </div>`;
@@ -1347,21 +1593,44 @@ ${taskChecklistHtml}
       const el = document.getElementById('reg-task-section');
       if (el) el.style.display = cat === 'House help' ? 'block' : 'none';
     }
+    function toggleRegBhk(checked) {
+      const el = document.getElementById('reg-bhk-box');
+      if (el) el.style.display = checked ? 'block' : 'none';
+    }
     function reg() {
       const n = $('#rn').value.trim(), s = $('#rs').value.trim(), e = $('#re2').value, r = +$('#rr2').value;
       const u = $('#ru2') ? $('#ru2').value : 'per_hour', cat = $('#rc2').value;
       if (n.length < 2 || s.length < 3 || e === '' || !(r >= 50)) { $('#rg').textContent = 'Fill every field. Rate must be at least ₹50.'; return }
       // Task C: collect tasks for House help
       let tasks = [];
+      let r1 = null, r2 = null, r3 = null, r4 = null;
       if (cat === 'House help') {
         tasks = Array.from(document.querySelectorAll('.reg-task:checked')).map(el => el.value);
         const otherVal = ($('#reg-task-other')?.value || '').trim().replace(/[<>&"']/g, '').slice(0, 120);
         if (otherVal) tasks.push(otherVal);
         if (tasks.length === 0) { document.getElementById('rgtask').textContent = 'Tick at least one task you can do.'; return; }
         if (document.getElementById('rgtask')) document.getElementById('rgtask').textContent = '';
+
+        if (tasks.includes('Sweeping and mopping')) {
+          r1 = +$('#reg_bhk1').value;
+          r2 = +$('#reg_bhk2').value;
+          r3 = +$('#reg_bhk3').value;
+          r4 = +$('#reg_bhk4').value;
+          if (!(r1 > 0 && r2 > 0 && r3 > 0 && r4 > 0)) {
+            const errEl = document.getElementById('regbhkerr');
+            if (errEl) errEl.textContent = t('err_bhk_rates_positive');
+            return;
+          }
+          if (!(r1 <= r2 && r2 <= r3 && r3 <= r4)) {
+            const errEl = document.getElementById('regbhkerr');
+            if (errEl) errEl.textContent = t('err_bhk_rates_ascending');
+            return;
+          }
+          if (document.getElementById('regbhkerr')) document.getElementById('regbhkerr').textContent = '';
+        }
       }
       const id = 'w' + (S.workers.length + 1 + Date.now() % 1000);
-      S.workers.push({ id, name: n, cat, loc: $('#rl').value, exp: +e, rate: r, unit: u, travel: 30, avail: true, skills: s, rating: 0, rc: 0, ver: 'Unverified', demo: false, hidden: false, tasks, geo: { lat: 12.9716, lng: 77.5946, dist: '1.0 km', eta: '~20 min' } });
+      S.workers.push({ id, name: n, cat, loc: $('#rl').value, exp: +e, rate: r, unit: u, travel: 30, avail: true, skills: s, rating: 0, rc: 0, ver: 'Unverified', demo: false, hidden: false, tasks, rate_1bhk: r1, rate_2bhk: r2, rate_3bhk: r3, rate_4bhk: r4, geo: { lat: 12.9716, lng: 77.5946, dist: '1.0 km', eta: '~20 min' } });
       S.me = id; save(); toast('Profile created as Unverified'); render();
     }
 
@@ -1514,7 +1783,7 @@ ${[['Requests created', S.bookings.length], ['Requests accepted', S.bookings.fil
       if (formErr) formErr.textContent = '';
     }
     function clearAllJoinErrs() {
-      ['jn', 'jm', 'js', 'jx', 'jr', 'jtask', 'ja', 'jd', 'jk'].forEach(k => {
+      ['jn', 'jm', 'js', 'jx', 'jr', 'jtask', 'jbhk', 'ja', 'jd', 'jk'].forEach(k => {
         const el = document.getElementById(k + 'err');
         if (el) el.textContent = '';
       });
@@ -1542,6 +1811,10 @@ ${[['Requests created', S.bookings.length], ['Requests accepted', S.bookings.fil
       const el = document.getElementById('join-task-section');
       if (el) el.style.display = cat === 'House help' ? 'block' : 'none';
     }
+    function toggleJoinBhk(checked) {
+      const el = document.getElementById('join-bhk-box');
+      if (el) el.style.display = checked ? 'block' : 'none';
+    }
     function join() {
       if (J.step === 2) return `<h2>Verify (sample)</h2><div class="card"><p class="tag demo">Demo code: <b>${J.otp}</b></p><p class="mut">In a real app this code goes to the mobile linked to Aadhaar. Here it is shown on screen because the verification is simulated.</p><label for="jo">Enter the 6-digit code</label><input id="jo" inputmode="numeric" maxlength="6" oninput="if($('#je'))$('#je').textContent=''"><div class="err" id="je" role="alert"></div><button class="btn" onclick="joinOtp()">Verify</button> <button class="btn alt" onclick="J.step=1;J.tries=0;render()">Back</button></div>`;
       return `<a href="#welcome">← Back</a><h2>Become a service provider</h2><form class="card" onsubmit="event.preventDefault();joinGo()" oninput="clearAllJoinErrs()">
@@ -1567,8 +1840,22 @@ ${[['Requests created', S.bookings.length], ['Requests accepted', S.bookings.fil
   <div class="card" style="padding:.6rem;background:var(--bg)">
   ${Object.keys(HH_TASK_GROUPS).map(grp => `
   <div class="task-group"><h4>${grp}${grp === 'Senior care' ? ` <small style="font-weight:400;text-transform:none">${t('senior_note')}</small>` : ''}</h4>
-  ${HH_TASK_GROUPS[grp].map(tk => `<div class="task-check-row"><input type="checkbox" class="join-task" id="jtk_${esc(tk.replace(/\W/g, '_'))}" value="${esc(tk)}" onchange="clearJoinErr('jtask')"><label for="jtk_${esc(tk.replace(/\W/g, '_'))}">${esc(tk)}</label></div>`).join('')}
+  ${HH_TASK_GROUPS[grp].map(tk => {
+    const isSweeping = tk === 'Sweeping and mopping';
+    return `<div class="task-check-row"><input type="checkbox" class="join-task" id="jtk_${esc(tk.replace(/\W/g, '_'))}" value="${esc(tk)}" onchange="clearJoinErr('jtask')${isSweeping ? ';toggleJoinBhk(this.checked)' : ''}"><label for="jtk_${esc(tk.replace(/\W/g, '_'))}">${esc(tk)}</label></div>`;
+  }).join('')}
   </div>`).join('')}
+  <div id="join-bhk-box" style="display:none;margin:.5rem 0;padding:.6rem;background:var(--soft);border-radius:8px">
+    <b>🧹 ${t('bhk_rates_title')}</b>
+    <p class="mut" style="font-size:.85rem;margin:.2rem 0 .4rem">${t('bhk_rates_subtitle')}</p>
+    <div class="grid" style="grid-template-columns:repeat(4,1fr);margin-top:.4rem;gap:.4rem">
+      <div><label for="j_bhk1">1 BHK (₹)</label><input id="j_bhk1" type="number" min="1" placeholder="200" oninput="clearJoinErr('jbhk')"></div>
+      <div><label for="j_bhk2">2 BHK (₹)</label><input id="j_bhk2" type="number" min="1" placeholder="250" oninput="clearJoinErr('jbhk')"></div>
+      <div><label for="j_bhk3">3 BHK (₹)</label><input id="j_bhk3" type="number" min="1" placeholder="300" oninput="clearJoinErr('jbhk')"></div>
+      <div><label for="j_bhk4">4 BHK (₹)</label><input id="j_bhk4" type="number" min="1" placeholder="350" oninput="clearJoinErr('jbhk')"></div>
+    </div>
+    <div class="err" id="jbhkerr" role="alert"></div>
+  </div>
   <div class="task-group"><h4>Other</h4><input id="join-task-other" maxlength="120" placeholder="Describe any additional services" oninput="clearJoinErr('jtask')"></div>
   </div>
   <div class="err" id="jtaskerr" role="alert"></div>
@@ -1597,6 +1884,7 @@ ${[['Requests created', S.bookings.length], ['Requests accepted', S.bookings.fil
       // House help task validation
       const cat = g('jc') || 'House help';
       let tasks = [];
+      let r1 = null, r2 = null, r3 = null, r4 = null;
       if (cat === 'House help') {
         tasks = Array.from(document.querySelectorAll('.join-task:checked')).map(el => el.value);
         const otherVal = ($('#join-task-other')?.value || '').trim().replace(/[<>&"']/g, '').slice(0, 120);
@@ -1605,6 +1893,23 @@ ${[['Requests created', S.bookings.length], ['Requests accepted', S.bookings.fil
           toggleJoinTaskSection('House help');
           showJoinFieldErr('jtask', 'Tick at least one task you can do.');
           return;
+        }
+
+        if (tasks.includes('Sweeping and mopping')) {
+          r1 = +g('j_bhk1');
+          r2 = +g('j_bhk2');
+          r3 = +g('j_bhk3');
+          r4 = +g('j_bhk4');
+          if (!(r1 > 0 && r2 > 0 && r3 > 0 && r4 > 0)) {
+            toggleJoinBhk(true);
+            showJoinFieldErr('jbhk', t('err_bhk_rates_positive'));
+            return;
+          }
+          if (!(r1 <= r2 && r2 <= r3 && r3 <= r4)) {
+            toggleJoinBhk(true);
+            showJoinFieldErr('jbhk', t('err_bhk_rates_ascending'));
+            return;
+          }
         }
       }
 
@@ -1633,7 +1938,11 @@ ${[['Requests created', S.bookings.length], ['Requests accepted', S.bookings.fil
           u: $('#jru')?.value || 'per_hour',
           addr: g('ja'),
           a4: d.slice(-4),
-          tasks
+          tasks,
+          rate_1bhk: r1,
+          rate_2bhk: r2,
+          rate_3bhk: r3,
+          rate_4bhk: r4
         }
       };
       render();
@@ -1670,6 +1979,10 @@ ${[['Requests created', S.bookings.length], ['Requests accepted', S.bookings.fil
         addr: d.addr,
         mobile: d.m,
         tasks: d.tasks || [],
+        rate_1bhk: d.rate_1bhk,
+        rate_2bhk: d.rate_2bhk,
+        rate_3bhk: d.rate_3bhk,
+        rate_4bhk: d.rate_4bhk,
         geo: { lat: 12.9716, lng: 77.5946, dist: '1.0 km', eta: '~20 min' }
       });
       S.role = 'worker';

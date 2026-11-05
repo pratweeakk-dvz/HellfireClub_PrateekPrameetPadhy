@@ -104,5 +104,51 @@
 4. Execute `seed.sql`. Verify all 11 workers are inserted or updated, and check that querying `SELECT name, category, base_rate, rate_unit FROM workers WHERE category = 'House help';` returns Selvi Devi, Meena Kumari, Suresh Babu, and Sunita Bai.
 5. In Node or browser with `config.js` pointing to Supabase, run `scratch/test_phase5.js` (or trigger in browser) to verify the full bargaining and price locking lifecycle.
 
+---
+
+## Phase 6: BHK-Based Pricing for Sweeping and Mopping
+
+### What changed:
+- **BHK-Based Pricing for Sweeping & Mopping**:
+  - Implemented 1 BHK, 2 BHK, 3 BHK, and 4 BHK rates specifically and exclusively for the "Sweeping and mopping" task in the House help category. All other tasks continue using the worker's standard base rate.
+  - Existing workers offering Sweeping and mopping without BHK rates default smoothly to their base rate across all 4 BHK sizes until edited.
+- **Worker Cards & Profile**:
+  - Worker cards for providers who offer Sweeping and mopping display a dedicated price badge: `"Sweeping & mopping from ₹{1BHK} (1 BHK)"` (or Hindi equivalent `"झाड़ू-पोंछा ₹{1BHK} (1 BHK) से"`).
+  - Worker profile pages display a clear, structured table showing the worker's complete 1 BHK, 2 BHK, 3 BHK, and 4 BHK rates alongside their unit.
+- **Worker Registration & Dashboard**:
+  - Provider onboarding (`#join`) and registration form (`regForm`): ticking "Sweeping and mopping" reveals 4 rate input fields (1 BHK, 2 BHK, 3 BHK, 4 BHK in ₹). Validates that all 4 are numbers > 0 and in ascending order (`1 BHK <= 2 BHK <= 3 BHK <= 4 BHK`).
+  - Worker Dashboard (`#work`): House help workers who offer Sweeping and mopping can view and edit their 1/2/3/4 BHK rates at any time with validation and instant localStorage persistence.
+- **Customer Booking Form & Dynamic Mixed-Task Breakdown**:
+  - Ticking "Sweeping and mopping" in `#book/:id` dynamically shows a required BHK selector directly beneath the task list. If unticked, the selector is hidden and cleared. It never appears for other tasks.
+  - Mixed Task Pricing Breakdown: When Sweeping and mopping is chosen with other tasks, a real-time price breakdown table itemises the BHK rate for sweeping, the worker's base rate for the remaining tasks, and travel charges, summing them to an accurate estimated total.
+  - Submitting without choosing a BHK when Sweeping and mopping is selected triggers validation error. The selected BHK is saved directly onto the booking record (`bhk` and `bhk_type`).
+- **Bargaining & Price Locking**:
+  - Worker quotes and customer counter-offers start from the BHK-based price (e.g. BHK rate or mixed total) rather than an arbitrary base rate.
+  - Price locking persists both the selected BHK and the agreed total (`agreedPrice` and `agreed_price`).
+- **House Help Filters**:
+  - Added an optional BHK filter dropdown (`All BHK sizes`, `1 BHK`, `2 BHK`, `3 BHK`, `4 BHK`) on the House help list page (`#hh`).
+  - The "Max rate (₹)" filter evaluates against the selected BHK price for Sweeping and mopping workers, and uses the standard rate otherwise.
+- **Supabase & Database Layer Alignment**:
+  - `schema.sql`: Added `rate_1bhk`, `rate_2bhk`, `rate_3bhk`, `rate_4bhk` to `workers` and `bhk_type`, `agreed_price` to `bookings` with safe migration DO blocks.
+  - `seed.sql`: Populated 1-4 BHK rates for sample House help workers (`w2`, `w9`, `w11`, `w14`, `w17`).
+  - `db.js`: Extended seed workers, normalization routines, local storage adapter, and Supabase client methods to support BHK rates, BHK booking types, and agreed price locking.
+- **Bilingual I18N**:
+  - Added complete English and Hindi translations for all new BHK labels, breakdown headings, and validation messages.
+
+### How to test:
+1. Open `index.html` in browser.
+2. Navigate to **House Help** (`#hh`). Verify worker cards for Selvi Devi (`w2`) and Meena Kumari (`w9`) display `"Sweeping & mopping from ₹200 (1 BHK)"` and `"Sweeping & mopping from ₹150 (1 BHK)"` respectively.
+3. In House Help filters, select `2 BHK` and set `Max rate` to `200`. Tap "Apply filters". Verify workers whose 2 BHK rate exceeds 200 (like Selvi Devi at ₹250) are excluded, while matching workers (like Meena Kumari at ₹180 and Sunita Bai at ₹200) are shown.
+4. Open Selvi Devi's profile (`#worker/w2`). Confirm the full 1/2/3/4 BHK rate table is displayed (1 BHK: ₹200, 2 BHK: ₹250, 3 BHK: ₹300, 4 BHK: ₹350).
+5. Tap "Request this worker" (`#book/w2`). Tick "Sweeping and mopping"; verify the "Select home size (BHK)" dropdown appears directly below. Select "2 BHK (₹250)". Confirm immediate breakdown shows ₹250 for sweeping, ₹30 travel, total ₹280.
+6. Also tick "Bathroom cleaning" and "Kitchen cleaning". Confirm breakdown updates to show Sweeping (2 BHK) at ₹250, Other tasks at ₹250, Travel at ₹30, Total at ₹530. Untick "Sweeping and mopping"; verify the BHK selector and sweeping line disappear.
+7. Re-tick "Sweeping and mopping", choose "2 BHK", fill details, and submit request.
+8. Switch role to Worker (`#work`) as Selvi Devi. Verify the request shows tasks with "(2 BHK)". Tap "Accept" and verify initial Labour is prefilled with ₹530. Send quote.
+9. Switch back to Customer (`#cust`). Expand counter-offer: confirm proposed labour starts from ₹530. Submit counter-offer (e.g. Labour ₹480).
+10. Switch back to Worker (`#work`) and tap "Accept counter-offer". Verify status is locked with agreed price ₹510 (480 + 30 travel) and BHK preserved.
+11. Test Worker Registration (`#join` or `#work` register form): Tick "Sweeping and mopping", enter test rates (e.g., 200, 250, 300, 350), verify validation works for non-positive or non-ascending numbers.
+12. Tap the language toggle `🌐 हिंदी` and verify all BHK labels and messages render in Hindi. Tap `🌐 English` to switch back.
+
+
 
 

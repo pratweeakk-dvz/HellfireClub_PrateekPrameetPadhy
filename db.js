@@ -38,17 +38,17 @@
   // Supports Phase 1 (House help) and Phase 2 (rate units: per_hour, per_visit, per_day)
   // --------------------------------------------------------------------------
   const DEFAULT_SEED_WORKERS = [
-    { id: 'w1', name: 'Ravi Kumar', cat: 'Electrician', loc: 'North Colony', exp: 8, rate: 300, unit: 'per_hour', travel: 40, avail: true, skills: 'Fan, wiring, switchboards', rating: 4.6, rc: 31, ver: 'Demo profile', demo: true, hidden: false },
-    { id: 'w2', name: 'Selvi Devi', cat: 'House help', loc: 'Lake View', exp: 5, rate: 250, unit: 'per_visit', travel: 30, avail: true, skills: 'Maid & deep cleaning: kitchens, bathrooms, floors', rating: 4.8, rc: 52, ver: 'Demo profile', demo: true, hidden: false },
-    { id: 'w3', name: 'Imran Shaikh', cat: 'Plumber', loc: 'Market Road', exp: 11, rate: 350, unit: 'per_hour', travel: 50, avail: true, skills: 'Leaks, taps, tank fittings, drainage', rating: 4.4, rc: 27, ver: 'Demo profile', demo: true, hidden: false },
-    { id: 'w4', name: 'Mohan Das', cat: 'Painter', loc: 'Station Area', exp: 14, rate: 500, unit: 'per_day', travel: 60, avail: false, skills: 'Interior walls, waterproofing', rating: 4.5, rc: 19, ver: 'Demo profile', demo: true, hidden: false },
-    { id: 'w5', name: 'Anita Joseph', cat: 'Carpenter', loc: 'North Colony', exp: 9, rate: 380, unit: 'per_hour', travel: 40, avail: true, skills: 'Doors, shelves, furniture repair', rating: 4.7, rc: 23, ver: 'Demo profile', demo: true, hidden: false },
-    { id: 'w6', name: 'Karthik R', cat: 'Appliance repair', loc: 'Lake View', exp: 6, rate: 350, unit: 'per_visit', travel: 40, avail: true, skills: 'Washing machine, fridge, mixer', rating: 4.3, rc: 35, ver: 'Demo profile', demo: true, hidden: false },
-    { id: 'w7', name: 'Latha Sundar', cat: 'Electrician', loc: 'Station Area', exp: 3, rate: 260, unit: 'per_hour', travel: 30, avail: true, skills: 'Lights, inverter wiring', rating: 4.1, rc: 8, ver: 'Demo profile', demo: true, hidden: false },
-    { id: 'w8', name: 'Faizal Ahmed', cat: 'Plumber', loc: 'North Colony', exp: 2, rate: 280, unit: 'per_hour', travel: 30, avail: true, skills: 'Basic plumbing, bathroom fittings', rating: 0, rc: 0, ver: 'Unverified', demo: false, hidden: false },
-    { id: 'w9', name: 'Meena Kumari', cat: 'House help', loc: 'Lake View', exp: 7, rate: 180, unit: 'per_visit', travel: 20, avail: true, skills: 'Maid: daily cleaning, utensils, laundry, dusting', rating: 4.5, rc: 14, ver: 'Demo profile', demo: true, hidden: false },
-    { id: 'w10', name: 'Suresh Babu', cat: 'House help', loc: 'Market Road', exp: 10, rate: 300, unit: 'per_visit', travel: 20, avail: true, skills: 'Cook: North & South Indian home meals, tiffin prep', rating: 4.6, rc: 12, ver: 'Demo profile', demo: true, hidden: false },
-    { id: 'w11', name: 'Sunita Bai', cat: 'House help', loc: 'North Colony', exp: 6, rate: 200, unit: 'per_visit', travel: 25, avail: true, skills: 'All-rounder maid: sweeping, veg prep, helper', rating: 4.7, rc: 29, ver: 'Demo profile', demo: true, hidden: false }
+    { id: 'w1', name: 'Ravi Kumar', cat: 'Electrician', loc: 'North Colony', exp: 8, rate: 300, unit: 'per_hour', travel: 40, avail: true, skills: 'Fan, wiring, switchboards', rating: 4.6, rc: 31, ver: 'Demo profile', demo: true, hidden: false, tasks: [] },
+    { id: 'w2', name: 'Selvi Devi', cat: 'House help', loc: 'Lake View', exp: 5, rate: 250, unit: 'per_visit', travel: 30, avail: true, skills: 'Maid & deep cleaning: kitchens, bathrooms, floors', rating: 4.8, rc: 52, ver: 'Demo profile', demo: true, hidden: false, tasks: ['Sweeping and mopping', 'Bathroom cleaning', 'Kitchen cleaning', 'Dusting', 'Utensil cleaning'], rate_1bhk: 200, rate_2bhk: 250, rate_3bhk: 300, rate_4bhk: 350 },
+    { id: 'w3', name: 'Imran Shaikh', cat: 'Plumber', loc: 'Market Road', exp: 11, rate: 350, unit: 'per_hour', travel: 50, avail: true, skills: 'Leaks, taps, tank fittings, drainage', rating: 4.4, rc: 27, ver: 'Demo profile', demo: true, hidden: false, tasks: [] },
+    { id: 'w4', name: 'Mohan Das', cat: 'Painter', loc: 'Station Area', exp: 14, rate: 500, unit: 'per_day', travel: 60, avail: false, skills: 'Interior walls, waterproofing', rating: 4.5, rc: 19, ver: 'Demo profile', demo: true, hidden: false, tasks: [] },
+    { id: 'w5', name: 'Anita Joseph', cat: 'Carpenter', loc: 'North Colony', exp: 9, rate: 380, unit: 'per_hour', travel: 40, avail: true, skills: 'Doors, shelves, furniture repair', rating: 4.7, rc: 23, ver: 'Demo profile', demo: true, hidden: false, tasks: [] },
+    { id: 'w6', name: 'Karthik R', cat: 'Appliance repair', loc: 'Lake View', exp: 6, rate: 350, unit: 'per_visit', travel: 40, avail: true, skills: 'Washing machine, fridge, mixer', rating: 4.3, rc: 35, ver: 'Demo profile', demo: true, hidden: false, tasks: [] },
+    { id: 'w7', name: 'Latha Sundar', cat: 'Electrician', loc: 'Station Area', exp: 3, rate: 260, unit: 'per_hour', travel: 30, avail: true, skills: 'Lights, inverter wiring', rating: 4.1, rc: 8, ver: 'Demo profile', demo: true, hidden: false, tasks: [] },
+    { id: 'w8', name: 'Faizal Ahmed', cat: 'Plumber', loc: 'North Colony', exp: 2, rate: 280, unit: 'per_hour', travel: 30, avail: true, skills: 'Basic plumbing, bathroom fittings', rating: 0, rc: 0, ver: 'Unverified', demo: false, hidden: false, tasks: [] },
+    { id: 'w9', name: 'Meena Kumari', cat: 'House help', loc: 'Lake View', exp: 7, rate: 180, unit: 'per_visit', travel: 20, avail: true, skills: 'Maid: daily cleaning, utensils, laundry, dusting', rating: 4.5, rc: 14, ver: 'Demo profile', demo: true, hidden: false, tasks: ['Dish washing', 'Sweeping and mopping', 'Clothes washing', 'Clothes drying and folding', 'Dusting', 'Utensil cleaning'], rate_1bhk: 150, rate_2bhk: 180, rate_3bhk: 220, rate_4bhk: 260 },
+    { id: 'w10', name: 'Suresh Babu', cat: 'House help', loc: 'Market Road', exp: 10, rate: 300, unit: 'per_visit', travel: 20, avail: true, skills: 'Cook: North & South Indian home meals, tiffin prep', rating: 4.6, rc: 12, ver: 'Demo profile', demo: true, hidden: false, tasks: ['Cook full meals', 'Tiffin / meal prep', 'Breakfast only', 'Vegetarian only'] },
+    { id: 'w11', name: 'Sunita Bai', cat: 'House help', loc: 'North Colony', exp: 6, rate: 200, unit: 'per_visit', travel: 25, avail: true, skills: 'All-rounder maid: sweeping, veg prep, helper', rating: 4.7, rc: 29, ver: 'Demo profile', demo: true, hidden: false, tasks: ['Sweeping and mopping', 'Dish washing', 'Utensil cleaning', 'Snacks and tea', 'Grocery shopping'], rate_1bhk: 160, rate_2bhk: 200, rate_3bhk: 240, rate_4bhk: 280 }
   ];
 
   // --------------------------------------------------------------------------
@@ -100,6 +100,13 @@
             } else {
               if (['Cleaner', 'Maid', 'Cook'].includes(ex.cat)) ex.cat = 'House help';
               if (!ex.unit) ex.unit = dw.unit;
+              if (dw.tasks && !ex.tasks) ex.tasks = dw.tasks;
+              if (dw.rate_1bhk && !ex.rate_1bhk) {
+                ex.rate_1bhk = dw.rate_1bhk;
+                ex.rate_2bhk = dw.rate_2bhk;
+                ex.rate_3bhk = dw.rate_3bhk;
+                ex.rate_4bhk = dw.rate_4bhk;
+              }
             }
           });
           return parsed;
@@ -192,6 +199,11 @@
         ver: privateData ? 'Demo verified' : 'Unverified',
         demo: false,
         hidden: false,
+        tasks: workerData.tasks || [],
+        rate_1bhk: workerData.rate_1bhk != null ? Number(workerData.rate_1bhk) : null,
+        rate_2bhk: workerData.rate_2bhk != null ? Number(workerData.rate_2bhk) : null,
+        rate_3bhk: workerData.rate_3bhk != null ? Number(workerData.rate_3bhk) : null,
+        rate_4bhk: workerData.rate_4bhk != null ? Number(workerData.rate_4bhk) : null,
         // Only keep last 4 digits of Aadhaar if provided in demo verification
         a4: privateData ? String(privateData.aadhaar || '').slice(-4) : null,
         mobile: privateData ? String(privateData.mobile || '') : null
@@ -207,6 +219,10 @@
       if (!worker) throw new Error(`Worker with ID "${workerId}" not found.`);
       if (updates.rate !== undefined) worker.rate = Number(updates.rate);
       if (updates.unit !== undefined) worker.unit = updates.unit;
+      if (updates.rate_1bhk !== undefined) worker.rate_1bhk = updates.rate_1bhk != null ? Number(updates.rate_1bhk) : null;
+      if (updates.rate_2bhk !== undefined) worker.rate_2bhk = updates.rate_2bhk != null ? Number(updates.rate_2bhk) : null;
+      if (updates.rate_3bhk !== undefined) worker.rate_3bhk = updates.rate_3bhk != null ? Number(updates.rate_3bhk) : null;
+      if (updates.rate_4bhk !== undefined) worker.rate_4bhk = updates.rate_4bhk != null ? Number(updates.rate_4bhk) : null;
       Object.assign(worker, updates);
       saveLocalStore(state);
       return worker;
@@ -227,6 +243,11 @@
         agreedPrice: null,
         review: null,
         report: null,
+        tasksRequested: bookingData.tasksRequested || bookingData.tasks_requested || [],
+        frequency: bookingData.frequency || 'one-time',
+        bhk: bookingData.bhk || bookingData.bhk_type || null,
+        bhk_type: bookingData.bhk || bookingData.bhk_type || null,
+        agreed_price: null,
         created: new Date().toISOString()
       };
       state.bookings.push(booking);
@@ -361,6 +382,7 @@
         travel: Number(price.travel || 0),
         agreedAt: new Date().toISOString()
       };
+      booking.agreed_price = booking.agreedPrice.total;
       booking.status = 'approved';
       saveLocalStore(state);
       return booking;
@@ -495,7 +517,12 @@
       rc: row.review_count,
       ver: row.verification_status,
       demo: row.is_demo,
-      hidden: row.is_hidden
+      hidden: row.is_hidden,
+      tasks: row.tasks || [],
+      rate_1bhk: row.rate_1bhk != null ? Number(row.rate_1bhk) : null,
+      rate_2bhk: row.rate_2bhk != null ? Number(row.rate_2bhk) : null,
+      rate_3bhk: row.rate_3bhk != null ? Number(row.rate_3bhk) : null,
+      rate_4bhk: row.rate_4bhk != null ? Number(row.rate_4bhk) : null
     };
   }
 
@@ -524,9 +551,10 @@
 
     // Extract locked agreed price
     let agreedPriceObj = null;
-    if (row.agreed_total) {
+    const finalAgreedTotal = row.agreed_price != null ? Number(row.agreed_price) : (row.agreed_total != null ? Number(row.agreed_total) : null);
+    if (finalAgreedTotal != null) {
       agreedPriceObj = {
-        total: Number(row.agreed_total),
+        total: finalAgreedTotal,
         ...(row.agreed_breakdown || {})
       };
     }
@@ -568,7 +596,12 @@
       created: row.created_at,
       quote: latestQuote,
       review: reviewObj,
-      report: reportObj
+      report: reportObj,
+      tasksRequested: row.tasks_requested || [],
+      frequency: row.frequency || 'one-time',
+      bhk: row.bhk_type || null,
+      bhk_type: row.bhk_type || null,
+      agreed_price: finalAgreedTotal
     };
   }
 
@@ -674,7 +707,12 @@
         review_count: 0,
         verification_status: privateData ? 'Demo verified' : 'Unverified',
         is_demo: false,
-        is_hidden: false
+        is_hidden: false,
+        tasks: workerData.tasks || [],
+        rate_1bhk: workerData.rate_1bhk != null ? Number(workerData.rate_1bhk) : null,
+        rate_2bhk: workerData.rate_2bhk != null ? Number(workerData.rate_2bhk) : null,
+        rate_3bhk: workerData.rate_3bhk != null ? Number(workerData.rate_3bhk) : null,
+        rate_4bhk: workerData.rate_4bhk != null ? Number(workerData.rate_4bhk) : null
       };
 
       const { data, error } = await supabaseClient
@@ -718,6 +756,10 @@
       if (updates.unit !== undefined) dbUpdates.rate_unit = updates.unit;
       if (updates.travel !== undefined) dbUpdates.travel_charge = Number(updates.travel);
       if (updates.hidden !== undefined) dbUpdates.is_hidden = updates.hidden;
+      if (updates.rate_1bhk !== undefined) dbUpdates.rate_1bhk = updates.rate_1bhk != null ? Number(updates.rate_1bhk) : null;
+      if (updates.rate_2bhk !== undefined) dbUpdates.rate_2bhk = updates.rate_2bhk != null ? Number(updates.rate_2bhk) : null;
+      if (updates.rate_3bhk !== undefined) dbUpdates.rate_3bhk = updates.rate_3bhk != null ? Number(updates.rate_3bhk) : null;
+      if (updates.rate_4bhk !== undefined) dbUpdates.rate_4bhk = updates.rate_4bhk != null ? Number(updates.rate_4bhk) : null;
 
       const { data, error } = await supabaseClient
         .from('workers')
@@ -736,7 +778,10 @@
         description: bookingData.desc || bookingData.description,
         locality: bookingData.loc || bookingData.locality,
         booking_time: bookingData.when || bookingData.booking_time,
-        status: 'requested'
+        status: 'requested',
+        tasks_requested: bookingData.tasksRequested || bookingData.tasks_requested || [],
+        frequency: bookingData.frequency || 'one-time',
+        bhk_type: bookingData.bhk || bookingData.bhk_type || null
       };
 
       const { data, error } = await supabaseClient
@@ -932,6 +977,7 @@
         .update({
           status: 'approved',
           agreed_total: Number(finalPrice.total),
+          agreed_price: Number(finalPrice.total),
           agreed_breakdown: {
             ...finalPrice,
             agreedAt: new Date().toISOString()
