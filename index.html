@@ -1356,6 +1356,23 @@
         padding: .28rem .65rem;
       }
     }
+
+    /* ---- Review modal star rating ---- */
+    .rv-stars { display:flex; gap:.35rem; flex-direction:row-reverse; justify-content:flex-end; margin:.4rem 0 }
+    .rv-stars input { display:none }
+    .rv-stars label { font-size:2rem; cursor:pointer; color:#ccc; transition:color .15s; line-height:1 }
+    .rv-stars input:checked ~ label,
+    .rv-stars label:hover,
+    .rv-stars label:hover ~ label { color:#F2A66B }
+    .rv-stars input:checked ~ label { color:#F2A66B }
+    .rv-star-label { font-size:.9rem; color:var(--ok); font-weight:700; min-height:1.2em; margin-bottom:.2rem }
+    .rv-thumb-row { display:flex; flex-wrap:wrap; gap:.5rem; margin:.5rem 0 }
+    .rv-thumb { position:relative; width:72px; height:72px; border-radius:8px; overflow:hidden; border:1.5px solid var(--line) }
+    .rv-thumb img { width:100%; height:100%; object-fit:cover }
+    .rv-thumb-rm { position:absolute; top:1px; right:1px; background:rgba(0,0,0,.55); color:#fff; border:none; border-radius:50%; width:20px; height:20px; font-size:.85rem; cursor:pointer; display:flex; align-items:center; justify-content:center; padding:0 }
+    .rv-progress { font-size:.82rem; color:var(--mut); margin:.3rem 0 }
+    .rv-modal-overlay { position:fixed; inset:0; z-index:1200; display:flex; align-items:center; justify-content:center; background:rgba(21,48,44,.45); padding:1rem }
+    .rv-modal-card { background:var(--card); border-radius:16px; box-shadow:var(--sh),0 8px 32px rgba(0,0,0,.18); padding:1.5rem; max-width:480px; width:100%; position:relative; max-height:92vh; overflow-y:auto }
   </style>
 </head>
 
@@ -1516,7 +1533,34 @@
         badge_popup_id_doc: 'Identity document submitted',
         badge_popup_phone: 'Phone number verified',
         badge_popup_reviewed: 'Reviewed by SevaSetu team on',
-        badge_popup_demo_note: 'In this demo, verification is simulated.'
+        badge_popup_demo_note: 'In this demo, verification is simulated.',
+        review_rate_worker: 'Rate this worker',
+        review_your_review: 'Your review',
+        review_edit: 'Edit review',
+        review_submitted: 'Review submitted',
+        review_stars_label: 'Your rating',
+        review_star_1: 'Poor',
+        review_star_2: 'Not satisfactory',
+        review_star_3: 'Average',
+        review_star_4: 'Good',
+        review_star_5: 'Excellent',
+        review_note_label: 'Written note (optional)',
+        review_note_placeholder: 'Tell others about your experience…',
+        review_note_chars_left: 'characters left',
+        review_photos_label: 'Photos (optional, up to 6)',
+        review_photos_btn: 'Add photos',
+        review_photos_privacy: 'Don\'t include faces of other people, house numbers or documents in photos.',
+        review_photos_type_err: 'Only jpg, png, webp or heic files are allowed.',
+        review_photos_size_err: 'File is over 15 MB and cannot be added.',
+        review_photos_max_err: 'You can upload up to 6 photos.',
+        review_compressing: 'Compressing photos…',
+        review_quota_err: 'Storage full – only {n} of {total} photos could be saved.',
+        review_submit_btn: 'Submit review',
+        review_cancel_btn: 'Cancel',
+        review_err_stars: 'Please select a star rating.',
+        review_err_note_min: 'Please write at least 3 characters.',
+        review_edit_window: 'You can edit this review within 48 hours of submitting.',
+        review_reviewed_label: 'Reviewed'
       },
       hi: {
         app_tagline: 'हर घर का भरोसा, हर हाथ को काम।',
@@ -1617,7 +1661,34 @@
         badge_popup_id_doc: 'पहचान दस्तावेज़ जमा',
         badge_popup_phone: 'फ़ोन नंबर सत्यापित',
         badge_popup_reviewed: 'सेवासेतु टीम द्वारा समीक्षित',
-        badge_popup_demo_note: 'इस डेमो में सत्यापन अनुकरण है।'
+        badge_popup_demo_note: 'इस डेमो में सत्यापन अनुकरण है.',
+        review_rate_worker: 'कामगार को रेट करें',
+        review_your_review: 'आपकी समीक्षा',
+        review_edit: 'समीक्षा संपादित करें',
+        review_submitted: 'समीक्षा जमा की गई',
+        review_stars_label: 'आपकी रेटिंग',
+        review_star_1: 'खराब',
+        review_star_2: 'संतोषजनक नहीं',
+        review_star_3: 'औसत',
+        review_star_4: 'अच्छा',
+        review_star_5: 'उत्कृष्ट',
+        review_note_label: 'लिखित टिप्पणी (वैकल्पिक)',
+        review_note_placeholder: 'अपना अनुभव साझा करें…',
+        review_note_chars_left: 'अक्षर शेष',
+        review_photos_label: 'फ़ोटो (वैकल्पिक, अधिकतम 6)',
+        review_photos_btn: 'फ़ोटो जोड़ें',
+        review_photos_privacy: 'फ़ोटो में अन्य लोगों के चेहरे, घर के नंबर या दस्तावेज़ शामिल न करें।',
+        review_photos_type_err: 'केवल jpg, png, webp या heic फ़ाइलें अनुमत हैं।',
+        review_photos_size_err: 'फ़ाइल 15 MB से बड़ी है, जोड़ी नहीं जा सकती।',
+        review_photos_max_err: 'अधिकतम 6 फ़ोटो अपलोड कर सकते हैं।',
+        review_compressing: 'फ़ोटो संपीड़ित हो रही हैं…',
+        review_quota_err: 'स्टोरेज भरा है – {total} में से केवल {n} फ़ोटो सहेजी जा सकीं।',
+        review_submit_btn: 'समीक्षा जमा करें',
+        review_cancel_btn: 'रद्द करें',
+        review_err_stars: 'कृपया स्टार रेटिंग चुनें।',
+        review_err_note_min: 'कृपया कम से कम 3 अक्षर लिखें।',
+        review_edit_window: 'आप जमा करने के 48 घंटे के भीतर इस समीक्षा को संपादित कर सकते हैं।',
+        review_reviewed_label: 'समीक्षित'
       }
     };
     function t(k) { return (I18N[S && S.lang || 'en'] && I18N[S && S.lang || 'en'][k]) || I18N.en[k] || k; }
@@ -2057,7 +2128,7 @@ ${bhkPricingTable}
 ${w.tasks && w.tasks.length > 0 ? `<p><b>Offered tasks:</b></p>${taskChips(w.tasks, 20)}` : ''}
 ${showSafety ? `<div class="safety-note">${t('safety_note')}</div>` : ''}
 <a class="btn" href="#book/${w.id}">Request this worker</a></div>
-<h3 style="margin-top:1rem">Reviews from this demo</h3>${rv.length ? rv.map(b => `<div class="card" style="margin-bottom:.5rem">★ ${b.review.r} <span class="mut">${esc(b.review.t)}</span></div>`).join('') : '<p class="mut">No reviews submitted in this demo yet.</p>'}`;
+<h3 style="margin-top:1rem">Reviews from this demo</h3>${rv.length ? rv.map(b => `<div class="card" style="margin-bottom:.5rem">★ ${b.review.r} <span class="mut">${esc(b.review.t)}</span>${b.review.photos && b.review.photos.length ? `<div class="rv-thumb-row" style="margin-top:.4rem">${b.review.photos.map((p,i)=>`<div class="rv-thumb"><img src="${p}" alt="photo ${i+1}" loading="lazy"></div>`).join('')}</div>` : ''}</div>`).join('') : '<p class="mut">No reviews submitted in this demo yet.</p>'}`;
     }
 
     /* BOOK */
@@ -2214,8 +2285,8 @@ ${b.status === 'quoted' ? `<div class="row" style="margin-top:.6rem"><button cla
 ${(b.quote?.round || 1) < 3 ? `<details style="margin-top:.7rem"><summary><b>Bargain / Send counter-offer (Round ${(b.quote?.round || 1) + 1}/3)</b></summary><div class="grid" style="grid-template-columns:repeat(3,1fr);margin-top:.4rem"><div><label for="cql${b.id}">Proposed labour ₹</label><input id="cql${b.id}" type="number" min="50" value="${b.quote.labor}"></div><div><label for="cqm${b.id}">Materials ₹</label><input id="cqm${b.id}" type="number" min="0" value="${b.quote.mat}"></div><div><label for="cqt${b.id}">Travel ₹</label><input id="cqt${b.id}" type="number" min="0" value="${b.quote.travel}"></div></div><label for="cqn${b.id}">Reason / note for worker</label><input id="cqn${b.id}" placeholder="Example: Can materials be lower?"><div class="err" id="cqe${b.id}"></div><button class="btn alt" style="margin-top:.5rem" onclick="counterOffer('${b.id}')">Send counter-offer</button></details>` : '<p class="mut" style="margin-top:.5rem">Maximum 3 negotiation rounds reached. Please approve or cancel.</p>'}` : ``}
 ${b.status === 'negotiating' ? `<div class="card" style="background:var(--soft);margin:.5rem 0"><b>Counter-offer sent to worker (Round ${b.quote?.round || 2}/3)</b><br>You proposed ${R(b.quote?.total || total(b.quote))}. Waiting for worker to accept or counter.</div>` : ''}
 ${['requested', 'accepted', 'quoted', 'negotiating'].includes(b.status) ? `<button class="btn bad sm" style="margin-top:.5rem" onclick="setS('${b.id}','cancelled','Booking cancelled')">Cancel (free)</button>` : ''}
-${b.status === 'completed' && !b.review ? `<h3>Review this job</h3><div class="row"><select id="rr${b.id}" style="width:auto"><option>5</option><option>4</option><option>3</option><option>2</option><option>1</option></select><input id="rt${b.id}" placeholder="Short comment" style="flex:1"><button class="btn" onclick="review('${b.id}')">Submit review</button></div><div class="err" id="re${b.id}"></div>` : ''}
-${b.review ? `<p>Your review: ★ ${b.review.r} – ${esc(b.review.t)}</p>` : ''}
+${b.status === 'completed' && !b.review ? `<div style="margin-top:.7rem"><button class="btn" onclick="openReviewModal('${b.id}')">${t('review_rate_worker')}</button></div>` : ''}
+${b.review ? `<div style="margin-top:.5rem;padding:.6rem;background:var(--soft);border-radius:8px"><b>${t('review_your_review')}:</b> ${'★'.repeat(b.review.r)}${'☆'.repeat(5-b.review.r)} <span class="mut">${esc(b.review.t)}</span>${b.review.photos && b.review.photos.length ? `<div class="rv-thumb-row" style="margin-top:.4rem">${b.review.photos.map(p=>`<div class="rv-thumb"><img src="${p}" alt="review photo" loading="lazy"></div>`).join('')}</div>` : ''}${(() => { const ms = Date.now() - new Date(b.review.at||0).getTime(); return ms < 48*3600*1000 ? ` <button class="btn alt sm" style="margin-left:.5rem" onclick="openReviewModal('${b.id}')">${t('review_edit')}</button>` : ''; })()}</div>` : ''}
 ${b.report ? `<p class="tag warn">Issue reported: ${esc(b.report.s)}</p>` : `${['approved', 'completed', 'accepted', 'quoted'].includes(b.status) ? `<details style="margin-top:.5rem"><summary>Report an issue</summary><textarea id="ri${b.id}" rows="2" placeholder="What went wrong?"></textarea><button class="btn alt sm" onclick="report('${b.id}')">Send report</button><div class="err" id="rie${b.id}"></div></details>` : ''}`}
 </div>`;
       }).join('') : '<div class="card"><b>No bookings yet.</b><br><a href="#find">Find a worker</a> to make your first request.</div>'}`;
@@ -2224,7 +2295,176 @@ ${b.report ? `<p class="tag warn">Issue reported: ${esc(b.report.s)}</p>` : `${[
     function approve(id) { const b = B(id); const tot = total(b.quote); b.agreedPrice = { total: tot, labor: b.quote.labor, mat: b.quote.mat, travel: b.quote.travel, agreedAt: new Date().toISOString() }; b.agreed_price = tot; setS(id, 'approved', 'Quote approved! Price locked at ' + R(tot)); }
     function counterOffer(id) { const b = B(id); const l = +$('#cql' + id).value, m = +$('#cqm' + id).value, tv = +$('#cqt' + id).value; const note = ($('#cqn' + id).value || '').trim(); if (!(l > 0) || m < 0 || tv < 0 || isNaN(l) || isNaN(m) || isNaN(tv)) { $('#cqe' + id).textContent = 'Labour must be above 0. Materials and travel cannot be negative.'; return } const curRound = b.quote ? (b.quote.round || 1) : 1; if (curRound >= 3) { toast('Maximum 3 rounds reached.'); return } const nextRound = curRound + 1; b.quote.labor = l; b.quote.mat = m; b.quote.travel = tv; b.quote.total = l + m + tv; b.quote.ask = note || ('Customer offered ' + R(l + m + tv)); b.quote.round = nextRound; b.quote.rounds = b.quote.rounds || []; b.quote.rounds.push({ by: 'customer', round: nextRound, labor: l, mat: m, travel: tv, total: l + m + tv, note, when: new Date().toISOString() }); setS(id, 'negotiating', 'Counter-offer of ' + R(l + m + tv) + ' sent (Round ' + nextRound + '/3)'); }
     function acceptCounter(id) { const b = B(id); const tot = b.quote.total || total(b.quote); b.agreedPrice = { total: tot, labor: b.quote.labor, mat: b.quote.mat, travel: b.quote.travel, agreedAt: new Date().toISOString() }; b.agreed_price = tot; setS(id, 'approved', 'Counter-offer accepted! Price locked at ' + R(tot)); }
-    function review(id) { const tx = $('#rt' + id).value.trim(); if (tx.length < 3) { $('#re' + id).textContent = 'Add a short comment.'; return } const b = B(id), w = W(b.wid), r = +$('#rr' + id).value; b.review = { r, t: tx }; w.rating = (w.rating * w.rc + r) / (w.rc + 1); w.rc++; save(); toast('Review submitted'); render(); }
+    /* ---- Review modal helpers ---- */
+    const STAR_LABELS = { 1: 'review_star_1', 2: 'review_star_2', 3: 'review_star_3', 4: 'review_star_4', 5: 'review_star_5' };
+    let _rvPhotos = []; // staging area: array of data URLs
+
+    function openReviewModal(bid) {
+      const b = B(bid);
+      if (!b) return;
+      const existing = document.getElementById('rv-modal-overlay');
+      if (existing) existing.remove();
+      _rvPhotos = (b.review && b.review.photos) ? b.review.photos.slice() : [];
+      const prevR = (b.review && b.review.r) || 0;
+      const prevT = (b.review && b.review.t) ? b.review.t : '';
+      const NOTE_MAX = 500;
+
+      const starsHtml = [5,4,3,2,1].map(n => `<input type="radio" name="rvs_${bid}" id="rvs${bid}_${n}" value="${n}" ${prevR===n?'checked':''}><label for="rvs${bid}_${n}" title="${t(STAR_LABELS[n])}">★</label>`).join('');
+
+      const html = `<div id="rv-modal-overlay" class="rv-modal-overlay" onclick="if(event.target===this)closeReviewModal()">
+  <div class="rv-modal-card" role="dialog" aria-modal="true" aria-label="${t('review_rate_worker')}">
+    <button onclick="closeReviewModal()" style="position:absolute;top:.8rem;right:.9rem;background:none;border:none;font-size:1.3rem;cursor:pointer;color:var(--mut)" aria-label="${t('review_cancel_btn')}">×</button>
+    <h3 style="margin-bottom:.8rem">${t('review_rate_worker')}</h3>
+    <label style="font-weight:700;display:block;margin-bottom:.2rem">${t('review_stars_label')} <span style="color:var(--bad)">*</span></label>
+    <div class="rv-stars" id="rv-stars-wrap">${starsHtml}</div>
+    <div class="rv-star-label" id="rv-star-lbl">${prevR ? t(STAR_LABELS[prevR]) : ''}</div>
+    <label style="font-weight:700;display:block;margin:.6rem 0 .2rem">${t('review_note_label')}</label>
+    <textarea id="rv-note" rows="4" maxlength="${NOTE_MAX}" placeholder="${t('review_note_placeholder')}" style="width:100%;resize:vertical">${esc(prevT)}</textarea>
+    <div class="rv-progress" id="rv-char-ctr">${NOTE_MAX - prevT.length} ${t('review_note_chars_left')}</div>
+    <label style="font-weight:700;display:block;margin:.6rem 0 .2rem">${t('review_photos_label')}</label>
+    <div class="rv-thumb-row" id="rv-thumb-row">${_rvPhotos.map((p,i)=>`<div class="rv-thumb"><img src="${p}" alt="photo ${i+1}" loading="lazy"><button class="rv-thumb-rm" type="button" onclick="removeRvPhoto(${i})" aria-label="Remove photo">×</button></div>`).join('')}</div>
+    <div style="display:flex;gap:.5rem;align-items:center;flex-wrap:wrap">
+      <label class="btn alt sm" style="cursor:pointer;margin:0">${t('review_photos_btn')}<input type="file" id="rv-photo-input" multiple accept="image/jpeg,image/png,image/webp,image/heic,.heic,.heif" style="display:none" onchange="handleRvPhotos('${bid}',this)"></label>
+      <span class="mut" style="font-size:.82rem" id="rv-photo-count">${_rvPhotos.length}/6</span>
+    </div>
+    <p class="mut" style="font-size:.8rem;margin:.5rem 0;border-left:3px solid var(--acc);padding-left:.5rem">⚠️ ${t('review_photos_privacy')}</p>
+    <div class="rv-progress" id="rv-compress-status"></div>
+    <div class="err" id="rv-err" role="alert"></div>
+    <div class="row" style="gap:.5rem;margin-top:.8rem">
+      <button class="btn" onclick="submitReview('${bid}')">${t('review_submit_btn')}</button>
+      <button class="btn alt" onclick="closeReviewModal()">${t('review_cancel_btn')}</button>
+    </div>
+  </div>
+</div>`;
+      document.body.insertAdjacentHTML('beforeend', html);
+
+      // Live star label update
+      document.getElementById('rv-stars-wrap').addEventListener('change', function(e) {
+        const val = +e.target.value;
+        document.getElementById('rv-star-lbl').textContent = val ? t(STAR_LABELS[val]) : '';
+      });
+      // Live char counter
+      document.getElementById('rv-note').addEventListener('input', function() {
+        document.getElementById('rv-char-ctr').textContent = (NOTE_MAX - this.value.length) + ' ' + t('review_note_chars_left');
+      });
+      // Esc to close
+      const onKey = e => { if (e.key === 'Escape') { closeReviewModal(); document.removeEventListener('keydown', onKey); } };
+      document.addEventListener('keydown', onKey);
+    }
+
+    function closeReviewModal() {
+      const el = document.getElementById('rv-modal-overlay');
+      if (el) el.remove();
+      _rvPhotos = [];
+    }
+
+    function removeRvPhoto(idx) {
+      _rvPhotos.splice(idx, 1);
+      refreshRvThumbs();
+    }
+
+    function refreshRvThumbs() {
+      const row = document.getElementById('rv-thumb-row');
+      const ctr = document.getElementById('rv-photo-count');
+      if (row) row.innerHTML = _rvPhotos.map((p,i) => `<div class="rv-thumb"><img src="${p}" alt="photo ${i+1}" loading="lazy"><button class="rv-thumb-rm" type="button" onclick="removeRvPhoto(${i})" aria-label="Remove photo">×</button></div>`).join('');
+      if (ctr) ctr.textContent = _rvPhotos.length + '/6';
+    }
+
+    function compressImage(file) {
+      return new Promise((resolve, reject) => {
+        const MAX_PX = 1600, QUALITY = 0.8;
+        const url = URL.createObjectURL(file);
+        const img = new Image();
+        img.onload = () => {
+          URL.revokeObjectURL(url);
+          let w = img.naturalWidth, h = img.naturalHeight;
+          if (w > MAX_PX || h > MAX_PX) {
+            if (w >= h) { h = Math.round(h * MAX_PX / w); w = MAX_PX; }
+            else { w = Math.round(w * MAX_PX / h); h = MAX_PX; }
+          }
+          const cv = document.createElement('canvas');
+          cv.width = w; cv.height = h;
+          cv.getContext('2d').drawImage(img, 0, 0, w, h);
+          resolve(cv.toDataURL('image/jpeg', QUALITY));
+        };
+        img.onerror = () => { URL.revokeObjectURL(url); reject(new Error('Image load failed')); };
+        img.src = url;
+      });
+    }
+
+    async function handleRvPhotos(bid, input) {
+      const statusEl = document.getElementById('rv-compress-status');
+      const errEl = document.getElementById('rv-err');
+      if (errEl) errEl.textContent = '';
+      const files = Array.from(input.files || []);
+      input.value = '';
+      const ALLOWED = ['image/jpeg','image/png','image/webp','image/heic','image/heif'];
+      const MAX_MB = 15 * 1024 * 1024;
+      const errs = [];
+      const valid = [];
+      for (const f of files) {
+        const typeOk = ALLOWED.includes(f.type) || /\.(heic|heif)$/i.test(f.name);
+        if (!typeOk) { errs.push(t('review_photos_type_err') + ' (' + esc(f.name) + ')'); continue; }
+        if (f.size > MAX_MB) { errs.push(t('review_photos_size_err') + ' (' + esc(f.name) + ')'); continue; }
+        if (_rvPhotos.length + valid.length >= 6) { errs.push(t('review_photos_max_err')); break; }
+        valid.push(f);
+      }
+      if (errs.length && errEl) errEl.textContent = errs.join(' ');
+      if (!valid.length) return;
+      if (statusEl) statusEl.textContent = t('review_compressing');
+      for (let i = 0; i < valid.length; i++) {
+        if (_rvPhotos.length >= 6) break;
+        try {
+          if (statusEl) statusEl.textContent = t('review_compressing') + ' ' + (i+1) + '/' + valid.length;
+          const dataUrl = await compressImage(valid[i]);
+          _rvPhotos.push(dataUrl);
+          refreshRvThumbs();
+        } catch(e) { if (errEl) errEl.textContent = (errEl.textContent ? errEl.textContent + ' ' : '') + 'Could not process ' + esc(valid[i].name); }
+      }
+      if (statusEl) statusEl.textContent = '';
+    }
+
+    function submitReview(bid) {
+      const b = B(bid);
+      if (!b) return;
+      const errEl = document.getElementById('rv-err');
+      if (errEl) errEl.textContent = '';
+      // Get rating
+      const sel = document.querySelector(`input[name="rvs_${bid}"]:checked`);
+      if (!sel) { if (errEl) errEl.textContent = t('review_err_stars'); return; }
+      const r = +sel.value;
+      // Get note
+      const noteEl = document.getElementById('rv-note');
+      const tx = noteEl ? noteEl.value.trim() : '';
+      if (tx.length > 0 && tx.length < 3) { if (errEl) errEl.textContent = t('review_err_note_min'); return; }
+      // Update worker rating (adjust if editing existing)
+      const w = W(b.wid);
+      if (b.review) {
+        // editing: remove old rating contribution
+        const oldR = b.review.r;
+        if (w.rc > 1) { w.rating = (w.rating * w.rc - oldR) / (w.rc - 1); w.rc--; }
+        else { w.rating = 0; w.rc = 0; }
+      }
+      b.review = { r, t: tx, photos: [], at: new Date().toISOString() };
+      w.rating = (w.rating * w.rc + r) / (w.rc + 1);
+      w.rc++;
+      // Try to save with photos, fall back to fewer if quota exceeded
+      const photosToSave = _rvPhotos.slice();
+      let saved = 0;
+      for (let i = 0; i <= photosToSave.length; i++) {
+        b.review.photos = photosToSave.slice(0, photosToSave.length - i);
+        try { save(); saved = photosToSave.length - i; break; }
+        catch(e) { if (i === photosToSave.length) { b.review.photos = []; try { save(); } catch(_) {} saved = 0; } }
+      }
+      const quotaWarn = saved < photosToSave.length
+        ? t('review_quota_err').replace('{n}', saved).replace('{total}', photosToSave.length)
+        : '';
+      closeReviewModal();
+      toast(t('review_submitted') + (quotaWarn ? ' – ' + quotaWarn : ''));
+      render();
+    }
+
+    function review(id) { openReviewModal(id); }
     function report(id) { const tx = $('#ri' + id).value.trim(); if (tx.length < 10) { $('#rie' + id).textContent = 'Describe the issue in at least 10 characters.'; return } B(id).report = { t: tx, s: 'Open', note: '' }; S.reports.push(id); save(); toast('Report sent to admin'); render(); }
 
     /* WORKER DASHBOARD */
