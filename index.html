@@ -1494,7 +1494,11 @@
         auth_welcome_back: 'Welcome back',
         auth_logged_in_as: 'Signed in as',
         auth_account_created: 'Account created',
-        auth_logged_out: 'Logged out successfully.'
+        auth_logged_out: 'Logged out successfully.',
+        ver_verified: 'SevaSetu Verified',
+        ver_pending: 'Verification pending',
+        ver_rejected: 'Not verified',
+        demo_profile_badge: 'Demo profile'
       },
       hi: {
         app_tagline: 'हर घर का भरोसा, हर हाथ को काम।',
@@ -1573,7 +1577,11 @@
         auth_welcome_back: 'वापसी पर स्वागत है',
         auth_logged_in_as: 'इस रूप में साइन इन हैं',
         auth_account_created: 'खाता बनाया गया',
-        auth_logged_out: 'सफलतापूर्वक लॉग आउट किया गया।'
+        auth_logged_out: 'सफलतापूर्वक लॉग आउट किया गया।',
+        ver_verified: 'सेवासेतु सत्यापित',
+        ver_pending: 'सत्यापन प्रतीक्षित',
+        ver_rejected: 'सत्यापित नहीं',
+        demo_profile_badge: 'डेमो प्रोफाइल'
       }
     };
     function t(k) { return (I18N[S && S.lang || 'en'] && I18N[S && S.lang || 'en'][k]) || I18N.en[k] || k; }
@@ -1598,23 +1606,23 @@
        ============================================================ */
     const SEED_W = [
       // --- Non-House-help workers ---
-      { id: 'w1', name: 'Ravi Kumar', cat: 'Electrician', loc: 'North Colony', exp: 8, rate: 300, unit: 'per_hour', travel: 40, avail: true, skills: 'Fan, wiring, switchboards', rating: 4.6, rc: 31, ver: 'Demo profile', demo: true, hidden: false, tasks: [] },
-      { id: 'w3', name: 'Imran Shaikh', cat: 'Plumber', loc: 'Market Road', exp: 11, rate: 350, unit: 'per_hour', travel: 50, avail: true, skills: 'Leaks, taps, tank fittings, drainage', rating: 4.4, rc: 27, ver: 'Demo profile', demo: true, hidden: false, tasks: [] },
+      { id: 'w1', name: 'Ravi Kumar', cat: 'Electrician', loc: 'North Colony', exp: 8, rate: 300, unit: 'per_hour', travel: 40, avail: true, skills: 'Fan, wiring, switchboards', rating: 4.6, rc: 31, ver: 'verified', demo: true, hidden: false, tasks: [] },
+      { id: 'w3', name: 'Imran Shaikh', cat: 'Plumber', loc: 'Market Road', exp: 11, rate: 350, unit: 'per_hour', travel: 50, avail: true, skills: 'Leaks, taps, tank fittings, drainage', rating: 4.4, rc: 27, ver: 'pending', demo: true, hidden: false, tasks: [] },
       { id: 'w4', name: 'Mohan Das', cat: 'Painter', loc: 'Station Area', exp: 14, rate: 500, unit: 'per_day', travel: 60, avail: false, skills: 'Interior walls, waterproofing', rating: 4.5, rc: 19, ver: 'Demo profile', demo: true, hidden: false, tasks: [] },
       { id: 'w5', name: 'Anita Joseph', cat: 'Carpenter', loc: 'North Colony', exp: 9, rate: 380, unit: 'per_hour', travel: 40, avail: true, skills: 'Doors, shelves, furniture repair', rating: 4.7, rc: 23, ver: 'Demo profile', demo: true, hidden: false, tasks: [] },
       { id: 'w6', name: 'Karthik R', cat: 'Appliance repair', loc: 'Lake View', exp: 6, rate: 350, unit: 'per_visit', travel: 40, avail: true, skills: 'Washing machine, fridge, mixer', rating: 4.3, rc: 35, ver: 'Demo profile', demo: true, hidden: false, tasks: [] },
-      { id: 'w7', name: 'Latha Sundar', cat: 'Electrician', loc: 'Station Area', exp: 3, rate: 260, unit: 'per_hour', travel: 30, avail: true, skills: 'Lights, inverter wiring', rating: 4.1, rc: 8, ver: 'Demo profile', demo: true, hidden: false, tasks: [] },
-      { id: 'w8', name: 'Faizal Ahmed', cat: 'Plumber', loc: 'North Colony', exp: 2, rate: 280, unit: 'per_hour', travel: 30, avail: true, skills: 'Basic plumbing, bathroom fittings', rating: 0, rc: 0, ver: 'Unverified', demo: false, hidden: false, tasks: [] },
+      { id: 'w7', name: 'Latha Sundar', cat: 'Electrician', loc: 'Station Area', exp: 3, rate: 260, unit: 'per_hour', travel: 30, avail: true, skills: 'Lights, inverter wiring', rating: 4.1, rc: 8, ver: 'rejected', rejReason: 'Document mismatch', demo: true, hidden: false, tasks: [] },
+      { id: 'w8', name: 'Faizal Ahmed', cat: 'Plumber', loc: 'North Colony', exp: 2, rate: 280, unit: 'per_hour', travel: 30, avail: true, skills: 'Basic plumbing, bathroom fittings', rating: 0, rc: 0, ver: 'none', demo: false, hidden: false, tasks: [] },
       // --- House help workers (10 total) ---
       {
         id: 'w2', name: 'Selvi Devi', cat: 'House help', loc: 'Lake View', exp: 5, rate: 250, unit: 'per_visit', travel: 30, avail: true,
-        skills: 'Maid & deep cleaning: kitchens, bathrooms, floors', rating: 4.8, rc: 52, ver: 'Demo profile', demo: true, hidden: false,
+        skills: 'Maid & deep cleaning: kitchens, bathrooms, floors', rating: 4.8, rc: 52, ver: 'verified', demo: true, hidden: false,
         tasks: ['Sweeping and mopping', 'Bathroom cleaning', 'Kitchen cleaning', 'Dusting', 'Utensil cleaning'],
         rate_1bhk: 200, rate_2bhk: 250, rate_3bhk: 300, rate_4bhk: 350
       },
       {
         id: 'w9', name: 'Meena Kumari', cat: 'House help', loc: 'Lake View', exp: 7, rate: 180, unit: 'per_visit', travel: 20, avail: true,
-        skills: 'Maid: daily cleaning, utensils, laundry, dusting', rating: 4.5, rc: 14, ver: 'Demo profile', demo: true, hidden: false,
+        skills: 'Maid: daily cleaning, utensils, laundry, dusting', rating: 4.5, rc: 14, ver: 'verified', demo: true, hidden: false,
         tasks: ['Dish washing', 'Sweeping and mopping', 'Clothes washing', 'Clothes drying and folding', 'Dusting', 'Utensil cleaning'],
         rate_1bhk: 150, rate_2bhk: 180, rate_3bhk: 220, rate_4bhk: 260
       },
@@ -1696,6 +1704,10 @@
         if (!ex.unit) ex.unit = sw.unit || 'per_hour';
         if (!ex.geo) ex.geo = sw.geo;
         if (!ex.tasks) ex.tasks = sw.tasks || [];
+        if (sw.ver && (ex.ver === 'Demo verified' || ex.ver === 'Unverified' || ex.ver === 'Demo profile')) {
+          ex.ver = sw.ver;
+          if (sw.rejReason) ex.rejReason = sw.rejReason;
+        }
         if (sw.rate_1bhk && ex.rate_1bhk == null) {
           ex.rate_1bhk = sw.rate_1bhk;
           ex.rate_2bhk = sw.rate_2bhk;
@@ -1730,10 +1742,30 @@
       return `<div class="steps">${FLOW.map((s, k) => `<span class="${k < i ? 'd' : k === i ? 'c' : ''}">${LBL[s]}${k === i ? roundTxt : ''}</span>`).join('')}</div>` +
         (b.status === 'negotiating' ? `<div class="mut">Counter-offer in negotiation (Round ${b.quote?.round || 2}/3).</div>` : '');
     }
+    function verBadge(w) {
+      if (!w) return '';
+      if (w.ver === 'verified') {
+        return `<span class="tag ok" style="font-weight:700;display:inline-flex;align-items:center;gap:.25rem;vertical-align:middle"><svg viewBox="0 0 16 16" width="13" height="13" fill="none" style="vertical-align:middle"><circle cx="8" cy="8" r="7.5" fill="#12805f"/><path d="M4.5 8.2l2.3 2.3 4.7-4.7" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg> ${t('ver_verified')}</span>`;
+      }
+      if (w.ver === 'pending' || w.ver === 'none') {
+        return `<span class="tag" style="color:var(--mut);border-color:var(--line);display:inline-flex;align-items:center;gap:.25rem;vertical-align:middle"><span class="dot"></span>${t('ver_pending')}</span>`;
+      }
+      if (w.ver === 'rejected') {
+        const reasonTxt = w.rejReason ? ` (${esc(w.rejReason)})` : '';
+        return `<span class="tag warn" style="display:inline-flex;align-items:center;gap:.25rem;vertical-align:middle">⚠️ ${t('ver_rejected')}${reasonTxt}</span>`;
+      }
+      if (w.ver === 'Demo verified') {
+        return `<span class="tag ok" style="font-weight:700;display:inline-flex;align-items:center;gap:.25rem;vertical-align:middle"><svg viewBox="0 0 16 16" width="13" height="13" fill="none" style="vertical-align:middle"><circle cx="8" cy="8" r="7.5" fill="#12805f"/><path d="M4.5 8.2l2.3 2.3 4.7-4.7" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg> ${t('ver_verified')}</span>`;
+      }
+      if (w.ver === 'Unverified') {
+        return `<span class="tag" style="color:var(--mut);border-color:var(--line);display:inline-flex;align-items:center;gap:.25rem;vertical-align:middle"><span class="dot"></span>${t('ver_pending')}</span>`;
+      }
+      return `<span class="tag" style="color:var(--mut);border-color:var(--line);display:inline-flex;align-items:center;gap:.25rem;vertical-align:middle"><span class="dot"></span>${t('ver_pending')}</span>`;
+    }
     function verTag(w) {
-      return w.ver === 'Demo verified' ? '<span class="tag ok">Sample verification (demo) – no real Aadhaar check</span>'
-        : w.ver === 'Unverified' ? '<span class="tag warn">Unverified – self-registered</span>'
-          : '<span class="tag demo">Demo profile – not a real person</span>';
+      const demoLabel = w.demo ? `<span class="tag demo">${t('demo_profile_badge')}</span>` : '';
+      const badge = verBadge(w);
+      return `<div style="display:inline-flex;gap:.35rem;align-items:center;flex-wrap:wrap">${badge}${demoLabel}</div>`;
     }
     function total(q) { return q ? (Number(q.labor) || 0) + (Number(q.mat) || 0) + (Number(q.travel) || 0) : 0; }
     function fmtW(b) { return b.when === 'ASAP' ? 'As soon as possible (urgent)' : new Date(b.when).toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short' }); }
@@ -1791,13 +1823,13 @@
     function wcard(w) {
       const h = (PRIMARY_CATS.indexOf(w.cat) >= 0 ? PRIMARY_CATS.indexOf(w.cat) : 0) * 55;
       const distBadge = w.geo ? `<span class="tag ok" style="font-size:.78rem">📍 ${esc(w.geo.dist)} · Available within ${esc(w.geo.eta || '~30 min')}</span> ` : '';
-      const safetyBadge = hasSafetyTask(w) && w.ver !== 'Demo verified'
+      const safetyBadge = hasSafetyTask(w) && w.ver !== 'verified' && w.ver !== 'Demo verified'
         ? `<span class="tag warn" style="font-size:.78rem">${t('verification_pending')}</span> ` : '';
       const offersSweeping = w.tasks && w.tasks.includes('Sweeping and mopping');
       const bhkCardTxt = offersSweeping
         ? `<div style="font-size:.85rem;color:var(--pri);font-weight:700;margin:.2rem 0">🧹 ${S.lang === 'hi' ? `झाड़ू-पोंछा ${R(getBhkRate(w, '1 BHK'))} (1 BHK) से` : `Sweeping & mopping from ${R(getBhkRate(w, '1 BHK'))} (1 BHK)`}</div>`
         : '';
-      return `<div class="card wc"><div class="av" style="--h:${h}" aria-hidden="true">${esc(ini(w.name))}</div><div class="wm"><div class="row sp"><h3>${esc(w.name)}</h3><span class="tag ${w.avail ? 'ok' : ''}"><span class="dot"></span>${w.avail ? 'Available' : 'Busy'}</span></div>
+      return `<div class="card wc"><div class="av" style="--h:${h}" aria-hidden="true">${esc(ini(w.name))}</div><div class="wm"><div class="row sp"><h3>${esc(w.name)} ${verBadge(w)}</h3><span class="tag ${w.avail ? 'ok' : ''}"><span class="dot"></span>${w.avail ? 'Available' : 'Busy'}</span></div>
 <div class="mut">${CATS[w.cat] || '🛠️'} ${esc(w.cat)} · ${esc(w.loc)} · ${w.exp} yrs</div></div>
 <div class="full"><p>${esc(w.skills)}</p>${taskChips(w.tasks)}<div class="price"><b>${R(w.rate)}</b><span class="mut">${fmtUnit(w.unit || 'per_hour')}</span> <span class="mut" style="font-size:.85rem">+ ${R(w.travel)} travel</span></div>
 ${bhkCardTxt}
@@ -1946,9 +1978,9 @@ ${groups.map(g => {
     <tr><td>4 BHK</td><td><b>${R(getBhkRate(w, '4 BHK'))}</b> <span class="mut">${fmtUnit(w.unit || 'per_visit')}</span></td></tr>
   </table>
 </div>` : '';
-      return `<a href="${isHH ? '#hh' : '#find'}">← Back</a><div class="card" style="margin-top:.6rem"><h2>${CATS[w.cat] || '🛠️'} ${esc(w.name)}</h2><div class="row">${verTag(w)}<span class="tag ${w.avail ? 'ok' : ''}">${w.avail ? 'Available' : 'Busy'}</span></div>
+      return `<a href="${isHH ? '#hh' : '#find'}">← Back</a><div class="card" style="margin-top:.6rem"><h2>${CATS[w.cat] || '🛠️'} ${esc(w.name)} ${verBadge(w)}</h2><div class="row">${verTag(w)}<span class="tag ${w.avail ? 'ok' : ''}">${w.avail ? 'Available' : 'Busy'}</span></div>
 <p>${esc(w.cat)} in ${esc(w.loc)}. ${w.exp} years of experience claimed by the worker. Skills: ${esc(w.skills)}.</p>
-<p class="mut">Verification: ${w.ver === 'Unverified' ? 'No documents checked.' : w.ver === 'Demo verified' ? 'Sample verification only. No real Aadhaar or identity check was done.' : 'Sample profile for the demo. SevaSetu has not checked identity, credentials or background.'}</p>
+<p class="mut">Verification: ${w.ver === 'verified' ? 'Sample check passed (demo). SevaSetu verified identity check simulated.' : w.ver === 'rejected' ? ('Verification declined: ' + esc(w.rejReason || 'Failed criteria')) : w.ver === 'pending' ? 'Verification in progress.' : 'No documents checked.'}${w.a4 ? ' (Aadhaar: •••• •••• ' + esc(w.a4) + ')' : ''}</p>
 <p><b>Base rate:</b> ${R(w.rate)} ${fmtUnit(w.unit || 'per_hour')} + travel ${R(w.travel)}. The final itemised quote and counter-offers are agreed before work starts.</p>
 ${bhkPricingTable}
 ${w.tasks && w.tasks.length > 0 ? `<p><b>Offered tasks:</b></p>${taskChips(w.tasks, 20)}` : ''}
@@ -1986,7 +2018,7 @@ ${showSafety ? `<div class="safety-note">${t('safety_note')}</div>` : ''}
     ${showSafety ? `<div class="safety-note">${t('safety_note')}</div>` : ''}
     <label>Frequency</label>
     <select id="bkfreq"><option value="one-time">One-time</option><option value="daily">Daily (recurring)</option><option value="weekly">Weekly (recurring)</option></select>` : '';
-      return `<a href="#worker/${id}">← Back</a><h2>Request ${esc(w.name)}</h2><form class="card" onsubmit="event.preventDefault();submitBook('${id}')">
+      return `<a href="#worker/${id}">← Back</a><h2>Request ${esc(w.name)} ${verBadge(w)}</h2><form class="card" onsubmit="event.preventDefault();submitBook('${id}')">
 <label for="bd">What needs doing?</label><textarea id="bd" rows="3" placeholder="Example: Need maid for daily cleaning of 2-BHK"></textarea>
 <label for="bl">Your locality (no street address needed)</label><select id="bl">${LOCS.map(l => `<option ${l === w.loc ? 'selected' : ''}>${l}</option>`).join('')}</select>
 ${taskSection}
@@ -2101,7 +2133,7 @@ ${taskSection}
       const list = S.bookings.slice().reverse();
       return `<h2>My bookings <span class="tag demo">Demo customer</span></h2>${list.length ? list.map(b => {
         const w = W(b.wid);
-        return `<div class="card" style="margin-bottom:.8rem"><div class="row sp"><h3>${CATS[b.cat] || '🛠️'} ${esc(b.cat)} with ${esc(w.name)}</h3><span class="tag">${LBL[b.status]}</span></div>
+        return `<div class="card" style="margin-bottom:.8rem"><div class="row sp"><h3>${CATS[b.cat] || '🛠️'} ${esc(b.cat)} with ${esc(w.name)} ${verBadge(w)}</h3><span class="tag">${LBL[b.status]}</span></div>
 <div class="mut">${esc(b.loc)} · ${fmtW(b)}</div><p>${esc(b.desc)}</p>
 ${b.tasksRequested && b.tasksRequested.length ? `<div class="mut" style="font-size:.9rem"><b>Tasks:</b> ${b.tasksRequested.map(tk => (tk === 'Sweeping and mopping' && b.bhk) ? `${esc(tk)} (${esc(b.bhk)})` : esc(tk)).join(', ')}${b.frequency && b.frequency !== 'one-time' ? ' · <b>' + esc(b.frequency) + '</b>' : ''}</div>` : ''}
 ${steps(b)}
@@ -2213,7 +2245,7 @@ ${b.status === 'approved' ? `<button class="btn" onclick="setS('${b.id}','comple
   </div>`;
       return `<form onsubmit="event.preventDefault();reg()"><label for="rn">Name</label><input id="rn"><label for="rc2">Category</label><select id="rc2" onchange="toggleRegTaskSection(this.value)">${PRIMARY_CATS.map(c => `<option>${c}</option>`).join('')}</select><label for="rl">Locality served</label><select id="rl">${LOCS.map(c => `<option>${c}</option>`).join('')}</select><label for="rs">Skills</label><input id="rs"><label for="re2">Years of experience</label><input id="re2" type="number" min="0" max="60"><label for="rr2">Base rate (₹)</label><input id="rr2" type="number" min="50"><label for="ru2">Rate unit</label><select id="ru2"><option value="per_hour">Per hour (/hr)</option><option value="per_visit">Per visit (/visit)</option><option value="per_day">Per day (/day)</option></select>
 ${taskChecklistHtml}
-<div class="err" id="rg" role="alert"></div><button class="btn">Create profile</button><p class="mut">New profiles start as Unverified.</p></form>`;
+<div class="err" id="rg" role="alert"></div><button class="btn">Create profile</button><p class="mut">New profiles start with Verification pending.</p></form>`;
     }
     function toggleRegTaskSection(cat) {
       const el = document.getElementById('reg-task-section');
@@ -2256,8 +2288,8 @@ ${taskChecklistHtml}
         }
       }
       const id = 'w' + (S.workers.length + 1 + Date.now() % 1000);
-      S.workers.push({ id, name: n, cat, loc: $('#rl').value, exp: +e, rate: r, unit: u, travel: 30, avail: true, skills: s, rating: 0, rc: 0, ver: 'Unverified', demo: false, hidden: false, tasks, rate_1bhk: r1, rate_2bhk: r2, rate_3bhk: r3, rate_4bhk: r4, geo: { lat: 12.9716, lng: 77.5946, dist: '1.0 km', eta: '~20 min' } });
-      S.me = id; save(); toast('Profile created as Unverified'); render();
+      S.workers.push({ id, name: n, cat, loc: $('#rl').value, exp: +e, rate: r, unit: u, travel: 30, avail: true, skills: s, rating: 0, rc: 0, ver: 'pending', demo: false, hidden: false, tasks, rate_1bhk: r1, rate_2bhk: r2, rate_3bhk: r3, rate_4bhk: r4, geo: { lat: 12.9716, lng: 77.5946, dist: '1.0 km', eta: '~20 min' } });
+      S.me = id; save(); toast('Profile created – verification pending'); render();
     }
 
     /* IMPACT */
@@ -2361,7 +2393,7 @@ ${[['Requests created', S.bookings.length], ['Requests accepted', S.bookings.fil
           const marker = L.marker([w.geo.lat, w.geo.lng], { icon }).addTo(_leafletMap);
           bounds.extend([w.geo.lat, w.geo.lng]);
           const popHtml = `<div style="min-width:180px">
-        <div style="font-weight:800;font-size:1.05rem">${esc(w.name)}</div>
+        <div style="font-weight:800;font-size:1.05rem">${esc(w.name)} ${verBadge(w)}</div>
         <div style="font-size:.9rem;color:#4f6761">${CATS[w.cat] || '🛠️'} ${esc(w.cat)} · ${esc(w.loc)}</div>
         <div style="margin:.3rem 0;display:flex;gap:.3rem;flex-wrap:wrap">
           <span class="tag ok" style="font-size:.75rem">📍 ${esc(w.geo.dist || '1 km')}</span>
@@ -2478,31 +2510,6 @@ ${[['Requests created', S.bookings.length], ['Requests accepted', S.bookings.fil
     function authLogout() {
       delete S.auth; save(); render(); toast('Logged out');
     }
-    // Extend render nav generation
-    function render() {
-      const [r, ...a] = (location.hash.slice(1) || 'home').split('/');
-      let h; const V = { welcome, join, home, find: () => find(decodeURIComponent(a.join('/')).includes('=') ? a.join('/') : 'cat=' + (a[0] || '')), hh: () => hhPage(a[0] || ''), map: mapView, worker: () => profile(a[0] || ''), book: () => book(a[0] || ''), cust, work, impact, admin, about };
-      h = (!S.role && !['welcome', 'join', 'about', 'admin', 'map', 'hh'].includes(r)) ? welcome() : (V[r] || home)();
-      const act = (r === 'worker' || r === 'book') ? 'find' : r;
-      const IC = { home: '🏠', work: '🧰', impact: '📊', find: '🔍', hh: '🧹', map: '🗺️', cust: '📋', join: '🤝', about: 'ℹ️' };
-      $('#tabs').innerHTML = Object.entries({ home: t('tab_home'), find: t('tab_find'), hh: t('tab_hh'), map: t('tab_map'), join: t('tab_join'), about: t('tab_about') }).map(x => `<a href="#${x[0]}" class="${act === x[0] ? 'on' : ''}"><i aria-hidden="true">${IC[x[0]]}</i><span>${x[1]}</span></a>`).join('');
-      $('#tabs').hidden = false; document.body.classList.add('hastabs');
-      const langBtn = `<button class="btn alt sm" style="min-height:36px;padding:.2rem .65rem;font-size:.85rem;border-radius:99px" onclick="toggleLang()" title="Switch language / भाषा बदलें">🌐 <b>${S.lang === 'hi' ? 'English' : 'हिंदी'}</b></button>`;
-      let authHtml = '';
-      if (S.auth) {
-        authHtml = `<span class="auth-user-tag"><span class="auth-user-name">${S.auth.firstName}</span> <button class="auth-btn-logout" onclick="authLogout()">${t('auth_logout')}</button></span>`;
-      } else {
-        authHtml = `<button class="auth-btn-text" onclick="openAuthModal('signup')">${t('auth_signup')}</button><button class="auth-btn-pill" onclick="openAuthModal('login')">${t('auth_login')}</button>`;
-      }
-      $('#nav').innerHTML = langBtn + `<a href="#about" class="${r === 'about' ? 'on' : ''}">${t('tab_about')}</a>` + (S.role ? `<a href="#welcome" onclick="logout()">Switch role</a>` : '') + `<a href="#admin" class="${r === 'admin' ? 'on' : ''}">Admin</a>` + authHtml;
-      $('.demo').innerHTML = `<b>${t('demo_bar')}</b>`;
-      $('#app').innerHTML = (mem ? '<div class="card err">Browser storage is unavailable. Data will reset when you close this page.</div>' : '') + h;
-      if (r === 'map') { setTimeout(initMap, 60); }
-    }
-    window.addEventListener('hashchange', () => { render(); scrollTo(0, 0); });
-    render();
-    setTimeout(() => { loading = false; render(); }, 350);
-    if (typeof navigator !== 'undefined' && 'serviceWorker' in navigator) { window.addEventListener('load', () => { navigator.serviceWorker.register('./sw.js').catch(err => console.warn('SW registration failed:', err)); }); }
 
     function acceptJob(id) { if (W(S.me).ver === 'Unverified') { toast('Complete sample verification to accept jobs'); location.hash = 'join'; return } setS(id, 'accepted', 'Request accepted. Send a quote next.'); }
     function clearJoinErr(fieldId) {
@@ -2701,7 +2708,7 @@ ${[['Requests created', S.bookings.length], ['Requests accepted', S.bookings.fil
         skills: d.s,
         rating: 0,
         rc: 0,
-        ver: 'Demo verified',
+        ver: 'pending',
         demo: false,
         hidden: false,
         a4: d.a4,
@@ -2718,7 +2725,7 @@ ${[['Requests created', S.bookings.length], ['Requests accepted', S.bookings.fil
       S.me = id;
       J = { step: 1, d: null, otp: '', tries: 0 };
       save();
-      toast('Sample verification complete');
+      toast('Registration submitted – verification pending');
       location.hash = 'work';
     }
 
