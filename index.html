@@ -1498,7 +1498,25 @@
         ver_verified: 'SevaSetu Verified',
         ver_pending: 'Verification pending',
         ver_rejected: 'Not verified',
-        demo_profile_badge: 'Demo profile'
+        demo_profile_badge: 'Demo profile',
+        admin_title: 'SevaSetu Admin (demo)',
+        admin_pending_title: 'Pending verification',
+        admin_approve: 'Approve',
+        admin_reject: 'Reject',
+        admin_reject_reason: 'Reason for rejection',
+        admin_reject_reason_placeholder: 'e.g. Document mismatch',
+        admin_reject_reason_required: 'Enter a reason.',
+        admin_no_pending: 'No workers awaiting verification.',
+        admin_aadhaar_last4: 'Aadhaar (last 4)',
+        admin_verified_on: 'Verified on',
+        admin_approved_toast: 'Worker approved and verified.',
+        admin_rejected_toast: 'Worker verification rejected.',
+        filter_verified_only: 'Verified workers only',
+        badge_popup_title: 'SevaSetu Verified',
+        badge_popup_id_doc: 'Identity document submitted',
+        badge_popup_phone: 'Phone number verified',
+        badge_popup_reviewed: 'Reviewed by SevaSetu team on',
+        badge_popup_demo_note: 'In this demo, verification is simulated.'
       },
       hi: {
         app_tagline: 'हर घर का भरोसा, हर हाथ को काम।',
@@ -1581,7 +1599,25 @@
         ver_verified: 'सेवासेतु सत्यापित',
         ver_pending: 'सत्यापन प्रतीक्षित',
         ver_rejected: 'सत्यापित नहीं',
-        demo_profile_badge: 'डेमो प्रोफाइल'
+        demo_profile_badge: 'डेमो प्रोफाइल',
+        admin_title: 'सेवासेतु एडमिन (डेमो)',
+        admin_pending_title: 'सत्यापन प्रतीक्षित',
+        admin_approve: 'स्वीकृत करें',
+        admin_reject: 'अस्वीकार करें',
+        admin_reject_reason: 'अस्वीकृति का कारण',
+        admin_reject_reason_placeholder: 'उदा. दस्तावेज़ मेल नहीं खाता',
+        admin_reject_reason_required: 'कारण दर्ज करें।',
+        admin_no_pending: 'कोई कामगार सत्यापन की प्रतीक्षा में नहीं है।',
+        admin_aadhaar_last4: 'आधार (अंतिम 4)',
+        admin_verified_on: 'सत्यापित तिथि',
+        admin_approved_toast: 'कामगार स्वीकृत और सत्यापित।',
+        admin_rejected_toast: 'कामगार सत्यापन अस्वीकृत।',
+        filter_verified_only: 'केवल सत्यापित कामगार',
+        badge_popup_title: 'सेवासेतु सत्यापित',
+        badge_popup_id_doc: 'पहचान दस्तावेज़ जमा',
+        badge_popup_phone: 'फ़ोन नंबर सत्यापित',
+        badge_popup_reviewed: 'सेवासेतु टीम द्वारा समीक्षित',
+        badge_popup_demo_note: 'इस डेमो में सत्यापन अनुकरण है।'
       }
     };
     function t(k) { return (I18N[S && S.lang || 'en'] && I18N[S && S.lang || 'en'][k]) || I18N.en[k] || k; }
@@ -1606,7 +1642,7 @@
        ============================================================ */
     const SEED_W = [
       // --- Non-House-help workers ---
-      { id: 'w1', name: 'Ravi Kumar', cat: 'Electrician', loc: 'North Colony', exp: 8, rate: 300, unit: 'per_hour', travel: 40, avail: true, skills: 'Fan, wiring, switchboards', rating: 4.6, rc: 31, ver: 'verified', demo: true, hidden: false, tasks: [] },
+      { id: 'w1', name: 'Ravi Kumar', cat: 'Electrician', loc: 'North Colony', exp: 8, rate: 300, unit: 'per_hour', travel: 40, avail: true, skills: 'Fan, wiring, switchboards', rating: 4.6, rc: 31, ver: 'verified', verifiedAt: '2026-10-10T09:00:00.000Z', demo: true, hidden: false, tasks: [] },
       { id: 'w3', name: 'Imran Shaikh', cat: 'Plumber', loc: 'Market Road', exp: 11, rate: 350, unit: 'per_hour', travel: 50, avail: true, skills: 'Leaks, taps, tank fittings, drainage', rating: 4.4, rc: 27, ver: 'pending', demo: true, hidden: false, tasks: [] },
       { id: 'w4', name: 'Mohan Das', cat: 'Painter', loc: 'Station Area', exp: 14, rate: 500, unit: 'per_day', travel: 60, avail: false, skills: 'Interior walls, waterproofing', rating: 4.5, rc: 19, ver: 'Demo profile', demo: true, hidden: false, tasks: [] },
       { id: 'w5', name: 'Anita Joseph', cat: 'Carpenter', loc: 'North Colony', exp: 9, rate: 380, unit: 'per_hour', travel: 40, avail: true, skills: 'Doors, shelves, furniture repair', rating: 4.7, rc: 23, ver: 'Demo profile', demo: true, hidden: false, tasks: [] },
@@ -1616,13 +1652,13 @@
       // --- House help workers (10 total) ---
       {
         id: 'w2', name: 'Selvi Devi', cat: 'House help', loc: 'Lake View', exp: 5, rate: 250, unit: 'per_visit', travel: 30, avail: true,
-        skills: 'Maid & deep cleaning: kitchens, bathrooms, floors', rating: 4.8, rc: 52, ver: 'verified', demo: true, hidden: false,
+        skills: 'Maid & deep cleaning: kitchens, bathrooms, floors', rating: 4.8, rc: 52, ver: 'verified', verifiedAt: '2026-10-12T10:00:00.000Z', demo: true, hidden: false,
         tasks: ['Sweeping and mopping', 'Bathroom cleaning', 'Kitchen cleaning', 'Dusting', 'Utensil cleaning'],
         rate_1bhk: 200, rate_2bhk: 250, rate_3bhk: 300, rate_4bhk: 350
       },
       {
         id: 'w9', name: 'Meena Kumari', cat: 'House help', loc: 'Lake View', exp: 7, rate: 180, unit: 'per_visit', travel: 20, avail: true,
-        skills: 'Maid: daily cleaning, utensils, laundry, dusting', rating: 4.5, rc: 14, ver: 'verified', demo: true, hidden: false,
+        skills: 'Maid: daily cleaning, utensils, laundry, dusting', rating: 4.5, rc: 14, ver: 'verified', verifiedAt: '2026-10-15T10:00:00.000Z', demo: true, hidden: false,
         tasks: ['Dish washing', 'Sweeping and mopping', 'Clothes washing', 'Clothes drying and folding', 'Dusting', 'Utensil cleaning'],
         rate_1bhk: 150, rate_2bhk: 180, rate_3bhk: 220, rate_4bhk: 260
       },
@@ -1707,7 +1743,9 @@
         if (sw.ver && (ex.ver === 'Demo verified' || ex.ver === 'Unverified' || ex.ver === 'Demo profile')) {
           ex.ver = sw.ver;
           if (sw.rejReason) ex.rejReason = sw.rejReason;
+          if (sw.verifiedAt && !ex.verifiedAt) ex.verifiedAt = sw.verifiedAt;
         }
+        if (sw.verifiedAt && ex.ver === sw.ver && !ex.verifiedAt) ex.verifiedAt = sw.verifiedAt;
         if (sw.rate_1bhk && ex.rate_1bhk == null) {
           ex.rate_1bhk = sw.rate_1bhk;
           ex.rate_2bhk = sw.rate_2bhk;
@@ -1744,8 +1782,8 @@
     }
     function verBadge(w) {
       if (!w) return '';
-      if (w.ver === 'verified') {
-        return `<span class="tag ok" style="font-weight:700;display:inline-flex;align-items:center;gap:.25rem;vertical-align:middle"><svg viewBox="0 0 16 16" width="13" height="13" fill="none" style="vertical-align:middle"><circle cx="8" cy="8" r="7.5" fill="#12805f"/><path d="M4.5 8.2l2.3 2.3 4.7-4.7" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg> ${t('ver_verified')}</span>`;
+      if (w.ver === 'verified' || w.ver === 'Demo verified') {
+        return `<button type="button" onclick="showVerBadgePopup('${w.id}')" class="tag ok" style="font-weight:700;display:inline-flex;align-items:center;gap:.25rem;vertical-align:middle;border:none;cursor:pointer;background:none;padding:0;font:inherit" title="${t('badge_popup_title')}"><svg viewBox="0 0 16 16" width="13" height="13" fill="none" style="vertical-align:middle"><circle cx="8" cy="8" r="7.5" fill="#12805f"/><path d="M4.5 8.2l2.3 2.3 4.7-4.7" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg> ${t('ver_verified')}</button>`;
       }
       if (w.ver === 'pending' || w.ver === 'none') {
         return `<span class="tag" style="color:var(--mut);border-color:var(--line);display:inline-flex;align-items:center;gap:.25rem;vertical-align:middle"><span class="dot"></span>${t('ver_pending')}</span>`;
@@ -1753,9 +1791,6 @@
       if (w.ver === 'rejected') {
         const reasonTxt = w.rejReason ? ` (${esc(w.rejReason)})` : '';
         return `<span class="tag warn" style="display:inline-flex;align-items:center;gap:.25rem;vertical-align:middle">⚠️ ${t('ver_rejected')}${reasonTxt}</span>`;
-      }
-      if (w.ver === 'Demo verified') {
-        return `<span class="tag ok" style="font-weight:700;display:inline-flex;align-items:center;gap:.25rem;vertical-align:middle"><svg viewBox="0 0 16 16" width="13" height="13" fill="none" style="vertical-align:middle"><circle cx="8" cy="8" r="7.5" fill="#12805f"/><path d="M4.5 8.2l2.3 2.3 4.7-4.7" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg> ${t('ver_verified')}</span>`;
       }
       if (w.ver === 'Unverified') {
         return `<span class="tag" style="color:var(--mut);border-color:var(--line);display:inline-flex;align-items:center;gap:.25rem;vertical-align:middle"><span class="dot"></span>${t('ver_pending')}</span>`;
@@ -1766,6 +1801,34 @@
       const demoLabel = w.demo ? `<span class="tag demo">${t('demo_profile_badge')}</span>` : '';
       const badge = verBadge(w);
       return `<div style="display:inline-flex;gap:.35rem;align-items:center;flex-wrap:wrap">${badge}${demoLabel}</div>`;
+    }
+    function showVerBadgePopup(wid) {
+      const w = W(wid);
+      if (!w) return;
+      const existing = document.getElementById('ver-badge-popup');
+      if (existing) existing.remove();
+      const dateStr = w.verifiedAt
+        ? new Date(w.verifiedAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' })
+        : t('admin_verified_on') + ' —';
+      const html = `<div id="ver-badge-popup" style="position:fixed;inset:0;z-index:1200;display:flex;align-items:center;justify-content:center;background:rgba(21,48,44,.45);padding:1rem" onclick="if(event.target===this)this.remove()">
+  <div style="background:var(--card);border-radius:16px;box-shadow:var(--sh),0 8px 32px rgba(0,0,0,.18);padding:1.5rem;max-width:340px;width:100%;position:relative">
+    <button onclick="document.getElementById('ver-badge-popup').remove()" style="position:absolute;top:.8rem;right:.9rem;background:none;border:none;font-size:1.3rem;cursor:pointer;color:var(--mut)" aria-label="Close">×</button>
+    <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.8rem">
+      <svg viewBox="0 0 20 20" width="22" height="22" fill="none"><circle cx="10" cy="10" r="9.5" fill="#12805f"/><path d="M5.5 10.2l3 3 6-6" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <strong style="font-size:1.1rem;color:var(--ok)">${esc(t('badge_popup_title'))}</strong>
+    </div>
+    <ul style="list-style:none;padding:0;margin:0 0 .8rem;display:flex;flex-direction:column;gap:.45rem">
+      <li>✅ ${esc(t('badge_popup_id_doc'))}</li>
+      <li>✅ ${esc(t('badge_popup_phone'))}</li>
+      <li>✅ ${esc(t('badge_popup_reviewed'))}: <strong>${esc(dateStr)}</strong></li>
+    </ul>
+    <p class="mut" style="font-size:.82rem;margin:0;border-top:1px solid var(--line);padding-top:.6rem">${esc(t('badge_popup_demo_note'))}</p>
+  </div>
+</div>`;
+      document.body.insertAdjacentHTML('beforeend', html);
+      // Close on Esc
+      const onKey = e => { if (e.key === 'Escape') { const p = document.getElementById('ver-badge-popup'); if (p) { p.remove(); } document.removeEventListener('keydown', onKey); } };
+      document.addEventListener('keydown', onKey);
     }
     function total(q) { return q ? (Number(q.labor) || 0) + (Number(q.mat) || 0) + (Number(q.travel) || 0) : 0; }
     function fmtW(b) { return b.when === 'ASAP' ? 'As soon as possible (urgent)' : new Date(b.when).toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short' }); }
@@ -1860,23 +1923,31 @@ ${bhkCardTxt}
     /* FIND (all categories) */
     function find(arg) {
       const p = new URLSearchParams(arg || '');
-      const f = { q: p.get('q') || '', cat: p.get('cat') || '', loc: p.get('loc') || '', av: p.get('av') || '', max: p.get('max') || '' };
+      const f = { q: p.get('q') || '', cat: p.get('cat') || '', loc: p.get('loc') || '', av: p.get('av') || '', max: p.get('max') || '', vonly: p.get('vonly') || '' };
       return `<div class="row sp" style="margin-bottom:.5rem"><h2>Find a worker</h2><a class="btn alt sm" href="#map">🗺️ View map</a></div>
 <form class="card" onsubmit="event.preventDefault();filt()"><div class="grid">
 <div><label for="fq">Search name, skill or category</label><input id="fq" value="${esc(f.q)}"></div>
 <div><label for="fc">Category</label><select id="fc"><option value="">All categories</option>${PRIMARY_CATS.map(c => `<option ${c === f.cat ? 'selected' : ''}>${c}</option>`).join('')}</select></div>
 <div><label for="fl">Locality</label><select id="fl"><option value="">All localities</option>${LOCS.map(c => `<option ${c === f.loc ? 'selected' : ''}>${c}</option>`).join('')}</select></div>
 <div><label for="fm">Max labour rate (₹)</label><input id="fm" type="number" min="0" value="${esc(f.max)}"></div></div>
-<label><input id="fa" type="checkbox" style="width:auto" ${f.av ? 'checked' : ''}> Available now only</label><button class="btn" style="margin-top:.6rem">Apply filters</button> <a class="btn alt" href="#find">Clear</a></form>
+<label><input id="fa" type="checkbox" style="width:auto" ${f.av ? 'checked' : ''}> Available now only</label>
+<label style="margin-left:1rem"><input id="fv" type="checkbox" style="width:auto" ${f.vonly ? 'checked' : ''}> ${t('filter_verified_only')}</label><button class="btn" style="margin-top:.6rem">Apply filters</button> <a class="btn alt" href="#find">Clear</a></form>
 <div class="row" style="margin-top:.8rem"><a class="btn alt sm" href="#hh">🧹 ${t('hh_title')} – specialist view</a></div>
 <div id="res" style="margin-top:1rem">${(() => {
           if (loading) return '<p>Loading workers…</p>';
-          const list = S.workers.filter(w => !w.hidden
+          let list = S.workers.filter(w => !w.hidden
             && (!f.cat || w.cat === f.cat || (f.cat === 'House help' && ['House help', 'Cleaner', 'Maid', 'Cook'].includes(w.cat)))
             && (!f.loc || w.loc === f.loc)
             && (!f.av || w.avail)
             && (!f.max || w.rate <= +f.max)
+            && (!f.vonly || ['verified', 'Demo verified'].includes(w.ver))
             && (!f.q || (w.name + ' ' + w.skills + ' ' + w.cat).toLowerCase().includes(f.q.toLowerCase())));
+          // Sort verified workers first
+          list = list.slice().sort((a, b) => {
+            const av = ['verified', 'Demo verified'].includes(a.ver) ? 0 : 1;
+            const bv = ['verified', 'Demo verified'].includes(b.ver) ? 0 : 1;
+            return av - bv;
+          });
           return list.length
             ? `<p class="mut">${list.length} worker(s) found</p><div class="grid">${list.map(wcard).join('')}</div>`
             : '<div class="card"><b>No workers match.</b><br>Try another category, locality or clear filters.</div>';
